@@ -25,4 +25,13 @@ public class VerbosyValue {
         isChar = false;
         innerValue = x;
     }
+
+    @Override
+    public String toString() {
+        if (getIsChar()) {
+            return Character.toString(getCharValue());
+        } else {
+            return Integer.toString(getIntValue()) + " ";
+        }
+    }
 }
