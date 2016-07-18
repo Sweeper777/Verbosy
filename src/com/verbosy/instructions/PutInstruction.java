@@ -3,6 +3,7 @@ package com.verbosy.instructions;
 import com.verbosy.compiler.VerbosyParameter;
 import com.verbosy.compiler.VerbosyRuntime;
 import com.verbosy.compiler.VerbosyValue;
+import com.verbosy.instructions.primitive.ParameterInstruction;
 
 public class PutInstruction implements ParameterInstruction {
 
