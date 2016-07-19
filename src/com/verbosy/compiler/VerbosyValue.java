@@ -26,6 +26,16 @@ public class VerbosyValue {
         innerValue = x;
     }
 
+    public VerbosyValue increment (int value) {
+        if (this.getIsChar()) {
+            char newValue = (char)(this.getCharValue() + value);
+            return new VerbosyValue(newValue);
+        } else {
+            int newValue = this.getIntValue() + value;
+            return new VerbosyValue(newValue);
+        }
+    }
+
     @Override
     public String toString() {
         if (getIsChar()) {

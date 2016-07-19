@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1b7eb3f5-0e0e-4c0e-a5be-1a22fddf4dd0" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/verbosy/instructions/AddInstruction.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/verbosy/instructions/SubInstruction.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/verbosy/instructions/DecInstruction.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/verbosy/instructions/IncInstruction.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/verbosy/compiler/VerbosyValue.java" afterPath="$PROJECT_DIR$/src/com/verbosy/compiler/VerbosyValue.java" />
     </list>
     <ignored path="Verbosy.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -26,34 +26,12 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="AddInstruction.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/verbosy/instructions/AddInstruction.java">
+      <file leaf-file-name="VerbosyValue.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/com/verbosy/compiler/VerbosyValue.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="528">
-              <caret line="68" column="5" selection-start-line="8" selection-start-column="4" selection-end-line="68" selection-end-column="5" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#388#389#0" expanded="true" />
-                <element signature="e#416#417#0" expanded="true" />
-                <element signature="e#1832#1833#0" expanded="true" />
-                <element signature="e#1866#1867#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SubInstruction.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/com/verbosy/instructions/SubInstruction.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1008">
-              <caret line="63" column="53" selection-start-line="63" selection-start-column="53" selection-end-line="63" selection-end-column="53" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#388#389#0" expanded="true" />
-                <element signature="e#416#417#0" expanded="true" />
-                <element signature="e#1832#1833#0" expanded="true" />
-                <element signature="e#1866#1867#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="448">
+              <caret line="34" column="46" selection-start-line="34" selection-start-column="46" selection-end-line="34" selection-end-column="46" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -88,7 +66,6 @@
         <option value="$PROJECT_DIR$/src/com/verbosy/instructions/ParameterInstruction.java" />
         <option value="$PROJECT_DIR$/src/com/verbosy/compiler/VerbosyRuntime.java" />
         <option value="$PROJECT_DIR$/src/com/verbosy/instructions/InputInstruction.java" />
-        <option value="$PROJECT_DIR$/src/com/verbosy/compiler/VerbosyValue.java" />
         <option value="$PROJECT_DIR$/src/com/verbosy/instructions/OutputInstruction.java" />
         <option value="$PROJECT_DIR$/src/com/verbosy/instructions/TakeInstruction.java" />
         <option value="$PROJECT_DIR$/src/com/verbosy/instructions/SetInstruction.java" />
@@ -96,6 +73,9 @@
         <option value="$PROJECT_DIR$/src/com/verbosy/instructions/PutInstruction.java" />
         <option value="$PROJECT_DIR$/src/com/verbosy/instructions/AddInstruction.java" />
         <option value="$PROJECT_DIR$/src/com/verbosy/instructions/SubInstruction.java" />
+        <option value="$PROJECT_DIR$/src/com/verbosy/compiler/VerbosyValue.java" />
+        <option value="$PROJECT_DIR$/src/com/verbosy/instructions/IncInstruction.java" />
+        <option value="$PROJECT_DIR$/src/com/verbosy/instructions/DecInstruction.java" />
       </list>
     </option>
   </component>
@@ -686,14 +666,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/verbosy/compiler/VerbosyValue.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="432">
-          <caret line="33" column="57" selection-start-line="33" selection-start-column="57" selection-end-line="33" selection-end-column="57" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/verbosy/instructions/OutputInstruction.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="176">
@@ -765,20 +737,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/verbosy/instructions/AddInstruction.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="528">
-          <caret line="68" column="5" selection-start-line="8" selection-start-column="4" selection-end-line="68" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#388#389#0" expanded="true" />
-            <element signature="e#416#417#0" expanded="true" />
-            <element signature="e#1832#1833#0" expanded="true" />
-            <element signature="e#1866#1867#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/verbosy/instructions/SubInstruction.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1008">
@@ -790,6 +748,52 @@
             <element signature="e#1832#1833#0" expanded="true" />
             <element signature="e#1866#1867#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/verbosy/instructions/AddInstruction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="448">
+          <caret line="57" column="0" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/verbosy/instructions/IncInstruction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="528">
+          <caret line="58" column="5" selection-start-line="8" selection-start-column="4" selection-end-line="58" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#388#389#0" expanded="true" />
+            <element signature="e#416#417#0" expanded="true" />
+            <element signature="e#1737#1738#0" expanded="true" />
+            <element signature="e#1771#1772#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/verbosy/instructions/DecInstruction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="720">
+          <caret line="45" column="39" selection-start-line="45" selection-start-column="39" selection-end-line="45" selection-end-column="39" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#388#389#0" expanded="true" />
+            <element signature="e#416#417#0" expanded="true" />
+            <element signature="e#1739#1740#0" expanded="true" />
+            <element signature="e#1773#1774#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/verbosy/compiler/VerbosyValue.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="448">
+          <caret line="34" column="46" selection-start-line="34" selection-start-column="46" selection-end-line="34" selection-end-column="46" />
+          <folding />
         </state>
       </provider>
     </entry>
