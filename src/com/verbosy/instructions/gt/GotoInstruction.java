@@ -1,4 +1,4 @@
-package com.verbosy.instructions;
+package com.verbosy.instructions.gt;
 
 import com.verbosy.compiler.VerbosyRuntime;
 import com.verbosy.instructions.primitive.Instruction;
