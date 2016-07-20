@@ -3,31 +3,36 @@ package com.verbosy.compiler;
 import com.verbosy.instructions.*;
 import com.verbosy.instructions.gt.*;
 import com.verbosy.instructions.primitive.Instruction;
+import com.verbosy.instructions.primitive.Label;
 
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.regex.Pattern;
 
 public final class CompilerUtility {
     private CompilerUtility () { }
 
-    private static HashMap<String, Class<? extends Instruction>> instructionMap;
+    private static HashMap<Pattern, Class<? extends Instruction>> instructionMap;
 
     static {
         instructionMap = new HashMap<>();
-        instructionMap.put("i", InputInstruction.class);
-        instructionMap.put("o", OutputInstruction.class);
-        instructionMap.put("\\", TakeInstruction.class);
-        instructionMap.put("/", PutInstruction.class);
-        instructionMap.put("+", AddInstruction.class);
-        instructionMap.put("-", SubInstruction.class);
-        instructionMap.put("^", IncInstruction.class);
-        instructionMap.put("v", DecInstruction.class);
-        instructionMap.put(">", GotoInstruction.class);
-        instructionMap.put(">0", GotoIf0Instruction.class);
-        instructionMap.put(">-", GotoIfNegInstruction.class);
-        instructionMap.put("~", SetInstruction.class);
+        instructionMap.put(Pattern.compile("i"), InputInstruction.class);
+        instructionMap.put(Pattern.compile("o"), OutputInstruction.class);
+        instructionMap.put(Pattern.compile("\\\\\\d+[\\*]?"), TakeInstruction.class);
+        instructionMap.put(Pattern.compile("/\\d+[\\*]?"), PutInstruction.class);
+        instructionMap.put(Pattern.compile("\\+\\d+[\\*]?"), AddInstruction.class);
+        instructionMap.put(Pattern.compile("-\\d+[\\*]?"), SubInstruction.class);
+        instructionMap.put(Pattern.compile("\\^\\d+[\\*]?"), IncInstruction.class);
+        instructionMap.put(Pattern.compile("v\\d+[\\*]?"), DecInstruction.class);
+        instructionMap.put(Pattern.compile(">[a-zA-Z]+:"), GotoInstruction.class);
+        instructionMap.put(Pattern.compile(">0[a-zA-Z]+:"), GotoIf0Instruction.class);
+        instructionMap.put(Pattern.compile(">-[a-zA-Z]+:"), GotoIfNegInstruction.class);
+        instructionMap.put(Pattern.compile("~."), SetInstruction.class);
+        instructionMap.put(Pattern.compile(":[a-zA-Z]+:"), Label.class);
     }
 
-    public HashMap<String, Class<? extends Instruction>> getInstructionMao() {
-        return new HashMap<>(instructionMap);
+    public static Map<Pattern, Class<? extends Instruction>> getInstructionMap() {
+        return Collections.unmodifiableMap(instructionMap);
     }
 }
