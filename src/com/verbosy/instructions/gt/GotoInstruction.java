@@ -19,7 +19,7 @@ public class GotoInstruction implements Instruction {
 
     @Override
     public void execute(VerbosyRuntime runtime) {
-        // TODO jump to label
+
     }
 
     public GotoInstruction(Label goToLabel) {

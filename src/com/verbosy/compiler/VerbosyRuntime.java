@@ -16,6 +16,4 @@ public interface VerbosyRuntime {
     boolean isStopped();
 
     void setStopped(boolean value);
-
-    void showErrorMessage(String message);
 }
