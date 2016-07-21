@@ -2,6 +2,11 @@ package com.verbosy;
 
 import com.verbosy.compiler.CompilerErrorException;
 import com.verbosy.compiler.VerbosyCompiler;
+import com.verbosy.compiler.VerbosyProgram;
+import com.verbosy.runtime.StandardRuntime;
+import com.verbosy.runtime.VerbosyRuntime;
+
+import java.util.Scanner;
 
 public class Main {
 
@@ -9,12 +14,13 @@ public class Main {
         String code = "~0 /14 :a: ^14 i >0b /14* >a :b: v14 :c: \\14* o v14 >0a >c";
         VerbosyCompiler compiler = new VerbosyCompiler();
         try {
-            compiler.compile(code);
+            VerbosyProgram prog = compiler.compile(code);
+            Scanner scan = new Scanner(System.in);
+            String input = scan.nextLine();
+            VerbosyRuntime runtime = new StandardRuntime(input, 20);
+            prog.run(runtime);
         } catch (CompilerErrorException e) {
             System.out.println(e.getMessage());
-            return;
         }
-
-        System.out.println("YAY!");
     }
 }
