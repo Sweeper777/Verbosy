@@ -7,15 +7,16 @@ import com.verbosy.instructions.primitive.ParameterInstruction;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.util.Arrays;
-import java.util.HashMap;
+import java.util.*;
 import java.util.regex.Pattern;
 
 public class VerbosyCompiler {
     public VerbosyProgram compile(String code) throws CompilerErrorException {
         // initialization
-        String[] instructionStrings = code.split("\\w");
-        instructionStrings = (String[])Arrays.stream(instructionStrings).filter(s -> s.trim().equals("")).toArray();
+        String[] instructionStrings = code.split("\\p{Space}");
+        List<String> instructionsList = new ArrayList<>(Arrays.asList(instructionStrings));
+        instructionsList.removeAll(Collections.singleton(""));
+        instructionStrings = instructionsList.toArray(new String[instructionsList.size()]);
         Instruction[] instructionObjects = new Instruction[instructionStrings.length];
         HashMap<String, Label> labelMap = new HashMap<>();
 
@@ -24,6 +25,11 @@ public class VerbosyCompiler {
             String instructionString = instructionStrings[instructionIndex];
             if (CompilerUtility.getLabelPattern().matcher(instructionString).matches()) {
                 String labelName = instructionString.substring(1, instructionString.length() - 1);
+
+                if (labelMap.containsKey(labelName)) {
+                    throw new CompilerErrorException("Duplicate label", instructionIndex);
+                }
+
                 Label lblObject = new Label(instructionIndex, labelName);
                 instructionObjects[instructionIndex] = lblObject;
                 labelMap.put(labelName, lblObject);
@@ -86,7 +92,18 @@ public class VerbosyCompiler {
                     throw new CompilerErrorException("Invalid parameter", instructionIndex);
                 }
             } else if (GotoInstruction.class.isAssignableFrom(instructionType)) {
+                //parse goto instructions
+                String labelName = instructionString.substring(CompilerUtility.getInstructionSubstringStrategy().get(instructionType));
+                if (!labelMap.containsKey(labelName)) {
+                    throw new CompilerErrorException("Unknown label", instructionIndex);
+                }
 
+                try {
+                    Constructor ctor = instructionType.getConstructor(Label.class);
+                    instructionObjects[instructionIndex] = (Instruction)ctor.newInstance(labelMap.get(labelName));
+                } catch (NoSuchMethodException | IllegalAccessException | InstantiationException | InvocationTargetException e) {
+                    throw new CompilerErrorException("Invalid parameter", instructionIndex);
+                }
             } else {
                 try {
                     instructionObjects[instructionIndex] = instructionType.newInstance();
