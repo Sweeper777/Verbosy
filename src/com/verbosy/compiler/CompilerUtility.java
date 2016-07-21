@@ -14,6 +14,7 @@ public final class CompilerUtility {
     private CompilerUtility () { }
 
     private static HashMap<Pattern, Class<? extends Instruction>> instructionMap;
+    private static HashMap<Class<? extends Instruction>, Integer> instructionSubstringStrategy;
 
     static {
         instructionMap = new HashMap<>();
@@ -30,9 +31,29 @@ public final class CompilerUtility {
         instructionMap.put(Pattern.compile(">-[a-zA-Z]+:"), GotoIfNegInstruction.class);
         instructionMap.put(Pattern.compile("~."), SetInstruction.class);
         instructionMap.put(Pattern.compile(":[a-zA-Z]+:"), Label.class);
+
+        instructionSubstringStrategy = new HashMap<>();
+        instructionSubstringStrategy.put(TakeInstruction.class, 1);
+        instructionSubstringStrategy.put(PutInstruction.class, 1);
+        instructionSubstringStrategy.put(AddInstruction.class, 1);
+        instructionSubstringStrategy.put(SubInstruction.class, 1);
+        instructionSubstringStrategy.put(IncInstruction.class, 1);
+        instructionSubstringStrategy.put(DecInstruction.class, 1);
+        instructionSubstringStrategy.put(SetInstruction.class, 1);
+        instructionSubstringStrategy.put(GotoInstruction.class, 1);
+        instructionSubstringStrategy.put(GotoIf0Instruction.class, 2);
+        instructionSubstringStrategy.put(GotoIfNegInstruction.class, 2);
     }
 
     public static Map<Pattern, Class<? extends Instruction>> getInstructionMap() {
         return Collections.unmodifiableMap(instructionMap);
+    }
+
+    public static Pattern getLabelPattern() {
+        return Pattern.compile(":[a-zA-Z]+:");
+    }
+
+    public static HashMap<Class<? extends Instruction>, Integer> getInstructionSubstringStrategy() {
+        return instructionSubstringStrategy;
     }
 }
