@@ -26,9 +26,9 @@ public final class CompilerUtility {
         instructionMap.put(Pattern.compile("-\\d+[\\*]?"), SubInstruction.class);
         instructionMap.put(Pattern.compile("\\^\\d+[\\*]?"), IncInstruction.class);
         instructionMap.put(Pattern.compile("v\\d+[\\*]?"), DecInstruction.class);
-        instructionMap.put(Pattern.compile(">[a-zA-Z]+:"), GotoInstruction.class);
-        instructionMap.put(Pattern.compile(">0[a-zA-Z]+:"), GotoIf0Instruction.class);
-        instructionMap.put(Pattern.compile(">-[a-zA-Z]+:"), GotoIfNegInstruction.class);
+        instructionMap.put(Pattern.compile(">[a-zA-Z]+"), GotoInstruction.class);
+        instructionMap.put(Pattern.compile(">0[a-zA-Z]+"), GotoIf0Instruction.class);
+        instructionMap.put(Pattern.compile(">-[a-zA-Z]+"), GotoIfNegInstruction.class);
         instructionMap.put(Pattern.compile("~."), SetInstruction.class);
         instructionMap.put(Pattern.compile(":[a-zA-Z]+:"), Label.class);
 

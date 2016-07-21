@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 public class Main {
 
     public static void main(String[] args) {
-        String[] arr = "~0 /14 :a: ^14 i >0b: /14* >a: :b: v14 :c: \\14* o v14 >0a: >c:".split(" ");
+        String[] arr = "~0 /14 :a: ^14 i >0b /14* >a :b: v14 :c: \\14* o v14 >0a >c".split(" ");
         ArrayList<String> instructionNames = new ArrayList<>();
 	    for (String instruction : arr) {
             for (Pattern p : CompilerUtility.getInstructionMap().keySet()) {
