@@ -1,6 +1,6 @@
 package com.verbosy.instructions.primitive;
 
-import com.verbosy.compiler.VerbosyRuntime;
+import com.verbosy.runtime.VerbosyRuntime;
 
 public class Label implements Instruction {
     private int instructionIndex;

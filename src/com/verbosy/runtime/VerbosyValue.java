@@ -1,4 +1,4 @@
-package com.verbosy.compiler;
+package com.verbosy.runtime;
 
 public class VerbosyValue {
     private int innerValue;

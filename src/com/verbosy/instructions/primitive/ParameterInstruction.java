@@ -1,7 +1,6 @@
 package com.verbosy.instructions.primitive;
 
-import com.verbosy.compiler.VerbosyParameter;
-import com.verbosy.instructions.primitive.Instruction;
+import com.verbosy.runtime.VerbosyParameter;
 
 public interface ParameterInstruction extends Instruction {
     VerbosyParameter getParameter();

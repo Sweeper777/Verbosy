@@ -1,6 +1,6 @@
 package com.verbosy.instructions.gt;
 
-import com.verbosy.compiler.VerbosyRuntime;
+import com.verbosy.runtime.VerbosyRuntime;
 import com.verbosy.instructions.primitive.Label;
 
 import java.util.function.Predicate;

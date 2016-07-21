@@ -1,8 +1,8 @@
 package com.verbosy.instructions;
 
-import com.verbosy.compiler.VerbosyParameter;
-import com.verbosy.compiler.VerbosyRuntime;
-import com.verbosy.compiler.VerbosyValue;
+import com.verbosy.runtime.VerbosyParameter;
+import com.verbosy.runtime.VerbosyRuntime;
+import com.verbosy.runtime.VerbosyValue;
 import com.verbosy.instructions.primitive.ParameterInstruction;
 
 public class TakeInstruction implements ParameterInstruction {

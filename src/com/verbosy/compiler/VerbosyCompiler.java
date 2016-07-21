@@ -4,6 +4,7 @@ import com.verbosy.instructions.gt.GotoInstruction;
 import com.verbosy.instructions.primitive.Instruction;
 import com.verbosy.instructions.primitive.Label;
 import com.verbosy.instructions.primitive.ParameterInstruction;
+import com.verbosy.runtime.VerbosyParameter;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;

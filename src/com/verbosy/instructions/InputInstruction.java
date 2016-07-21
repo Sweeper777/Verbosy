@@ -1,6 +1,6 @@
 package com.verbosy.instructions;
 
-import com.verbosy.compiler.VerbosyRuntime;
+import com.verbosy.runtime.VerbosyRuntime;
 import com.verbosy.instructions.primitive.Instruction;
 
 public class InputInstruction implements Instruction {

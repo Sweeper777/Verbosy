@@ -2,6 +2,7 @@ package com.verbosy.compiler;
 
 import com.verbosy.instructions.gt.GotoInstruction;
 import com.verbosy.instructions.primitive.Instruction;
+import com.verbosy.runtime.VerbosyRuntime;
 
 import java.util.Arrays;
 
