@@ -35,17 +35,15 @@ public class StandardRuntime implements VerbosyRuntime {
             return new VerbosyValue(scanner.nextInt());
         }
 
-        if (scanner.hasNext()) {
-            char character = scanner.findWithinHorizon(".", 0).charAt(0);
+        String token = scanner.findWithinHorizon(".", 0);
 
-            if (character == ' ') {
-                return new VerbosyValue(0);
-            }
-
-            return new VerbosyValue(character);
+        if (token == null) {
+            return null;
+        } else if (token.charAt(0) == ' ') {
+            return new VerbosyValue(0);
+        } else {
+            return new VerbosyValue(token.charAt(0));
         }
-
-        return null;
     }
 
     @Override
