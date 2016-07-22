@@ -37,6 +37,7 @@ public class PutInstruction implements ParameterInstruction {
             if (pointTo.getIntValue() >= runtime.getMemory().length) {
                 return;
             }
+            runtime.getMemory()[pointTo.getIntValue()] = runtime.getCurrent();
         } else {
             runtime.getMemory()[param.getValue().getIntValue()] = runtime.getCurrent();
         }
