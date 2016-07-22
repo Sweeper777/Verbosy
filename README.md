@@ -62,3 +62,29 @@ Labels act like markers. You can use the goto instructions (`>`, `>0`, `>-`) to 
 - Goto instruction (represented by `>`): this instruction requires a label. Please write the name of the label immediately after the name of the instruction. It will make the code execution jump to where the label is.
 - GotoIf0 instruction (represented by `>0`): same as the Goto instruction, except that it will only jump to the label if `Current` is 0.
 - GotoIfNeg instruction (represented by `>-`): same as the Goto instruction, except that it will only jump to the label if `Current` is less than 0.
+
+### Example Programs
+
+#### Hello World
+
+This prints "HelloWorld".
+
+    ~H o ~e o ~l o ~l o ~o o ~W o ~o o ~r o ~l o ~d o
+    
+#### Input Echo
+
+This prints the input.
+
+    :a: i o >a
+    
+#### Increment
+
+This increments the input by one.
+
+    i /0 ^0 o
+    
+#### Addition
+
+Adds up the two inputs and prints the result.
+
+    i /0 i +0 o
