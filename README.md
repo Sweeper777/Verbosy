@@ -95,6 +95,16 @@ Prints "1 2 3 4 5 6 7 8 9 10 "
 
     ~0 /0 ~10 /1 :a: ^0 o \\0 -1 >-a
     
+#### Infinite Loop
+
+    :a: >a
+    
+#### Reverse
+
+Reverses the space-terminated input string.
+
+    ~0 /14 :a: ^14 i >0b /14* >a :b: v14 :c: \\14* o v14 >0a >c
+    
 ### Contribute!
 
 If you want to add a new instruction to this language, you can do this:
