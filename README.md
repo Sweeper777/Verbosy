@@ -111,4 +111,4 @@ Then, you need to add a key-value pair to the `instructionMap` in `CompilerUtili
 
 You also need to add a key-value pair to the `instructionSubstringStrategy` which is also in `CompilerUtility.java`. Use your instruction class as the key, and the number of characters that your instruction has as the value.
 
-After that, send me a pull request!
+After that, send me a pull request! But please first make sure that the syntax of the new instruction doesn't clash with existing ones!
