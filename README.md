@@ -88,3 +88,9 @@ This increments the input by one.
 Adds up the two inputs and prints the result.
 
     i /0 i +0 o
+    
+#### 1 to 10
+
+Prints "1 2 3 4 5 6 7 8 9 10 "
+
+    ~0 /0 ~10 /1 :a: ^0 o \\0 -1 >-a
