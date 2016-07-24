@@ -36,6 +36,11 @@ program.run(runtime);
 
 A Verbosy program contains a number of instructions separated by spaces. Some instructions take parameters. For example, in the instruction `/14`, the `/` denotes a `PutInstruction` and the `14` denotes the parameter `14`.
 
+A Verbosy program will terminate after one of the following conditions is met:
+
+- The last execution, which is not a goto instruction, is executed.
+- No more input is found when executing an input instruction.
+
 ### Pointers
 
 Some instructions can accept a pointer as the parameter. The `*` suffix denotes a pointer. For example, in `\14`, the pointer points to the value in slot 14 of the memory.
