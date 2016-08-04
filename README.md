@@ -25,7 +25,7 @@ try {
 }
 ```
 
-To run the `VerbosyProgram`, you need to first create a runtime. You can either use the `StandardRuntime` or create your own runtime by implementing `VerbosyRuntime`.
+To run the `VerbosyProgram`, you need to first create a runtime. You can either use the `StandardRuntime` or create your own runtime by implementing the `VerbosyRuntime` interface.
 
 ```
 StandardRuntime runtime = new StandardRuntime("some inputs", 20);
@@ -38,7 +38,7 @@ A Verbosy program contains a number of instructions separated by spaces. Some in
 
 A Verbosy program will terminate after one of the following conditions is met:
 
-- The last execution, which is not a goto instruction, is executed.
+- The last instruction, which is not a goto instruction, is executed.
 - No more input is found when executing an input instruction.
 
 ### Pointers
@@ -98,7 +98,7 @@ Adds up the two inputs and prints the result.
 
 Prints "1 2 3 4 5 6 7 8 9 10 "
 
-    ~0 /0 ~10 /1 :a: ^0 o \\0 -1 >-a
+    ~0 /0 ~10 /1 :a: ^0 o \0 -1 >-a
     
 #### Infinite Loop
 
@@ -108,7 +108,7 @@ Prints "1 2 3 4 5 6 7 8 9 10 "
 
 Reverses the space-terminated input string.
 
-    ~0 /14 :a: ^14 i >0b /14* >a :b: v14 :c: \\14* o v14 >0a >c
+    ~0 /14 :a: ^14 i >0b /14* >a :b: v14 :c: \14* o v14 >0a >c
     
 ### Contribute!
 
@@ -125,5 +125,7 @@ You can refer to existing implementations of instructions.
 Then, you need to add a key-value pair to the `instructionMap` in `CompilerUtility.java`. Use the pattern of your instruction as the key, and your instruction class as the value, just like the existing instructions.
 
 You also need to add a key-value pair to the `instructionSubstringStrategy` which is also in `CompilerUtility.java`. Use your instruction class as the key, and the number of characters that your instruction has as the value.
+
+If you need to do some special stuff when compiling your instruction, please handle it in the `compile` method.
 
 After that, send me a pull request! But please first make sure that the syntax of the new instruction doesn't clash with existing ones!
