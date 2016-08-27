@@ -32,6 +32,14 @@ StandardRuntime runtime = new StandardRuntime("some inputs", 20);
 program.run(runtime);
 ```
 
+###  Run the main class
+
+You can run the main class by doing this command:
+
+    java com.verbosy.Main
+    
+You can then enter the Verbosy code, press enter, then enter the inputs for the Verbosy program, After pressing enter once more, the program will start running.
+
 ### Structure of VerbosyProgram
 
 A Verbosy program contains a number of instructions separated by spaces. Some instructions take parameters. For example, in the instruction `/14`, the `/` denotes a `PutInstruction` and the `14` denotes the parameter `14`.

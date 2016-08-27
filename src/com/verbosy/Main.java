@@ -15,11 +15,12 @@ public class Main {
 //        String code = "~H o ~e o ~l o ~l o ~o o ~W o ~o o ~r o ~l o ~d o";
 //        String code = "~0 /0 ~10 /1 :a: ^0 o \\0 -1 >-a";
 //        String code = "~-10 o";
-        String code = "~` /0 ^0 \\0 o";
+//        String code = "~` /3 ^3 o";
         VerbosyCompiler compiler = new VerbosyCompiler();
         try {
-            VerbosyProgram prog = compiler.compile(code);
             Scanner scan = new Scanner(System.in);
+            String code = scan.nextLine();
+            VerbosyProgram prog = compiler.compile(code);
             String input = scan.nextLine();
             VerbosyRuntime runtime = new StandardRuntime(input, 20);
             prog.run(runtime);
