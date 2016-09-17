@@ -1,4 +1,4 @@
-### Contribute!
+### New Instructions
 
 If you want to add a new instruction to this language, you can do this:
 
@@ -6,7 +6,7 @@ First, create your instruction class.
 
 - If your instruction needs a parameter, implement `ParameterInstruction`. Please also provide a constructor that takes a `VerbosyParameter`.
 - If your instruction is a kind of goto instruction, inherit `GotoInstruction`. Please also provide a constructor that takes a `Label`.
-- If neither of those applies, implement `Instruction`. Please also provide a parameterless constructor.
+- If neither of those applies, implement `Instruction`. Please make sure there is a parameterless constructor (whether implicit or explicit) in that class.
 
 You can refer to existing implementations of instructions.
 
@@ -20,7 +20,7 @@ After that, send me a pull request! But please first make sure that the syntax o
 
 Remember to describe your instruction (what it does, usage, syntax etc) in the Instruction Descriptions section in README.md!
 
-### Example
+#### Example
 
 You want to add an instruction that, when executed, prints the string `"Verbosy is the best!"`.
 
@@ -43,3 +43,11 @@ In the static constructor of the `CompilerUtility` class, add a key-value pair t
 In the Instruction Descriptions section of README.md, describe the instruction:
 
     - My Instruction (represented by `P`): prints the string "Verbosy is awesome!".
+    
+### New Features
+
+You are more than welcome to add new features! Just make sure to describe the new feature in README.md1
+
+### Bug Fixes
+
+Just send a PR for bug fixes and I will review it ASAP!
