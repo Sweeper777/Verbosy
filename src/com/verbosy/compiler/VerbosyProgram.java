@@ -57,4 +57,11 @@ public final class VerbosyProgram implements Serializable {
             runtime.setStopped(true);
         }
     }
+
+    public void saveToFile(String directory, String name) throws IOException {
+        ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(new File(directory, name), false));
+        out.writeObject(this);
+        out.close();
+    }
+
 }

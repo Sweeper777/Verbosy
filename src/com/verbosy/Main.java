@@ -16,16 +16,16 @@ public class Main {
 //        String code = "~0 /0 ~10 /1 :a: ^0 o \\0 -1 >-a";
 //        String code = "~-10 o";
 //        String code = "~` /3 ^3 o";
-        VerbosyCompiler compiler = new VerbosyCompiler();
+        test1();
+    }
+
+    private static void test1() {
         try {
-            Scanner scan = new Scanner(System.in);
-            String code = scan.nextLine();
-            VerbosyProgram prog = compiler.compile(code);
-            String input = scan.nextLine();
-            VerbosyRuntime runtime = new StandardRuntime(input, 20);
+            VerbosyProgram prog = VerbosyProgram.readFromFile("/Users/mulangsu/Desktop/", "program.vp");
+            StandardRuntime runtime = new StandardRuntime("", 10);
             prog.run(runtime);
-        } catch (CompilerErrorException e) {
-            System.out.println(e.getMessage());
+        } catch (IOException |  ClassNotFoundException e) {
+            e.printStackTrace();
         }
     }
 }
