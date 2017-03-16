@@ -4,9 +4,8 @@ import com.verbosy.compiler.CompilerErrorException;
 import com.verbosy.compiler.VerbosyCompiler;
 import com.verbosy.compiler.VerbosyProgram;
 import com.verbosy.runtime.StandardRuntime;
-import com.verbosy.runtime.VerbosyRuntime;
 
-import java.util.Scanner;
+import java.io.IOException;
 
 public class Main {
 
@@ -25,6 +24,18 @@ public class Main {
             StandardRuntime runtime = new StandardRuntime("", 10);
             prog.run(runtime);
         } catch (IOException |  ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void test2() {
+        String code = "~H o ~e o ~l o ~l o ~o o ~W o ~o o ~r o ~l o ~d o";
+        VerbosyCompiler compiler = new VerbosyCompiler();
+        VerbosyProgram prog = null;
+        try {
+            prog = compiler.compile(code);
+            prog.saveToFile("/Users/mulangsu/Desktop/", "program.vp");
+        } catch (CompilerErrorException | IOException e) {
             e.printStackTrace();
         }
     }

@@ -64,4 +64,10 @@ public final class VerbosyProgram implements Serializable {
         out.close();
     }
 
+    public static VerbosyProgram readFromFile(String directory, String name) throws IOException, ClassNotFoundException {
+        ObjectInputStream in = new ObjectInputStream(new FileInputStream(new File(directory, name)));
+        VerbosyProgram obj = (VerbosyProgram)in.readObject();
+        in.close();
+        return obj;
+    }
 }
