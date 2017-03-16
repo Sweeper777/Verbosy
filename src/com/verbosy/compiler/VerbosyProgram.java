@@ -4,11 +4,13 @@ import com.verbosy.instructions.gt.GotoInstruction;
 import com.verbosy.instructions.primitive.Instruction;
 import com.verbosy.runtime.VerbosyRuntime;
 
+import java.io.*;
 import java.util.Arrays;
 
-public final class VerbosyProgram {
+public final class VerbosyProgram implements Serializable {
     private Instruction[] instructions;
     private int currentInstructionIndex;
+    private long serialVersionUID = 1L;
 
     protected VerbosyProgram(Instruction[] instructions) {
         this.instructions = instructions;

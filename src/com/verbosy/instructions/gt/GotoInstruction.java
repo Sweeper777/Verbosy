@@ -1,12 +1,14 @@
 package com.verbosy.instructions.gt;
 
-import com.verbosy.runtime.VerbosyRuntime;
 import com.verbosy.instructions.primitive.Instruction;
 import com.verbosy.instructions.primitive.Label;
+import com.verbosy.runtime.VerbosyRuntime;
 
+import java.io.Serializable;
 import java.util.function.Predicate;
 
-public class GotoInstruction implements Instruction {
+public class GotoInstruction implements Instruction, Serializable {
+    private long serialVersionUID = 8L;
     private Label goToLabel;
 
     public Label getGoToLabel() {

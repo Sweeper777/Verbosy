@@ -1,6 +1,9 @@
 package com.verbosy.runtime;
 
-public class VerbosyParameter {
+import java.io.Serializable;
+
+public class VerbosyParameter implements Serializable {
+    private long serialVersionUID = 4L;
     private VerbosyValue value;
     private boolean pointer;
 

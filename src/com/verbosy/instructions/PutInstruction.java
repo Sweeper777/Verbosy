@@ -5,7 +5,10 @@ import com.verbosy.runtime.VerbosyRuntime;
 import com.verbosy.runtime.VerbosyValue;
 import com.verbosy.instructions.primitive.ParameterInstruction;
 
-public class PutInstruction implements ParameterInstruction {
+import java.io.Serializable;
+
+public class PutInstruction implements ParameterInstruction, Serializable {
+    private long serialVersionUID = 13L;
 
     private VerbosyParameter param;
 

@@ -1,6 +1,9 @@
 package com.verbosy.runtime;
 
-public class VerbosyValue {
+import java.io.Serializable;
+
+public class VerbosyValue implements Serializable {
+    private long serialVersionUID = 5L;
     private int innerValue;
     private boolean isChar;
 
