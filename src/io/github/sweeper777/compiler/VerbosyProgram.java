@@ -5,6 +5,8 @@ import io.github.sweeper777.instructions.primitive.Instruction;
 import io.github.sweeper777.runtime.VerbosyRuntime;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Arrays;
 
 public final class VerbosyProgram implements Serializable {
@@ -58,16 +60,22 @@ public final class VerbosyProgram implements Serializable {
         }
     }
 
-    public void saveToFile(String directory, String name) throws IOException {
+    public void saveAsBinary(String directory, String name) throws IOException {
         ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(new File(directory, name), false));
         out.writeObject(this);
         out.close();
     }
 
-    public static VerbosyProgram readFromFile(String directory, String name) throws IOException, ClassNotFoundException {
+    public static VerbosyProgram fromBinaryFile(String directory, String name) throws IOException, ClassNotFoundException {
         ObjectInputStream in = new ObjectInputStream(new FileInputStream(new File(directory, name)));
-        VerbosyProgram obj = (VerbosyProgram)in.readObject();
+        VerbosyProgram obj = (VerbosyProgram) in.readObject();
         in.close();
         return obj;
+    }
+
+    public static VerbosyProgram fromSourceFile(String path) throws IOException, ClassNotFoundException, CompilerErrorException {
+        String sourceCode = Files.readString(Path.of(path));
+        VerbosyCompiler compiler = new VerbosyCompiler();
+        return compiler.compile(sourceCode);
     }
 }
