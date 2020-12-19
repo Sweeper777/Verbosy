@@ -1,5 +1,6 @@
 package io.github.sweeper777.runtime;
 
+import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.Scanner;
 
@@ -63,5 +64,12 @@ public class StandardRuntime implements VerbosyRuntime {
     public StandardRuntime(String input, int memorySize) {
         memory = new VerbosyValue[memorySize];
         scanner = new Scanner(input);
+        scanner.useDelimiter("");
+    }
+
+    public StandardRuntime(InputStream is, int memorySize) {
+        memory = new VerbosyValue[memorySize];
+        scanner = new Scanner(is);
+        scanner.useDelimiter("");
     }
 }
