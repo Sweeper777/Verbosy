@@ -36,7 +36,7 @@ program.run(runtime);
 
 You can run the main class by doing this command:
 
-    java com.verbosy.Main
+    java io.github.sweeper777.Main
     
 You can then enter the Verbosy code, press enter, then enter the inputs for the Verbosy program, After pressing enter once more, the program will start running.
 
