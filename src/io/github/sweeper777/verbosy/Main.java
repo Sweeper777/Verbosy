@@ -40,5 +40,25 @@ public class Main {
                 .type(int.class)
                 .build();
 
+        Option spaceAsZero = Option.builder("z")
+                .longOpt("space-as-zero")
+                .desc("Reads spaces in the input as 0s. Makes reading words easier!")
+                .build();
+
+        Option compile = Option.builder("c")
+                .longOpt("compile")
+                .desc("compile a source file to binary file, ignores all other options")
+                .build();
+
+        Option runCompiled = Option.builder("r")
+                .longOpt("run-compiled")
+                .desc("run a binary verbosy program")
+                .build();
+
+        Option help = Option.builder("h")
+                .longOpt("help")
+                .desc("Show help, ignores all other options")
+                .build();
+
     }
 }
