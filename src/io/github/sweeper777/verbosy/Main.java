@@ -25,4 +25,12 @@ public class Main {
             e.printStackTrace();
         }
     }
+    private static Options getCommandLineOptions() {
+        Option input = Option.builder("i")
+                .argName("input")
+                .hasArg()
+                .desc("Input for the verbosy program, uses stdin if not specified")
+                .longOpt("input")
+                .build();
+    }
 }
