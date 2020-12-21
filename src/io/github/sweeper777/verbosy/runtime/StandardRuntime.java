@@ -9,6 +9,7 @@ public class StandardRuntime implements VerbosyRuntime {
     private VerbosyValue[] memory;
     private boolean stopped;
     private Scanner scanner;
+    private boolean readSpaceAsZero;
 
     @Override
     public VerbosyValue getCurrent() {
@@ -40,7 +41,7 @@ public class StandardRuntime implements VerbosyRuntime {
 
         if (token == null) {
             return null;
-        } else if (token.charAt(0) == ' ') {
+        } else if (token.charAt(0) == ' ' && readSpaceAsZero()) {
             return new VerbosyValue(0);
         } else {
             return new VerbosyValue(token.charAt(0));
@@ -71,5 +72,13 @@ public class StandardRuntime implements VerbosyRuntime {
         memory = new VerbosyValue[memorySize];
         scanner = new Scanner(is);
         scanner.useDelimiter("");
+    }
+
+    public boolean readSpaceAsZero() {
+        return readSpaceAsZero;
+    }
+
+    public void setReadSpaceAsZero(boolean readSpaceAsZero) {
+        this.readSpaceAsZero = readSpaceAsZero;
     }
 }
