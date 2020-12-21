@@ -60,5 +60,14 @@ public class Main {
                 .desc("Show help, ignores all other options")
                 .build();
 
+        Options options = new Options();
+        OptionGroup group = new OptionGroup();
+        group.addOption(compile).addOption(runCompiled).setRequired(false);
+        options.addOption(input)
+                .addOption(memorySize)
+                .addOption(spaceAsZero)
+                .addOptionGroup(group)
+                .addOption(help);
+        return options;
     }
 }
