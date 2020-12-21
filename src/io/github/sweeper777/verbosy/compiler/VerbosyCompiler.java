@@ -1,10 +1,10 @@
-package io.github.sweeper777.compiler;
+package io.github.sweeper777.verbosy.compiler;
 
-import io.github.sweeper777.instructions.gt.GotoInstruction;
-import io.github.sweeper777.instructions.primitive.Instruction;
-import io.github.sweeper777.instructions.primitive.Label;
-import io.github.sweeper777.instructions.primitive.ParameterInstruction;
-import io.github.sweeper777.runtime.VerbosyParameter;
+import io.github.sweeper777.verbosy.instructions.gt.GotoInstruction;
+import io.github.sweeper777.verbosy.instructions.primitive.Instruction;
+import io.github.sweeper777.verbosy.instructions.primitive.Label;
+import io.github.sweeper777.verbosy.instructions.primitive.ParameterInstruction;
+import io.github.sweeper777.verbosy.runtime.VerbosyParameter;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;

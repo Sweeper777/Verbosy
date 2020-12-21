@@ -1,6 +1,6 @@
-package io.github.sweeper777.instructions.primitive;
+package io.github.sweeper777.verbosy.instructions.primitive;
 
-import io.github.sweeper777.runtime.VerbosyRuntime;
+import io.github.sweeper777.verbosy.runtime.VerbosyRuntime;
 
 public class Label implements Instruction {
     private int instructionIndex;

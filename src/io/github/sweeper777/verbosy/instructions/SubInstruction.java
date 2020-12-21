@@ -1,14 +1,14 @@
-package io.github.sweeper777.instructions;
+package io.github.sweeper777.verbosy.instructions;
 
-import io.github.sweeper777.runtime.VerbosyParameter;
-import io.github.sweeper777.runtime.VerbosyRuntime;
-import io.github.sweeper777.runtime.VerbosyValue;
-import io.github.sweeper777.instructions.primitive.ParameterInstruction;
+import io.github.sweeper777.verbosy.runtime.VerbosyParameter;
+import io.github.sweeper777.verbosy.runtime.VerbosyRuntime;
+import io.github.sweeper777.verbosy.runtime.VerbosyValue;
+import io.github.sweeper777.verbosy.instructions.primitive.ParameterInstruction;
 
 import java.io.Serializable;
 
-public class AddInstruction implements ParameterInstruction, Serializable {
-    private long serialVersionUID = 9L;
+public class SubInstruction implements ParameterInstruction, Serializable {
+    private long serialVersionUID = 14L;
     private VerbosyParameter param;
 
     @Override
@@ -64,10 +64,10 @@ public class AddInstruction implements ParameterInstruction, Serializable {
             memory = runtime.getMemory()[param.getValue().getIntValue()].getIntValue();
         }
 
-        runtime.setCurrent(new VerbosyValue(current + memory));
+        runtime.setCurrent(new VerbosyValue(current - memory));
     }
 
-    public AddInstruction(VerbosyParameter param) {
+    public SubInstruction(VerbosyParameter param) {
         this.param = param;
     }
 }

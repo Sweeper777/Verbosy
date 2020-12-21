@@ -1,8 +1,8 @@
-package io.github.sweeper777.instructions;
+package io.github.sweeper777.verbosy.instructions;
 
-import io.github.sweeper777.runtime.VerbosyRuntime;
-import io.github.sweeper777.runtime.VerbosyValue;
-import io.github.sweeper777.instructions.primitive.Instruction;
+import io.github.sweeper777.verbosy.runtime.VerbosyRuntime;
+import io.github.sweeper777.verbosy.runtime.VerbosyValue;
+import io.github.sweeper777.verbosy.instructions.primitive.Instruction;
 
 import java.io.Serializable;
 

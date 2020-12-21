@@ -1,4 +1,4 @@
-package io.github.sweeper777.runtime;
+package io.github.sweeper777.verbosy.runtime;
 
 import java.io.PrintStream;
 

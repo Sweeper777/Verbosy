@@ -1,7 +1,7 @@
-package io.github.sweeper777.instructions.gt;
+package io.github.sweeper777.verbosy.instructions.gt;
 
-import io.github.sweeper777.instructions.primitive.Label;
-import io.github.sweeper777.runtime.VerbosyRuntime;
+import io.github.sweeper777.verbosy.instructions.primitive.Label;
+import io.github.sweeper777.verbosy.runtime.VerbosyRuntime;
 
 import java.io.Serializable;
 import java.util.function.Predicate;

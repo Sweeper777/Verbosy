@@ -1,8 +1,8 @@
-package io.github.sweeper777;
+package io.github.sweeper777.verbosy;
 
-import io.github.sweeper777.compiler.CompilerErrorException;
-import io.github.sweeper777.compiler.VerbosyProgram;
-import io.github.sweeper777.runtime.StandardRuntime;
+import io.github.sweeper777.verbosy.compiler.CompilerErrorException;
+import io.github.sweeper777.verbosy.compiler.VerbosyProgram;
+import io.github.sweeper777.verbosy.runtime.StandardRuntime;
 
 import java.io.IOException;
 

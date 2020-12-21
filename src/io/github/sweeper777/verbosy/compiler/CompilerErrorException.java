@@ -1,4 +1,4 @@
-package io.github.sweeper777.compiler;
+package io.github.sweeper777.verbosy.compiler;
 
 public class CompilerErrorException extends Exception {
     private int instructionNumber;

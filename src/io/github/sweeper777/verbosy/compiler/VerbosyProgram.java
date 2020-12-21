@@ -1,8 +1,8 @@
-package io.github.sweeper777.compiler;
+package io.github.sweeper777.verbosy.compiler;
 
-import io.github.sweeper777.instructions.gt.GotoInstruction;
-import io.github.sweeper777.instructions.primitive.Instruction;
-import io.github.sweeper777.runtime.VerbosyRuntime;
+import io.github.sweeper777.verbosy.instructions.gt.GotoInstruction;
+import io.github.sweeper777.verbosy.instructions.primitive.Instruction;
+import io.github.sweeper777.verbosy.runtime.VerbosyRuntime;
 
 import java.io.*;
 import java.nio.file.Files;

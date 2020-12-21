@@ -1,11 +1,11 @@
-package io.github.sweeper777.compiler;
+package io.github.sweeper777.verbosy.compiler;
 
-import io.github.sweeper777.instructions.*;
-import io.github.sweeper777.instructions.gt.GotoIf0Instruction;
-import io.github.sweeper777.instructions.gt.GotoIfNegInstruction;
-import io.github.sweeper777.instructions.gt.GotoInstruction;
-import io.github.sweeper777.instructions.primitive.Instruction;
-import io.github.sweeper777.instructions.primitive.Label;
+import io.github.sweeper777.verbosy.instructions.*;
+import io.github.sweeper777.verbosy.instructions.gt.GotoIf0Instruction;
+import io.github.sweeper777.verbosy.instructions.gt.GotoIfNegInstruction;
+import io.github.sweeper777.verbosy.instructions.gt.GotoInstruction;
+import io.github.sweeper777.verbosy.instructions.primitive.Instruction;
+import io.github.sweeper777.verbosy.instructions.primitive.Label;
 
 import java.util.Collections;
 import java.util.HashMap;
