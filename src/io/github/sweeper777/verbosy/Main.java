@@ -32,5 +32,13 @@ public class Main {
                 .desc("Input for the verbosy program, uses stdin if not specified")
                 .longOpt("input")
                 .build();
+        Option memorySize = Option.builder("s")
+                .argName("size")
+                .hasArg()
+                .desc("number of elements in the memory array")
+                .longOpt("memory-size")
+                .type(int.class)
+                .build();
+
     }
 }
