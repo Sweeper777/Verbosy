@@ -45,6 +45,11 @@ public class Main {
         prog.run(runtime);
     }
 
+    private static void compileToBinaryFile(CommandLine cl) throws CompilerErrorException, IOException {
+        VerbosyProgram prog = VerbosyProgram.fromSourceFile(cl.getArgs()[0]);
+        prog.saveAsBinary(cl.getOptionValue('c'));
+    }
+
     private static Options getCommandLineOptions() {
         Option input = Option.builder("i")
                 .argName("input")
