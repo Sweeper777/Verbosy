@@ -55,9 +55,9 @@ public class Main {
         Option memorySize = Option.builder("s")
                 .argName("size")
                 .hasArg()
-                .desc("number of elements in the memory array")
+                .desc("number of elements in the memory array, default to 1024")
                 .longOpt("memory-size")
-                .type(int.class)
+                .type(Integer.class)
                 .build();
 
         Option spaceAsZero = Option.builder("z")
@@ -68,11 +68,13 @@ public class Main {
         Option compile = Option.builder("c")
                 .longOpt("compile")
                 .desc("compile a source file to binary file, ignores all other options")
+                .hasArg()
+                .argName("output-file")
                 .build();
 
         Option runCompiled = Option.builder("r")
                 .longOpt("run-compiled")
-                .desc("run a binary verbosy program")
+                .desc("run a binary verbosy program. <INPUT-FILE> must be binary.")
                 .build();
 
         Option help = Option.builder("h")
