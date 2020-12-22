@@ -39,9 +39,30 @@ public class Main {
         }
     }
 
-    private static void runVerbosySourceFile(CommandLine cl) throws CompilerErrorException, IOException, ClassNotFoundException {
-        VerbosyProgram prog = VerbosyProgram.fromSourceFile(cl.getArgs()[0]);
-        StandardRuntime runtime = new StandardRuntime(System.in, 10);
+    private static void runVerbosySourceFile(CommandLine cl) throws CompilerErrorException, IOException, ClassNotFoundException, ParseException {
+        VerbosyProgram prog;
+        if (cl.hasOption('r')) {
+            prog = VerbosyProgram.fromBinaryFile(cl.getArgs()[0]);
+        } else {
+            prog = VerbosyProgram.fromSourceFile(cl.getArgs()[0]);
+        }
+        StandardRuntime runtime;
+        int memorySize = 1024;
+        if (cl.hasOption('s')) {
+            try {
+                memorySize = Integer.parseUnsignedInt(cl.getOptionValue('s'));
+            } catch (NumberFormatException ex) {
+                throw new ParseException("Invalid number specified for -s.");
+            }
+        }
+
+        if (cl.hasOption('i')) {
+            runtime = new StandardRuntime(cl.getOptionValue('i'), memorySize);
+        } else {
+            runtime = new StandardRuntime(System.in, memorySize);
+        }
+
+        runtime.setReadSpaceAsZero(cl.hasOption('z'));
         prog.run(runtime);
     }
 
