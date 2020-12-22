@@ -60,20 +60,20 @@ public final class VerbosyProgram implements Serializable {
         }
     }
 
-    public void saveAsBinary(String directory, String name) throws IOException {
-        ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(new File(directory, name), false));
+    public void saveAsBinary(String path) throws IOException {
+        ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(path, false));
         out.writeObject(this);
         out.close();
     }
 
-    public static VerbosyProgram fromBinaryFile(String directory, String name) throws IOException, ClassNotFoundException {
-        ObjectInputStream in = new ObjectInputStream(new FileInputStream(new File(directory, name)));
+    public static VerbosyProgram fromBinaryFile(String path) throws IOException, ClassNotFoundException {
+        ObjectInputStream in = new ObjectInputStream(new FileInputStream(path));
         VerbosyProgram obj = (VerbosyProgram) in.readObject();
         in.close();
         return obj;
     }
 
-    public static VerbosyProgram fromSourceFile(String path) throws IOException, ClassNotFoundException, CompilerErrorException {
+    public static VerbosyProgram fromSourceFile(String path) throws IOException, CompilerErrorException {
         String sourceCode = Files.readString(Path.of(path));
         VerbosyCompiler compiler = new VerbosyCompiler();
         return compiler.compile(sourceCode);
