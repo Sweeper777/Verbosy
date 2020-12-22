@@ -76,6 +76,8 @@ Labels act like markers. You can use the goto instructions (`>`, `>0`, `>-`) to 
 - GotoIf0 instruction (represented by `>0`): same as the Goto instruction, except that it will only jump to the label if `Current` is 0.
 - GotoIfNeg instruction (represented by `>-`): same as the Goto instruction, except that it will only jump to the label if `Current` is less than 0.
 
+Instructions will do nothing if their parameters point to a place out of range of the memory.
+
 ### Example Programs
 
 #### Hello World
