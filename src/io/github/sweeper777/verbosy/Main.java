@@ -20,15 +20,18 @@ public class Main {
     public static void main(String[] args) {
         CommandLineParser parser = new DefaultParser();
         try {
+
             Options cliOptions = getCommandLineOptions();
             CommandLine cl = parser.parse(cliOptions, args, true);
-            if (cl.hasOption("help")) {
+            if (cl.hasOption('h')) {
                 HelpFormatter formatter = new HelpFormatter();
-                formatter.printHelp("verbosy", cliOptions, true);
-            } else if (cl.hasOption('c')) {
-
-            } else {
+                formatter.printHelp("verbosy [-h | -c <output-file> <source-file> | [-r] [-i <input>]  [-s <size>] [-z]] <INPUT-FILE>", cliOptions);
+            } else if (cl.hasOption('c') && cl.getArgs().length > 0) {
+                compileToBinaryFile(cl);
+            } else if (cl.getArgs().length > 0){
                 runVerbosySourceFile(cl);
+            } else {
+                throw new ParseException("No Input File Specified");
             }
 
         } catch (ParseException e) {
