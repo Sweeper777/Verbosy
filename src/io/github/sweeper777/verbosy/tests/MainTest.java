@@ -18,5 +18,11 @@ public class MainTest {
         assertEquals("HelloWorld", runtime.getOutputString());
     }
 
+    @Test
+    public void inputEcho() throws IOException, CompilerErrorException {
+        VerbosyProgram program = VerbosyProgram.fromSourceFile("src/io/github/sweeper777/verbosy/tests/inputecho.vp");
+        TestRuntime runtime = new TestRuntime("Echo This", 10);
+        program.run(runtime);
+        assertEquals("Echo This", runtime.getOutputString());
     }
 }
