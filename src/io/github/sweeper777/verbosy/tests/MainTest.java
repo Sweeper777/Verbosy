@@ -25,4 +25,12 @@ public class MainTest {
         program.run(runtime);
         assertEquals("Echo This", runtime.getOutputString());
     }
+
+    @Test
+    public void addition() throws IOException, CompilerErrorException {
+        VerbosyProgram program = VerbosyProgram.fromSourceFile("src/io/github/sweeper777/verbosy/tests/addition.vp");
+        TestRuntime runtime = new TestRuntime("12345 67890", 10);
+        program.run(runtime);
+        assertEquals("80235 ", runtime.getOutputString());
+    }
 }
