@@ -47,4 +47,22 @@ public class VerbosyValue implements Serializable {
             return Integer.toString(getIntValue()) + " ";
         }
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        VerbosyValue that = (VerbosyValue) o;
+
+        if (innerValue != that.innerValue) return false;
+        return isChar == that.isChar;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = innerValue;
+        result = 31 * result + (isChar ? 1 : 0);
+        return result;
+    }
 }
