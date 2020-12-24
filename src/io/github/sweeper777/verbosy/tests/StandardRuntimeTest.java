@@ -17,4 +17,15 @@ public class StandardRuntimeTest {
         assertEquals(new VerbosyValue(67890), input);
     }
 
+    @Test
+    public void readChars() {
+        StandardRuntime runtime = new StandardRuntime("abc", 10);
+        VerbosyValue input = runtime.getNextInput();
+        assertEquals(new VerbosyValue('a'), input);
+        input = runtime.getNextInput();
+        assertEquals(new VerbosyValue('b'), input);
+        input = runtime.getNextInput();
+        assertEquals(new VerbosyValue('c'), input);
+    }
+
 }
