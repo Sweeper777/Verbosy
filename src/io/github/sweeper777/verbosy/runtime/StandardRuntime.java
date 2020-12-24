@@ -37,7 +37,9 @@ public class StandardRuntime implements VerbosyRuntime {
             return new VerbosyValue(scanner.nextInt());
         }
 
+        scanner.useDelimiter("");
         String token = scanner.findWithinHorizon(".", 0);
+        scanner.useDelimiter("\\s+");
 
         if (token == null) {
             return null;
@@ -65,13 +67,13 @@ public class StandardRuntime implements VerbosyRuntime {
     public StandardRuntime(String input, int memorySize) {
         memory = new VerbosyValue[memorySize];
         scanner = new Scanner(input);
-        scanner.useDelimiter("");
+        scanner.useDelimiter("\\s+");
     }
 
     public StandardRuntime(InputStream is, int memorySize) {
         memory = new VerbosyValue[memorySize];
         scanner = new Scanner(is);
-        scanner.useDelimiter("");
+        scanner.useDelimiter("\\s+");
     }
 
     public boolean readSpaceAsZero() {
