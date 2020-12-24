@@ -64,4 +64,20 @@ public class StandardRuntimeTest {
         assertEquals(new VerbosyValue('e'), input);
     }
 
+    @Test
+    public void readSpaceAs0() {
+        StandardRuntime runtime = new StandardRuntime("abc 2  e", 10);
+        runtime.setReadSpaceAsZero(true);
+        runtime.getNextInput();
+        runtime.getNextInput();
+        runtime.getNextInput();
+        VerbosyValue input = runtime.getNextInput();
+        assertEquals(new VerbosyValue(2), input);
+        input = runtime.getNextInput();
+        assertEquals(new VerbosyValue(0), input);
+        input = runtime.getNextInput();
+        assertEquals(new VerbosyValue(0), input);
+        input = runtime.getNextInput();
+        assertEquals(new VerbosyValue('e'), input);
+    }
 }
