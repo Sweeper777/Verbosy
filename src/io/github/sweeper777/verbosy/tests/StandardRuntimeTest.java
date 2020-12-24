@@ -28,4 +28,23 @@ public class StandardRuntimeTest {
         assertEquals(new VerbosyValue('c'), input);
     }
 
+    @Test
+    public void readCharsWithSpaces() {
+        StandardRuntime runtime = new StandardRuntime("abc d  e", 10);
+        runtime.setReadSpaceAsZero(false);
+        runtime.getNextInput();
+        runtime.getNextInput();
+        runtime.getNextInput();
+        VerbosyValue input = runtime.getNextInput();
+        assertEquals(new VerbosyValue(' '), input);
+        input = runtime.getNextInput();
+        assertEquals(new VerbosyValue('d'), input);
+        input = runtime.getNextInput();
+        assertEquals(new VerbosyValue(' '), input);
+        input = runtime.getNextInput();
+        assertEquals(new VerbosyValue(' '), input);
+        input = runtime.getNextInput();
+        assertEquals(new VerbosyValue('e'), input);
+    }
+
 }
