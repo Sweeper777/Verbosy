@@ -44,4 +44,14 @@ public class MainTest {
                 () -> VerbosyProgram.fromSourceFile("src/io/github/sweeper777/verbosy/tests/duplicatelabel.vp")
         );
     }
+
+    @Test
+    public void compileToBinary() throws IOException, CompilerErrorException, ClassNotFoundException {
+        VerbosyProgram program = VerbosyProgram.fromSourceFile("src/io/github/sweeper777/verbosy/tests/addition.vp");
+        program.saveAsBinary("src/io/github/sweeper777/verbosy/tests/addition.vpc");
+        program = VerbosyProgram.fromBinaryFile("src/io/github/sweeper777/verbosy/tests/addition.vpc");
+        TestRuntime runtime = new TestRuntime("12345 67890", 10);
+        program.run(runtime);
+        assertEquals("80235 ", runtime.getOutputString());
+    }
 }
