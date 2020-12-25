@@ -36,7 +36,7 @@ public class MainTest {
     }
 
     @Test
-    public void compilerErrors() throws IOException {
+    public void compilerErrors() {
         assertThrows(CompilerErrorException.class,
                 () -> VerbosyProgram.fromSourceFile("src/io/github/sweeper777/verbosy/tests/malformed.vp")
         );
