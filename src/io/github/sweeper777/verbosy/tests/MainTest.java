@@ -7,6 +7,7 @@ import org.junit.Test;
 import java.io.IOException;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThrows;
 
 public class MainTest {
 
@@ -32,5 +33,15 @@ public class MainTest {
         TestRuntime runtime = new TestRuntime("12345 67890", 10);
         program.run(runtime);
         assertEquals("80235 ", runtime.getOutputString());
+    }
+
+    @Test
+    public void compilerErrors() throws IOException {
+        assertThrows(CompilerErrorException.class,
+                () -> VerbosyProgram.fromSourceFile("src/io/github/sweeper777/verbosy/tests/malformed.vp")
+        );
+        assertThrows(CompilerErrorException.class,
+                () -> VerbosyProgram.fromSourceFile("src/io/github/sweeper777/verbosy/tests/duplicatelabel.vp")
+        );
     }
 }
