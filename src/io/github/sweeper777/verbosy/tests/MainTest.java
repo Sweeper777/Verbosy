@@ -38,6 +38,12 @@ public class MainTest {
         assertEquals("hello world", byteStream.toString());
     }
 
+    @Test
+    public void readSpaceAs0Option() {
+        Main.main(new String[] { "-z", "src/io/github/sweeper777/verbosy/tests/inputecho.vp" });
+        assertEquals("hello0 world", byteStream.toString());
+    }
+
     @Before
     public void setUp() {
         byteStream = new ByteArrayOutputStream();
