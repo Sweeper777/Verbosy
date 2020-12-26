@@ -23,6 +23,10 @@ public class MainTest {
         assertEquals("HelloWorld", byteStream.toString());
     }
 
+    @Test
+    public void memorySizeOption() {
+        Main.main(new String[] { "-s", "1", "src/io/github/sweeper777/verbosy/tests/memorysizeoptiontest.vp" });
+        assertNotEquals("10 ", byteStream.toString());
     }
 
     @Before
