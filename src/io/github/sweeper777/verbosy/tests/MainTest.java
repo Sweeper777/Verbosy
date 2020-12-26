@@ -18,7 +18,11 @@ public class MainTest {
     private ByteArrayOutputStream byteStream;
 
     @Test
-    public void main() {
+    public void runningSourceFile() {
+        Main.main(new String[] { "src/io/github/sweeper777/verbosy/tests/helloworld.vp" });
+        assertEquals("HelloWorld", byteStream.toString());
+    }
+
     }
 
     @Before
