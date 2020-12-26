@@ -12,17 +12,10 @@ The Verbosy type system is very simple, there is only one type - `VerbosyValue`.
 
 ### Usage in Java
 
-To compile Verbosy code, create a new instance of the `VerbosyCompiler` class and call `compile`, which returns a `VerbosyProgram`.
+To compile Verbosy code, use `VerbosyProgram.fromSourceFile` or `VerbosyProgram.fromBinaryFile` depending on what form the program is stored in.
 
 ```
-// this code prints "HelloWorld"
-String code = "~H o ~e o ~l o ~l o ~o o ~W o ~o o ~r o ~l o ~d o";
-try {
-    VerbosyCompiler compiler = new VerbosyCompiler();
-    VerbosyProgram program = compiler.compile(code);
-} catch (CompilerErrorException e) {
-    System.out.println(e.getMessage());
-}
+VerbosyProgram program = VerbosyProgram.fromSourceFile("path/to/source.vp");
 ```
 
 To run the `VerbosyProgram`, you need to first create a runtime. You can either use the `StandardRuntime` or create your own runtime by implementing the `VerbosyRuntime` interface.
@@ -36,9 +29,9 @@ program.run(runtime);
 
 You can run the main class by doing this command:
 
-    java io.github.sweeper777.verbosy.Main
+    java io.github.sweeper777.verbosy.Main [-h | -c <output-file> <source-file> | [-r] [-i <input>]  [-s <size>] [-z]] <INPUT-FILE>
     
-You can then enter the Verbosy code, press enter, then enter the inputs for the Verbosy program, After pressing enter once more, the program will start running.
+`<INPUT-FILE>` is a path to a source file containing a Verbosy program. Use the `-h` option to read the description of the other options.
 
 ### Structure of VerbosyProgram
 
