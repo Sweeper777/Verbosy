@@ -29,6 +29,15 @@ public class MainTest {
         assertNotEquals("10 ", byteStream.toString());
     }
 
+    @Test
+    public void inputOption() {
+        Main.main(new String[] { "-i", "hello", "src/io/github/sweeper777/verbosy/tests/inputecho.vp" });
+        assertEquals("hello", byteStream.toString());
+        byteStream.reset();
+        Main.main(new String[] { "src/io/github/sweeper777/verbosy/tests/inputecho.vp" });
+        assertEquals("hello world", byteStream.toString());
+    }
+
     @Before
     public void setUp() {
         byteStream = new ByteArrayOutputStream();
