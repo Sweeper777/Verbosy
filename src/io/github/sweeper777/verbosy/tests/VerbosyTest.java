@@ -28,6 +28,14 @@ public class VerbosyTest {
     }
 
     @Test
+    public void increment() throws IOException, CompilerErrorException {
+        VerbosyProgram program = VerbosyProgram.fromSourceFile("src/io/github/sweeper777/verbosy/tests/increment.vp");
+        TestRuntime runtime = new TestRuntime("777", 10);
+        program.run(runtime);
+        assertEquals("778 ", runtime.getOutputString());
+    }
+
+    @Test
     public void addition() throws IOException, CompilerErrorException {
         VerbosyProgram program = VerbosyProgram.fromSourceFile("src/io/github/sweeper777/verbosy/tests/addition.vp");
         TestRuntime runtime = new TestRuntime("12345 67890", 10);
