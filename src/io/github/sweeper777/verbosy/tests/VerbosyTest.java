@@ -66,9 +66,9 @@ public class VerbosyTest {
 
     @Test
     public void escapedCharTest() throws CompilerErrorException {
-        VerbosyProgram program = new VerbosyCompiler().compile("~\\20 o");
+        VerbosyProgram program = new VerbosyCompiler().compile("~\\d83c o ~\\df09 o");
         TestRuntime runtime = new TestRuntime("", 10);
         program.run(runtime);
-        assertEquals(" ", runtime.getOutputString());
+        assertEquals("🌉", runtime.getOutputString());
     }
 }
