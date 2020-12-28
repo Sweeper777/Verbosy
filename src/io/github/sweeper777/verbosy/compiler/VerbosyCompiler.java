@@ -17,7 +17,7 @@ public class VerbosyCompiler {
         String[] instructionStrings = code.split("\\p{Space}");
         List<String> instructionsList = new ArrayList<>(Arrays.asList(instructionStrings));
         instructionsList.removeAll(Collections.singleton(""));
-        instructionStrings = instructionsList.toArray(new String[instructionsList.size()]);
+        instructionStrings = instructionsList.toArray(new String[0]);
         Instruction[] instructionObjects = new Instruction[instructionStrings.length];
         HashMap<String, Label> labelMap = new HashMap<>();
 
@@ -72,8 +72,8 @@ public class VerbosyCompiler {
                     // parse integer parameter
                     int parameterInt = Integer.parseInt(parameterString);
                     VerbosyParameter param = new VerbosyParameter(parameterInt, isPointer);
-                    Constructor ctor = instructionType.getConstructor(VerbosyParameter.class);
-                    instructionObjects[instructionIndex] = (Instruction)ctor.newInstance(param);
+                    Constructor<? extends Instruction> ctor = instructionType.getConstructor(VerbosyParameter.class);
+                    instructionObjects[instructionIndex] = ctor.newInstance(param);
                 } catch (NumberFormatException e) {
                     if (parameterString.length() != 1) {
                         throw new CompilerErrorException("Invalid parameter", instructionIndex);
@@ -82,10 +82,10 @@ public class VerbosyCompiler {
                     // parse character parameter
                     char parameterChar = parameterString.charAt(0);
                     VerbosyParameter param = new VerbosyParameter(parameterChar, isPointer);
-                    Constructor ctor;
+                    Constructor<? extends Instruction> ctor;
                     try {
                         ctor = instructionType.getConstructor(VerbosyParameter.class);
-                        instructionObjects[instructionIndex] = (Instruction)ctor.newInstance(param);
+                        instructionObjects[instructionIndex] = ctor.newInstance(param);
                     } catch (NoSuchMethodException | IllegalAccessException | InstantiationException | InvocationTargetException e1) {
                         throw new CompilerErrorException("Invalid parameter", instructionIndex);
                     }
@@ -100,15 +100,15 @@ public class VerbosyCompiler {
                 }
 
                 try {
-                    Constructor ctor = instructionType.getConstructor(Label.class);
-                    instructionObjects[instructionIndex] = (Instruction)ctor.newInstance(labelMap.get(labelName));
+                    Constructor<? extends Instruction> ctor = instructionType.getConstructor(Label.class);
+                    instructionObjects[instructionIndex] = ctor.newInstance(labelMap.get(labelName));
                 } catch (NoSuchMethodException | IllegalAccessException | InstantiationException | InvocationTargetException e) {
                     throw new CompilerErrorException("Invalid parameter", instructionIndex);
                 }
             } else {
                 try {
-                    instructionObjects[instructionIndex] = instructionType.newInstance();
-                } catch (InstantiationException | IllegalAccessException e) {
+                    instructionObjects[instructionIndex] = instructionType.getDeclaredConstructor().newInstance();
+                } catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
                     throw new CompilerErrorException(
                             "Instruction class for " + instructionString +
                                     " must have a parameterless constructor", instructionIndex);
