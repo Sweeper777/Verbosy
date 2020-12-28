@@ -75,12 +75,17 @@ public class VerbosyCompiler {
                     Constructor<? extends Instruction> ctor = instructionType.getConstructor(VerbosyParameter.class);
                     instructionObjects[instructionIndex] = ctor.newInstance(param);
                 } catch (NumberFormatException e) {
-                    if (parameterString.length() != 1) {
+                    // parse character parameter
+                    char parameterChar;
+                    if (parameterString.length() == 1) {
+                        parameterChar = parameterString.charAt(0);
+                    } else if (parameterString.matches("\\\\[\\da-fA-F]+")) {
+                        String hexString = parameterString.substring(1);
+                        int hex = Integer.parseInt(hexString, 16);
+                        parameterChar = (char)hex;
+                    } else {
                         throw new CompilerErrorException("Invalid parameter", instructionIndex);
                     }
-
-                    // parse character parameter
-                    char parameterChar = parameterString.charAt(0);
                     VerbosyParameter param = new VerbosyParameter(parameterChar, isPointer);
                     Constructor<? extends Instruction> ctor;
                     try {
