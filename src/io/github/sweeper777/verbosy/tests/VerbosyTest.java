@@ -1,6 +1,7 @@
 package io.github.sweeper777.verbosy.tests;
 
 import io.github.sweeper777.verbosy.compiler.CompilerErrorException;
+import io.github.sweeper777.verbosy.compiler.VerbosyCompiler;
 import io.github.sweeper777.verbosy.compiler.VerbosyProgram;
 import org.junit.Test;
 
@@ -61,5 +62,13 @@ public class VerbosyTest {
         TestRuntime runtime = new TestRuntime("12345 67890", 10);
         program.run(runtime);
         assertEquals("80235 ", runtime.getOutputString());
+    }
+
+    @Test
+    public void escapedCharTest() throws CompilerErrorException {
+        VerbosyProgram program = new VerbosyCompiler().compile("~\\20 o");
+        TestRuntime runtime = new TestRuntime("", 10);
+        program.run(runtime);
+        assertEquals(" ", runtime.getOutputString());
     }
 }
