@@ -8,7 +8,7 @@ The Verbosy runtime is represented by the `VerbosyRuntime` interface. A Verbosy 
 
 ### Type System
 
-The Verbosy type system is very simple, there is only one type - `VerbosyValue`. A `VerbosyValue` can either store a single character, or an integer. The type a `VerbosyValue` is storing is inferred at runtime and can change dynamically at runtime.
+The Verbosy type system is very simple, there is only one type - `VerbosyValue`. A `VerbosyValue` can either store a single UTF-16 character, or an integer. The type of a `VerbosyValue` is storing is inferred at runtime and can change dynamically at runtime.
 
 ### Usage in Java
 
@@ -70,6 +70,12 @@ Labels act like markers. You can use the goto instructions (`>`, `>0`, `>-`) to 
 - GotoIfNeg instruction (represented by `>-`): same as the Goto instruction, except that it will only jump to the label if `Current` is less than 0.
 
 Instructions will do nothing if their parameters point to a place out of range of the memory.
+
+### Hex Escapes
+
+Most characters can be used in verbatim as the parameter for the set instruction, in order to set `Current` to a character. In some cases you can't, because the parser treats that character in a special way. e.g. all whitespace are ignored. In such a case, you can specify that character in a set instruction using its hex value, prefixed by `\`.
+
+For example, `~\20` sets `Current` to the space character.
 
 ### Example Programs
 
