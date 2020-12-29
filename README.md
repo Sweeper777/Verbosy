@@ -81,9 +81,9 @@ For example, `~\20` sets `Current` to the space character.
 
 #### Hello World
 
-This prints "HelloWorld".
+This prints "Hello World".
 
-    ~H o ~e o ~l o ~l o ~o o ~W o ~o o ~r o ~l o ~d o
+    ~H o ~e o ~l o ~l o ~o o ~\20 o ~W o ~o o ~r o ~l o ~d o
     
 #### Input Echo
 
