@@ -36,4 +36,18 @@ public class InstructionsTest {
         program.run(runtime2);
         assertEquals("1 ", runtime2.getOutputString());
     }
+
+    @Test
+    public void gotoIfNegTest() throws CompilerErrorException {
+        VerbosyProgram program = new VerbosyCompiler().compile("i >-a >b :a: o >end :b: ~1 o :end:");
+        TestRuntime runtime1 = new TestRuntime("-10", 10);
+        program.run(runtime1);
+        assertEquals("-10 ", runtime1.getOutputString());
+        TestRuntime runtime2 = new TestRuntime("0", 10);
+        program.run(runtime2);
+        assertEquals("1 ", runtime2.getOutputString());
+        TestRuntime runtime3 = new TestRuntime("1", 10);
+        program.run(runtime3);
+        assertEquals("1 ", runtime3.getOutputString());
+    }
 }
