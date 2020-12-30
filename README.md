@@ -87,13 +87,13 @@ This prints "Hello World".
     
 #### Input Echo
 
-This prints the input.
+This prints an arbitrary-length input.
 
     :a: i o >a
     
 #### Increment
 
-This increments the input by one.
+This increments the input by 1.
 
     i /0 ^0 o
     
