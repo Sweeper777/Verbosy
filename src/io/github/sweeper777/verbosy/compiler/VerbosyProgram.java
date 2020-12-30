@@ -28,6 +28,8 @@ public final class VerbosyProgram implements Serializable {
         while (!runtime.isStopped()) {
             stepOver(runtime);
         }
+
+        currentInstructionIndex = 0;
     }
 
     public int getCurrentInstructionIndex() {
