@@ -11,7 +11,6 @@ import java.util.Arrays;
 
 public final class VerbosyProgram implements Serializable {
     private final Instruction[] instructions;
-    private int currentInstructionIndex;
     private final long serialVersionUID = 1L;
 
     protected VerbosyProgram(Instruction[] instructions) {
@@ -24,41 +23,32 @@ public final class VerbosyProgram implements Serializable {
 
     public void run(VerbosyRuntime runtime) {
         runtime.setStopped(false);
+        int currentInstructionIndex = 0;
 
         while (!runtime.isStopped()) {
-            stepOver(runtime);
+            currentInstructionIndex = stepOver(runtime, currentInstructionIndex);
         }
-
-        currentInstructionIndex = 0;
     }
 
-    public int getCurrentInstructionIndex() {
-        return currentInstructionIndex;
-    }
-
-    public Instruction getCurrentInstruction() {
-        return instructions[getCurrentInstructionIndex()];
-    }
-
-    public void stepOver(VerbosyRuntime runtime) {
+    private int stepOver(VerbosyRuntime runtime, int currentInstructionIndex) {
         if (runtime.isStopped()) {
-            return;
+            return 0;
         }
 
         try {
-            getCurrentInstruction().execute(runtime);
+            instructions[currentInstructionIndex].execute(runtime);
 
-            if (getCurrentInstruction() instanceof GotoInstruction) {
-                GotoInstruction gotoInstruction = (GotoInstruction)getCurrentInstruction();
+            if (instructions[currentInstructionIndex] instanceof GotoInstruction) {
+                GotoInstruction gotoInstruction = (GotoInstruction)instructions[currentInstructionIndex];
                 if (gotoInstruction.getGoToCondition().test(runtime)) {
-                    currentInstructionIndex = gotoInstruction.getGoToLabel().getInstructionIndex();
-                    return;
+                    return gotoInstruction.getGoToLabel().getInstructionIndex();
                 }
             }
 
-            currentInstructionIndex++;
+            return currentInstructionIndex + 1;
         } catch (IndexOutOfBoundsException e) {
             runtime.setStopped(true);
+            return 0;
         }
     }
 
