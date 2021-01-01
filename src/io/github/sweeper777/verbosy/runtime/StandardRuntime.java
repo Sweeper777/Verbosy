@@ -6,9 +6,9 @@ import java.util.Scanner;
 
 public class StandardRuntime implements VerbosyRuntime {
     private VerbosyValue current;
-    private VerbosyValue[] memory;
+    private final VerbosyValue[] memory;
     private boolean stopped;
-    private Scanner scanner;
+    private final Scanner scanner;
     private boolean readSpaceAsZero;
 
     @Override

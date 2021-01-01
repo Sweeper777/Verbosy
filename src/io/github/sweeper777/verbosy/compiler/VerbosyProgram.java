@@ -10,9 +10,9 @@ import java.nio.file.Path;
 import java.util.Arrays;
 
 public final class VerbosyProgram implements Serializable {
-    private Instruction[] instructions;
+    private final Instruction[] instructions;
     private int currentInstructionIndex;
-    private long serialVersionUID = 1L;
+    private final long serialVersionUID = 1L;
 
     protected VerbosyProgram(Instruction[] instructions) {
         this.instructions = instructions;
