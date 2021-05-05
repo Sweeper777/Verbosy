@@ -10,29 +10,6 @@ The Verbosy runtime is represented by the `VerbosyRuntime` interface. A Verbosy 
 
 The Verbosy type system is very simple, there is only one type - `VerbosyValue`. A `VerbosyValue` can either store a single UTF-16 character, or an integer. The type of a `VerbosyValue` is storing is inferred at runtime and can change dynamically at runtime.
 
-### Usage in Java
-
-To compile Verbosy code, use `VerbosyProgram.fromSourceFile` or `VerbosyProgram.fromBinaryFile` depending on what form the program is stored in.
-
-```
-VerbosyProgram program = VerbosyProgram.fromSourceFile("path/to/source.vp");
-```
-
-To run the `VerbosyProgram`, you need to first create a runtime. You can either use the `StandardRuntime` or create your own runtime by implementing the `VerbosyRuntime` interface.
-
-```
-StandardRuntime runtime = new StandardRuntime("some inputs", 20);
-program.run(runtime);
-```
-
-###  Run the main class
-
-You can run the main class by doing this command:
-
-    java io.github.sweeper777.verbosy.Main [-h | -c <output-file> <source-file> | [-r] [-i <input>]  [-s <size>] [-z]] <INPUT-FILE>
-    
-`<INPUT-FILE>` is a path to a source file containing a Verbosy program. Use the `-h` option to read the description of the other options.
-
 ### Structure of VerbosyProgram
 
 A Verbosy program contains a number of instructions separated by spaces. Some instructions take parameters. For example, in the instruction `/14`, the `/` denotes a `PutInstruction` and the `14` denotes the parameter `14`.
