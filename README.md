@@ -4,7 +4,7 @@ Verbosy is a language very similar to [SPL](https://github.com/Sweeper777/SPL-Co
 
 -----
 
-**An implementation of Verbosy that compiles to C is being developed on master branch. For the previous, interpreted, implementation of Verbosy, visit the interpreter branch.**
+**An implementation of Verbosy that compiles to C# is being developed on master branch. For the previous, interpreted, implementation of Verbosy, visit the interpreter branch.**
 
 -----
 
