@@ -1,8 +1,8 @@
 package io.github.sweeper777.verbosy;
 
-import io.github.sweeper777.verbosy.verbosyParser.InstructionContext;
+import io.github.sweeper777.verbosy.VerbosyParser.InstructionContext;
 
-public class InstructionsFactory extends verbosyBaseListener {
+public class InstructionsFactory extends VerbosyBaseListener {
 
   @Override
   public void exitInstruction(InstructionContext ctx) {

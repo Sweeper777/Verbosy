@@ -1,4 +1,4 @@
-grammar verbosy;
+grammar Verbosy;
 
 WS : [ \n\t]+ -> skip;
 
