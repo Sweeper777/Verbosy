@@ -10,7 +10,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="Verbosy" target="1.7" />
+      <module name="Verbosy" target="8" />
     </bytecodeTargetLevel>
   </component>
 </project>
