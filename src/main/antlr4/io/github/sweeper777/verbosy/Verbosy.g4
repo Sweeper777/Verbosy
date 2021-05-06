@@ -1,8 +1,28 @@
 grammar Verbosy;
 
-WS : [ \n\t]+ -> skip;
+GOTO0 : '>0';
+GOTO_MINUS : '>-';
+I : 'i';
+O : 'o';
+TILDE : '~';
+PLUS : '+';
+MINUS: '-';
+INC : '^';
+DEC : 'v';
+BACKSLASH : '\\\\';
+SLASH : '/';
+GOTO : '>';
 
-compilation_unit : instruction+ EOF;
+WS : [ \n\r\t]+;
+DIGIT : [0-9];
+HEX_DIGIT : [a-fA-F];
+LETTER : [a-zA-Z];
+CHAR: ~[ \n\r\t0123456789];
+
+compilation_unit : instruction_with_terminal+;
+
+instruction_with_terminal : instruction (WS | EOF);
+
 instruction :
   input_instruction |
   output_instruction |
@@ -16,45 +36,35 @@ instruction :
   goto_instruction |
   goto_if_0_instruction |
   goto_if_neg_instruction |
-  label_instruction;
+  label_instruction
+  ;
 
-INPUT_INSTRUCTION_TOKEN : 'i';
-OUTPUT_INSTRUCTION_TOKEN : 'o';
-SET_INSTRUCTION_START : '~';
-ADD_INSTRUCTION_START : '+';
-SUB_INSTRUCTION_START : '-';
-INC_INSTRUCTION_START : '^';
-DEC_INSTRUCTION_START : 'v';
-TAKE_INSTRUCTION_START : '\\';
-PUT_INSTRUCTION_START : '/';
-GOTO_INSTRUCTION_START : '>';
-GOTO_IF_0_INSTRUCTION_START : '>0';
-GOTO_IF_NEG_INSTRUCTION_START : '>-';
+unsigned_int : DIGIT+;
+signed_int : MINUS unsigned_int | unsigned_int;
+character : hex_escape | CHAR | LETTER |
+  I | O | TILDE | PLUS | MINUS | INC | DEC | BACKSLASH | SLASH | GOTO;
+hex_escape : BACKSLASH (DIGIT | HEX_DIGIT)+;
 
-INT : [0-9]+;
-fragment SIGNED_INT : '-'? INT;
-VERBOSY_VALUE : SIGNED_INT | CHARACTER;
-fragment CHARACTER : ~[ \n\t] | HEX_ESCAPE;
-fragment HEX_ESCAPE : '\\' [0-9a-fA-F]+;
-
-LABEL_NAME : [a-zA-Z]+;
-LABEL: ':' LABEL_NAME ':';
+label_name : (LETTER | HEX_DIGIT)+;
+label: ':' label_name ':';
 
 instruction_suffix: '*';
 
-instruction_argument : INT;
-set_argument : VERBOSY_VALUE;
+instruction_argument : unsigned_int;
+set_integer_argument : signed_int;
+set_character_argument: character;
 
-input_instruction : INPUT_INSTRUCTION_TOKEN;
-output_instruction : OUTPUT_INSTRUCTION_TOKEN;
-set_instruction : SET_INSTRUCTION_START set_argument;
-add_instruction : ADD_INSTRUCTION_START instruction_argument instruction_suffix?;
-sub_instruction : SUB_INSTRUCTION_START instruction_argument instruction_suffix?;
-inc_instruction : INC_INSTRUCTION_START instruction_argument instruction_suffix?;
-dec_instruction : DEC_INSTRUCTION_START instruction_argument instruction_suffix?;
-put_instruction : PUT_INSTRUCTION_START instruction_argument instruction_suffix?;
-take_instruction : TAKE_INSTRUCTION_START instruction_argument instruction_suffix?;
-goto_instruction : GOTO_INSTRUCTION_START LABEL_NAME;
-goto_if_0_instruction : GOTO_IF_0_INSTRUCTION_START LABEL_NAME;
-goto_if_neg_instruction : GOTO_IF_NEG_INSTRUCTION_START LABEL_NAME;
-label_instruction : LABEL;
+input_instruction : I;
+output_instruction : O;
+set_instruction : TILDE set_character_argument |
+                  TILDE set_integer_argument;
+add_instruction : PLUS instruction_argument instruction_suffix?;
+sub_instruction : MINUS instruction_argument instruction_suffix?;
+inc_instruction : INC instruction_argument instruction_suffix?;
+dec_instruction : DEC instruction_argument instruction_suffix?;
+put_instruction : SLASH instruction_argument instruction_suffix?;
+take_instruction : BACKSLASH instruction_argument instruction_suffix?;
+goto_instruction : GOTO label_name;
+goto_if_0_instruction : GOTO0 label_name;
+goto_if_neg_instruction : GOTO_MINUS label_name;
+label_instruction : label;
