@@ -19,52 +19,50 @@ HEX_DIGIT : [a-fA-F];
 LETTER : [a-zA-Z];
 CHAR: ~[ \n\r\t0123456789];
 
-compilation_unit : instruction_with_terminal+;
+compilationUnit : instructionWithTerminal+;
 
-instruction_with_terminal : instruction (WS | EOF);
+instructionWithTerminal : instruction (WS | EOF);
 
 instruction :
-  input_instruction |
-  output_instruction |
-  set_instruction |
-  add_instruction |
-  sub_instruction |
-  inc_instruction |
-  dec_instruction |
-  put_instruction |
-  take_instruction |
-  goto_instruction |
-  goto_if_0_instruction |
-  goto_if_neg_instruction |
-  label_instruction
+  inputInstruction |
+  outputInstruction |
+  setInstruction |
+  addInstruction |
+  subInstruction |
+  incInstruction |
+  decInstruction |
+  putInstruction |
+  takeInstruction |
+  gotoInstruction |
+  gotoIf_0Instruction |
+  gotoIf_negInstruction |
+  labelInstruction
   ;
 
-unsigned_int : DIGIT+;
-signed_int : MINUS unsigned_int | unsigned_int;
-character : hex_escape | CHAR | LETTER |
+unsignedInt : DIGIT+;
+signedInt : MINUS unsignedInt | unsignedInt;
+character : hexEscape | CHAR | LETTER |
   I | O | TILDE | PLUS | MINUS | INC | DEC | BACKSLASH | SLASH | GOTO;
-hex_escape : BACKSLASH (DIGIT | HEX_DIGIT)+;
+hexEscape : BACKSLASH (DIGIT | HEX_DIGIT)+;
 
-label_name : (LETTER | HEX_DIGIT)+;
-label: ':' label_name ':';
+labelName : (LETTER | HEX_DIGIT)+;
+label: ':' labelName ':';
 
-instruction_suffix: '*';
+instructionSuffix: '*';
 
-instruction_argument : unsigned_int;
-set_integer_argument : signed_int;
-set_character_argument: character;
+instructionArgument : unsignedInt;
 
-input_instruction : I;
-output_instruction : O;
-set_instruction : TILDE set_character_argument |
-                  TILDE set_integer_argument;
-add_instruction : PLUS instruction_argument instruction_suffix?;
-sub_instruction : MINUS instruction_argument instruction_suffix?;
-inc_instruction : INC instruction_argument instruction_suffix?;
-dec_instruction : DEC instruction_argument instruction_suffix?;
-put_instruction : SLASH instruction_argument instruction_suffix?;
-take_instruction : BACKSLASH instruction_argument instruction_suffix?;
-goto_instruction : GOTO label_name;
-goto_if_0_instruction : GOTO0 label_name;
-goto_if_neg_instruction : GOTO_MINUS label_name;
-label_instruction : label;
+inputInstruction : I;
+outputInstruction : O;
+setInstruction : TILDE character |
+                  TILDE signedInt;
+addInstruction : PLUS instructionArgument instructionSuffix?;
+subInstruction : MINUS instructionArgument instructionSuffix?;
+incInstruction : INC instructionArgument instructionSuffix?;
+decInstruction : DEC instructionArgument instructionSuffix?;
+putInstruction : SLASH instructionArgument instructionSuffix?;
+takeInstruction : BACKSLASH instructionArgument instructionSuffix?;
+gotoInstruction : GOTO labelName;
+gotoIf_0Instruction : GOTO0 labelName;
+gotoIf_negInstruction : GOTO_MINUS labelName;
+labelInstruction : label;
