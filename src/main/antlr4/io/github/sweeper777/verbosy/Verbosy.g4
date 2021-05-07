@@ -9,7 +9,7 @@ PLUS : '+';
 MINUS: '-';
 INC : '^';
 DEC : 'v';
-BACKSLASH : '\\\\';
+BACKSLASH : '\\';
 SLASH : '/';
 GOTO : '>';
 
