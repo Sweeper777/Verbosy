@@ -12,7 +12,7 @@ public class Main {
         );
         CommonTokenStream tokenStream = new CommonTokenStream(lexer);
         VerbosyParser parser = new VerbosyParser(tokenStream);
-        InstructionsFactory listener = new InstructionsFactory();
+        InstructionsFactory listener = new InstructionsFactory(parser);
         ParseTreeWalker.DEFAULT.walk(listener, parser.compilation_unit());
     }
 }
