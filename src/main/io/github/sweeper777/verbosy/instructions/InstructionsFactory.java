@@ -41,6 +41,59 @@ public class InstructionsFactory extends VerbosyBaseListener {
   @Override
   public void exitOutputInstruction(OutputInstructionContext ctx) {
     parsedInstructions.add(new OutputInstruction(ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine()));
+  }
+
+  @Override
+  public void exitSetInstruction(SetInstructionContext ctx) {
+    var charParameter = ctx.character();
+    var intParameter = ctx.signedInt();
+    if (ctx.getText().length() <= 1) {
+      return;
+    }
+    if (charParameter != null) {
+      if (charParameter.hexEscape() == null) {
+        parsedInstructions.add(new SetInstruction(
+            ctx.getStart().getLine(),
+            ctx.getStart().getCharPositionInLine(),
+            new VerbosyValue(charParameter.getText().charAt(0), true)
+        ));
+      } else if (charParameter.hexEscape() != null) {
+        try {
+          String hex = charParameter.getText().substring(1);
+          int c = Integer.parseInt(hex, 16);
+          if (c > 65535) {
+            throw new NumberFormatException();
+          }
+          parsedInstructions.add(new SetInstruction(
+              ctx.getStart().getLine(),
+              ctx.getStart().getCharPositionInLine(),
+              new VerbosyValue(c, true)
+          ));
+        } catch (NumberFormatException ex) {
+          errorMessages.add(new ErrorMessage(
+              charParameter.getStart().getLine(),
+              charParameter.getStart().getCharPositionInLine(),
+              "Hex character literal out of range"
+          ));
+        }
+      }
+    } else if (intParameter != null) {
+      try {
+        int parameter = Integer.parseInt(intParameter.getText());
+        parsedInstructions.add(new SetInstruction(
+            ctx.getStart().getLine(),
+            ctx.getStart().getCharPositionInLine(),
+            new VerbosyValue(parameter, false)
+        ));
+      } catch (NumberFormatException ex) {
+        errorMessages.add(new ErrorMessage(
+            intParameter.getStart().getLine(),
+            intParameter.getStart().getCharPositionInLine(),
+            INT_OUT_OF_RANGE_MSG
+        ));
+      }
+    }
+  }
 
   }
 }
