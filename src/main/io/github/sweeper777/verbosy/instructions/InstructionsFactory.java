@@ -34,7 +34,13 @@ public class InstructionsFactory extends VerbosyBaseListener {
   }
 
   @Override
-  public void exitInstruction(InstructionContext ctx) {
+  public void exitInputInstruction(InputInstructionContext ctx) {
+    parsedInstructions.add(new InputInstruction(ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine()));
+  }
+
+  @Override
+  public void exitOutputInstruction(OutputInstructionContext ctx) {
+    parsedInstructions.add(new OutputInstruction(ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine()));
 
   }
 }
