@@ -163,5 +163,30 @@ public class InstructionsFactory extends VerbosyBaseListener {
     ));
   }
 
+  @Override
+  public void exitGotoInstruction(GotoInstructionContext ctx) {
+    parsedInstructions.add(new GotoInstruction(
+        ctx.getStart().getLine(),
+        ctx.getStart().getCharPositionInLine(),
+        ctx.labelName().getText()
+    ));
+  }
+
+  @Override
+  public void exitGotoIf_0Instruction(GotoIf_0InstructionContext ctx) {
+    parsedInstructions.add(new GotoIf0Instruction(
+        ctx.getStart().getLine(),
+        ctx.getStart().getCharPositionInLine(),
+        ctx.labelName().getText()
+    ));
+  }
+
+  @Override
+  public void exitGotoIf_negInstruction(GotoIf_negInstructionContext ctx) {
+    parsedInstructions.add(new GotoIfNegInstruction(
+        ctx.getStart().getLine(),
+        ctx.getStart().getCharPositionInLine(),
+        ctx.labelName().getText()
+    ));
   }
 }
