@@ -124,5 +124,35 @@ public class InstructionsFactory extends VerbosyBaseListener {
     }
   }
 
+  @Override
+  public void exitAddInstruction(AddInstructionContext ctx) {
+    exitParameterPointerInstruction(ctx, ctx.instructionArgument(), ctx.instructionSuffix(), AddInstruction::new);
+  }
+
+  @Override
+  public void exitSubInstruction(SubInstructionContext ctx) {
+    exitParameterPointerInstruction(ctx, ctx.instructionArgument(), ctx.instructionSuffix(), SubInstruction::new);
+  }
+
+  @Override
+  public void exitIncInstruction(IncInstructionContext ctx) {
+    exitParameterPointerInstruction(ctx, ctx.instructionArgument(), ctx.instructionSuffix(), IncInstruction::new);
+  }
+
+  @Override
+  public void exitDecInstruction(DecInstructionContext ctx) {
+    exitParameterPointerInstruction(ctx, ctx.instructionArgument(), ctx.instructionSuffix(), DecInstruction::new);
+  }
+
+  @Override
+  public void exitPutInstruction(PutInstructionContext ctx) {
+    exitParameterPointerInstruction(ctx, ctx.instructionArgument(), ctx.instructionSuffix(), PutInstruction::new);
+  }
+
+  @Override
+  public void exitTakeInstruction(TakeInstructionContext ctx) {
+    exitParameterPointerInstruction(ctx, ctx.instructionArgument(), ctx.instructionSuffix(), TakeInstruction::new);
+  }
+
   }
 }
