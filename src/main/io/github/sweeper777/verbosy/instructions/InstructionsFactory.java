@@ -154,5 +154,14 @@ public class InstructionsFactory extends VerbosyBaseListener {
     exitParameterPointerInstruction(ctx, ctx.instructionArgument(), ctx.instructionSuffix(), TakeInstruction::new);
   }
 
+  @Override
+  public void exitLabelInstruction(LabelInstructionContext ctx) {
+    parsedInstructions.add(new LabelInstruction(
+        ctx.getStart().getLine(),
+        ctx.getStart().getCharPositionInLine(),
+        ctx.label().labelName().getText()
+    ));
+  }
+
   }
 }
