@@ -6,6 +6,9 @@ import io.github.sweeper777.verbosy.VerbosyBaseListener;
 import io.github.sweeper777.verbosy.VerbosyParser;
 import io.github.sweeper777.verbosy.VerbosyParser.AddInstructionContext;
 import io.github.sweeper777.verbosy.VerbosyParser.DecInstructionContext;
+import io.github.sweeper777.verbosy.VerbosyParser.GotoIf_0InstructionContext;
+import io.github.sweeper777.verbosy.VerbosyParser.GotoIf_negInstructionContext;
+import io.github.sweeper777.verbosy.VerbosyParser.GotoInstructionContext;
 import io.github.sweeper777.verbosy.VerbosyParser.IncInstructionContext;
 import io.github.sweeper777.verbosy.VerbosyParser.InputInstructionContext;
 import io.github.sweeper777.verbosy.VerbosyParser.LabelInstructionContext;
@@ -92,6 +95,32 @@ public class InstructionsFactory extends VerbosyBaseListener {
             INT_OUT_OF_RANGE_MSG
         ));
       }
+    }
+  }
+
+  public void exitParameterPointerInstruction(
+      ParserRuleContext parentContext,
+      VerbosyParser.InstructionArgumentContext argContext,
+      VerbosyParser.InstructionSuffixContext suffixContext,
+      ParameterPointerInstructionSupplier<?> supplier) {
+    if (argContext.unsignedInt().DIGIT().isEmpty()) {
+      return;
+    }
+    try {
+      int parameter = Integer.parseInt(argContext.getText());
+      boolean pointer = suffixContext != null;
+      parsedInstructions.add(supplier.createInstruction(
+          parentContext.getStart().getLine(),
+          parentContext.getStart().getCharPositionInLine(),
+          parameter,
+          pointer
+      ));
+    } catch (NumberFormatException ex) {
+      errorMessages.add(new ErrorMessage(
+          argContext.getStart().getLine(),
+          argContext.getStart().getCharPositionInLine(),
+          INT_OUT_OF_RANGE_MSG
+      ));
     }
   }
 
