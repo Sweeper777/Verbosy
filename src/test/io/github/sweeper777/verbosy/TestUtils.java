@@ -32,4 +32,55 @@ public class TestUtils {
     instructions.addAll(factory.getParsedInstructions());
   }
 
+  public static InputInstruction input() {
+    return new InputInstruction(0, 0);
+  }
+
+  public static OutputInstruction output() {
+    return new OutputInstruction(0, 0);
+  }
+
+  public static SetInstruction set(int val, boolean isChar) {
+    return new SetInstruction(0, 0, new VerbosyValue(val, isChar));
+  }
+
+  public static AddInstruction add(int parameter, boolean isPointer) {
+    return new AddInstruction(0, 0, parameter, isPointer);
+  }
+
+  public static SubInstruction sub(int parameter, boolean isPointer) {
+    return new SubInstruction(0, 0, parameter, isPointer);
+  }
+
+  public static IncInstruction inc(int parameter, boolean isPointer) {
+    return new IncInstruction(0, 0, parameter, isPointer);
+  }
+
+  public static DecInstruction dec(int parameter, boolean isPointer) {
+    return new DecInstruction(0, 0, parameter, isPointer);
+  }
+
+  public static TakeInstruction take(int parameter, boolean isPointer) {
+    return new TakeInstruction(0, 0, parameter, isPointer);
+  }
+
+  public static PutInstruction put(int parameter, boolean isPointer) {
+    return new PutInstruction(0, 0, parameter, isPointer);
+  }
+
+  public static LabelInstruction label(String name) {
+    return new LabelInstruction(0, 0, name);
+  }
+
+  public static GotoInstruction goTo(String label) {
+    return new GotoInstruction(0, 0, label);
+  }
+
+  public static GotoIf0Instruction goToIf0(String label) {
+    return new GotoIf0Instruction(0, 0, label);
+  }
+
+  public static GotoIfNegInstruction goToIfNeg(String label) {
+    return new GotoIfNegInstruction(0, 0, label);
+  }
 }
