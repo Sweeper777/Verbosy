@@ -1,0 +1,38 @@
+package io.github.sweeper777.verbosy;
+
+import static io.github.sweeper777.verbosy.TestUtils.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+
+import io.github.sweeper777.verbosy.instructions.Instruction;
+import java.util.ArrayList;
+import java.util.List;
+import org.antlr.v4.runtime.CharStreams;
+import org.junit.Before;
+import org.junit.Test;
+
+public class SimpleParserTests {
+  private final List<ErrorMessage> errors = new ArrayList<>();
+  private final List<Instruction> instructions = new ArrayList<>();
+
+  @Before
+  public void init() {
+    errors.clear();
+    instructions.clear();
+  }
+
+  @Test
+  public void testParseInputInstruction() {
+    parseCharStream(CharStreams.fromString("i"), instructions, errors);
+    assertEquals(List.of(input()), instructions);
+    assertEquals(List.of(), errors);
+  }
+
+  @Test
+  public void testParseOutputInstruction() {
+    parseCharStream(CharStreams.fromString("o"), instructions, errors);
+    assertEquals(List.of(output()), instructions);
+    assertEquals(List.of(), errors);
+  }
+
+}
