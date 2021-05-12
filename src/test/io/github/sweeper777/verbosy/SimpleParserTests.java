@@ -88,4 +88,18 @@ public class SimpleParserTests {
     assertNotEquals(0, errors.size());
   }
 
+  @Test
+  public void testParseAddInstruction() {
+    parseCharStream(CharStreams.fromString("+1"), instructions, errors);
+    assertEquals(List.of(add(1, false)), instructions);
+    assertEquals(List.of(), errors);
+  }
+
+  @Test
+  public void testParseAddWithPointerInstruction() {
+    parseCharStream(CharStreams.fromString("+1*"), instructions, errors);
+    assertEquals(List.of(add(1, true)), instructions);
+    assertEquals(List.of(), errors);
+  }
+
 }
