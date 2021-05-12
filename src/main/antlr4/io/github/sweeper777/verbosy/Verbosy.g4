@@ -41,7 +41,7 @@ instruction :
 
 unsignedInt : DIGIT+;
 signedInt : MINUS unsignedInt | unsignedInt;
-character : hexEscape | CHAR | LETTER |
+character : hexEscape | CHAR | LETTER | HEX_DIGIT |
   I | O | TILDE | PLUS | MINUS | INC | DEC | BACKSLASH | SLASH | GOTO;
 hexEscape : BACKSLASH (DIGIT | HEX_DIGIT)+;
 
