@@ -35,4 +35,40 @@ public class SimpleParserTests {
     assertEquals(List.of(), errors);
   }
 
+  @Test
+  public void testParseSetPositiveNumberInstruction() {
+    parseCharStream(CharStreams.fromString("~1"), instructions, errors);
+    assertEquals(List.of(set(1, false)), instructions);
+    assertEquals(List.of(), errors);
+  }
+
+  @Test
+  public void testParseSetNegativeNumberInstruction() {
+    parseCharStream(CharStreams.fromString("~-1"), instructions, errors);
+    assertEquals(List.of(set(-1, false)), instructions);
+    assertEquals(List.of(), errors);
+  }
+
+
+  @Test
+  public void testParseSetCharacterInstruction() {
+    parseCharStream(CharStreams.fromString("~a"), instructions, errors);
+    assertEquals(List.of(set('a', true)), instructions);
+    assertEquals(List.of(), errors);
+  }
+
+  @Test
+  public void testParseSetInstructionCharacterInstruction() {
+    parseCharStream(CharStreams.fromString("~\\"), instructions, errors);
+    assertEquals(List.of(set('\\', true)), instructions);
+    assertEquals(List.of(), errors);
+  }
+
+  @Test
+  public void testParseSetHexEscapeInstruction() {
+    parseCharStream(CharStreams.fromString("~\\123"), instructions, errors);
+    assertEquals(List.of(set(0x123, true)), instructions);
+    assertEquals(List.of(), errors);
+  }
+
 }
