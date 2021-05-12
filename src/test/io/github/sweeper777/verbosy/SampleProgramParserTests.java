@@ -43,4 +43,30 @@ public class SampleProgramParserTests {
     ), instructions);
     assertEquals(List.of(), errors);
   }
+
+  @Test
+  public void testLongerProgramSeparatedBySpaces() throws IOException {
+    var stream = CharStreams.fromStream(Objects
+        .requireNonNull(SampleProgramParserTests.class.getResourceAsStream("/tests/reverse.vp")));
+    parseCharStream(stream, instructions, errors);
+    assertEquals(List.of(
+        set(0, false),
+        put(14, false),
+        label("a"),
+        inc(14, false),
+        input(),
+        goToIf0("b"),
+        put(14, true),
+        goTo("a"),
+        label("b"),
+        dec(14, false),
+        label("c"),
+        take(14, true),
+        output(),
+        dec(14, false),
+        goToIf0("a"),
+        goTo("c")
+    ), instructions);
+    assertEquals(List.of(), errors);
+  }
 }
