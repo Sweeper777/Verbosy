@@ -49,6 +49,11 @@ public class SimpleParserTests {
     assertEquals(List.of(), errors);
   }
 
+  @Test
+  public void testParseSetNumberOutOfRangeInstruction() {
+    parseCharStream(CharStreams.fromString("~123456789123456789"), instructions, errors);
+    assertNotEquals(0, errors.size());
+  }
 
   @Test
   public void testParseSetCharacterInstruction() {
@@ -69,6 +74,18 @@ public class SimpleParserTests {
     parseCharStream(CharStreams.fromString("~\\123"), instructions, errors);
     assertEquals(List.of(set(0x123, true)), instructions);
     assertEquals(List.of(), errors);
+  }
+
+  @Test
+  public void testParseSetInvalidHexEscapeInstruction() {
+    parseCharStream(CharStreams.fromString("~\\abcdefabcdefabcdef"), instructions, errors);
+    assertNotEquals(0, errors.size());
+  }
+
+  @Test
+  public void testParseLoneSetInstruction() {
+    parseCharStream(CharStreams.fromString("~"), instructions, errors);
+    assertNotEquals(0, errors.size());
   }
 
 }
