@@ -102,4 +102,15 @@ public class SimpleParserTests {
     assertEquals(List.of(), errors);
   }
 
+  @Test
+  public void testParseAddWithNegativeParamInstruction() {
+    parseCharStream(CharStreams.fromString("+-1"), instructions, errors);
+    assertNotEquals(0, errors.size());
+  }
+
+  @Test
+  public void testParseLoneAddInstruction() {
+    parseCharStream(CharStreams.fromString("+"), instructions, errors);
+    assertNotEquals(0, errors.size());
+  }
 }
