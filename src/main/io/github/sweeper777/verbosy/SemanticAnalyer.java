@@ -24,4 +24,19 @@ public class SemanticAnalyer {
     this.memorySize = memorySize;
   }
 
+  private void checkDuplicateLabels() {
+    for (Instruction i : instructions) {
+      if (i instanceof LabelInstruction) {
+        String labelName = ((LabelInstruction)i).getLabelName();
+        boolean isNewLabel = labels.add(labelName);
+        if (!isNewLabel) {
+          errorMessages.add(new ErrorMessage(
+              i.getLineNo(), i.getColumnNo(),
+              String.format(DUPLICATE_LABEL_MSG, labelName)
+          ));
+        }
+      }
+    }
+  }
+
 }
