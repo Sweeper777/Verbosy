@@ -21,7 +21,7 @@ CHAR: ~[ \n\r\t0123456789];
 
 compilationUnit : instructionWithTerminal+;
 
-instructionWithTerminal : instruction (WS | EOF);
+instructionWithTerminal : WS? instruction (WS | EOF);
 
 instruction :
   inputInstruction |
