@@ -39,4 +39,17 @@ public class SemanticAnalyer {
     }
   }
 
+  private void checkUnknownLabels() {
+    for (Instruction i : instructions) {
+      if (i instanceof GotoInstructionBase) {
+        String labelName = ((GotoInstructionBase)i).getLabelName();
+        if (!labels.contains(labelName)) {
+          errorMessages.add(new ErrorMessage(
+              i.getLineNo(), i.getColumnNo(),
+              String.format(UNKNOWN_LABEL_MSG, labelName)
+          ));
+        }
+      }
+    }
+  }
 }
