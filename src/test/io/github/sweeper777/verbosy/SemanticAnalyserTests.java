@@ -38,4 +38,19 @@ public class SemanticAnalyserTests {
     assertEquals(List.of(), errors);
   }
 
+  @Test
+  public void testDuplicateLabels() {
+    var errors = new ArrayList<ErrorMessage>();
+    var analyser = new SemanticAnalyer(
+        List.of(
+            label("a"),
+            label("a")
+        ),
+        errors,
+        20
+    );
+    analyser.analyseSemantics();
+    assertEquals(1, errors.size());
+  }
+
 }
