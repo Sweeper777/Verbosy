@@ -26,6 +26,12 @@ public class SemanticAnalyer {
     this.memorySize = memorySize;
   }
 
+  public void analyseSemantics() {
+    labels = new HashSet<>();
+    checkDuplicateLabels();
+    checkInstructionsValid();
+  }
+
   private void checkDuplicateLabels() {
     for (Instruction i : instructions) {
       if (i instanceof LabelInstruction) {
