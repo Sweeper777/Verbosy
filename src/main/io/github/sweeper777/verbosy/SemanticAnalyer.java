@@ -41,7 +41,7 @@ public class SemanticAnalyer {
     }
   }
 
-  private void checkUnknownLabels() {
+  private void checkInstructionsValid() {
     for (Instruction i : instructions) {
       if (i instanceof GotoInstructionBase) {
         String labelName = ((GotoInstructionBase)i).getLabelName();
