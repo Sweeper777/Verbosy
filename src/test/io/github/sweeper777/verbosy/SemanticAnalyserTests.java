@@ -53,4 +53,20 @@ public class SemanticAnalyserTests {
     assertEquals(1, errors.size());
   }
 
+  @Test
+  public void testUnknownLabel() {
+    var errors = new ArrayList<ErrorMessage>();
+    var analyser = new SemanticAnalyer(
+        List.of(
+            goTo("a"),
+            goToIf0("b"),
+            goToIfNeg("c")
+        ),
+        errors,
+        20
+    );
+    analyser.analyseSemantics();
+    assertEquals(3, errors.size());
+  }
+
 }
