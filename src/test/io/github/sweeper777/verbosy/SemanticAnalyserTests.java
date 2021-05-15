@@ -69,4 +69,20 @@ public class SemanticAnalyserTests {
     assertEquals(3, errors.size());
   }
 
+  @Test
+  public void testMemoryUnavailable() {
+    var errors = new ArrayList<ErrorMessage>();
+    var analyser = new SemanticAnalyer(
+        List.of(
+            add(20, true),
+            sub(20, false),
+            take(10, true),
+            put(10, false)
+        ),
+        errors,
+        16
+    );
+    analyser.analyseSemantics();
+    assertEquals(2, errors.size());
+  }
 }
