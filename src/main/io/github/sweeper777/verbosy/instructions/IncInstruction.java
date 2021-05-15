@@ -1,5 +1,7 @@
 package io.github.sweeper777.verbosy.instructions;
 
+import io.github.sweeper777.verbosy.CodeProvider;
+
 public class IncInstruction extends ParameterPointerInstructionBase {
 
   public IncInstruction(int lineNo, int columnNo, int parameter, boolean pointer) {
@@ -9,5 +11,10 @@ public class IncInstruction extends ParameterPointerInstructionBase {
   @Override
   public String getName() {
     return "INC";
+  }
+
+  @Override
+  public String getCode(CodeProvider provider) {
+    return provider.getIncInstruction(getParameter(), isPointer());
   }
 }

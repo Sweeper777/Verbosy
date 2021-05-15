@@ -1,5 +1,7 @@
 package io.github.sweeper777.verbosy.instructions;
 
+import io.github.sweeper777.verbosy.CodeProvider;
+
 public class LabelInstruction implements Instruction {
   private final int lineNo;
   private final int columnNo;
@@ -45,5 +47,10 @@ public class LabelInstruction implements Instruction {
   @Override
   public String toString() {
     return "LABEL " + getLabelName();
+  }
+
+  @Override
+  public String getCode(CodeProvider provider) {
+    return provider.getLabel(labelName);
   }
 }

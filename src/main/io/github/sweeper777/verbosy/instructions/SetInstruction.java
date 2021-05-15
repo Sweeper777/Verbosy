@@ -1,5 +1,6 @@
 package io.github.sweeper777.verbosy.instructions;
 
+import io.github.sweeper777.verbosy.CodeProvider;
 import io.github.sweeper777.verbosy.VerbosyValue;
 
 public class SetInstruction implements Instruction {
@@ -49,5 +50,10 @@ public class SetInstruction implements Instruction {
   @Override
   public String toString() {
     return "SET " + getParameter();
+  }
+
+  @Override
+  public String getCode(CodeProvider provider) {
+    return provider.getSetInstruction(parameter.getValue(), parameter.isChar());
   }
 }

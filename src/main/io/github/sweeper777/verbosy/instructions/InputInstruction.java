@@ -1,5 +1,7 @@
 package io.github.sweeper777.verbosy.instructions;
 
+import io.github.sweeper777.verbosy.CodeProvider;
+
 public class InputInstruction implements Instruction {
 
   private final int lineNo;
@@ -34,5 +36,10 @@ public class InputInstruction implements Instruction {
   @Override
   public String toString() {
     return "INPUT";
+  }
+
+  @Override
+  public String getCode(CodeProvider provider) {
+    return provider.getInputInstruction();
   }
 }
