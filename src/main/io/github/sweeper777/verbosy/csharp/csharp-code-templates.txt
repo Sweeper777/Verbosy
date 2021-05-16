@@ -25,3 +25,26 @@ public struct VerbosyValue {
 }
 
 
+public class Program {
+
+    private static bool TryGetParameter(int parameter, bool pointer, out int outParam) {
+        if (pointer)
+        {
+            if (memory[parameter] != null && current != null && memory[parameter].Value.value < memory.Length)
+            {
+                outParam = memory[parameter].Value.value;
+                return true;
+            }
+            else
+            {
+                outParam = 0;
+                return false;
+            }
+        }
+        else
+        {
+            outParam = parameter;
+            return true;
+        }
+    }
+
