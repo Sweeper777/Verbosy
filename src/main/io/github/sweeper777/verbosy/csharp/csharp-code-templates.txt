@@ -79,3 +79,10 @@ public class Program {
         }
     }
 
+    static VerbosyValue?[] memory = new VerbosyValue?[%d];
+    static VerbosyValue? current;
+    static int param;
+    public static void Main() {
+        unchecked
+        {
+
