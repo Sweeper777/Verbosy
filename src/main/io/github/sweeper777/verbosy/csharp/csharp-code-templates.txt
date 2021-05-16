@@ -96,14 +96,58 @@ current = VerbosyValue.FromInt(%d);
 ###setChar
 current = VerbosyValue.FromChar(%d);
 ###
+###put
+if (TryGetParameter(%d, %b, out param) && current != null) {
+    memory[param] = current;
+}
+###
+###take
+if (TryGetParameter(%d, %b, out param) && memory[param] != null) {
+    current = memory[param];
+}
+###
 ###label
 %s:;
+###
+###inc
+if (TryGetParameter(%d, %b, out param) && memory[param] != null) {
+    var newValue = new VerbosyValue();
+    newValue.value = memory[param].Value.value + 1;
+    newValue.isChar = memory[param].Value.isChar;
+    memory[param] = newValue;
+    current = memory[param];
+}
+###
+###dec
+if (TryGetParameter(%d, %b, out param) && memory[param] != null) {
+    var newValue = new VerbosyValue();
+    newValue.value = memory[param].Value.value - 1;
+    newValue.isChar = memory[param].Value.isChar;
+    memory[param] = newValue;
+    current = memory[param];
+}
 ###
 ###input
 current = GetInput();
 ###
 ###output
 Console.Write(current);
+###
+###add
+if (TryGetParameter(%d, %b, out param) && current != null && memory[param] != null) {
+    var newValue = new VerbosyValue();
+    newValue.value = current.Value.value + memory[param].Value.value;
+    newValue.isChar = current.Value.isChar;
+    current = newValue;
+}
+###
+###sub
+if (TryGetParameter(%d, %b, out param) && current != null && memory[param] != null) {
+    var newValue = new VerbosyValue();
+    newValue.value = current.Value.value - memory[param].Value.value;
+    newValue.isChar = current.Value.isChar;
+    current = newValue;
+}
 ###
 ###goto
 goto %s;
