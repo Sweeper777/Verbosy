@@ -86,3 +86,24 @@ public class Program {
         unchecked
         {
 
+###
+###footer
+}}}
+###
+###setInt
+current = VerbosyValue.FromInt(%d);
+###
+###setChar
+current = VerbosyValue.FromChar(%d);
+###
+###label
+%s:;
+###
+###input
+current = GetInput();
+###
+###output
+Console.Write(current);
+###
+###goto
+goto %s;
