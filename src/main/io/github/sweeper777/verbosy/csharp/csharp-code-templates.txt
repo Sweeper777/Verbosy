@@ -149,5 +149,15 @@ if (TryGetParameter(%d, %b, out param) && current != null && memory[param] != nu
     current = newValue;
 }
 ###
+###gotoIfNeg
+if (current != null && !current.Value.isChar && current.Value.value < 0) {
+    goto %s;
+}
+###
+###gotoIfZero
+if (current != null && current.Value.value == 0) {
+    goto %s;
+}
+###
 ###goto
 goto %s;
