@@ -1,0 +1,27 @@
+###header
+using System;
+
+public struct VerbosyValue {
+    public bool isChar;
+    public int value;
+    public static VerbosyValue FromChar(char c) {
+        VerbosyValue v = new VerbosyValue();
+        v.value = c;
+        v.isChar = true;
+        return v;
+    }
+    public static VerbosyValue FromInt(int i) {
+        VerbosyValue v = new VerbosyValue();
+        v.value = i;
+        return v;
+    }
+    public override string ToString() {
+        if (isChar) {
+            return ((char)value).ToString();
+        } else {
+            return value.ToString() + " ";
+        }
+    }
+}
+
+
