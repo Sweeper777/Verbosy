@@ -98,7 +98,7 @@ Prints "1 2 3 4 5 6 7 8 9 10 "
     
 #### Reverse
 
-Reverses the space-terminated input string.
+Reverses the 0-terminated input string.
 
     ~0 /14 :a: ^14 i >0b /14* >a :b: v14 :c: \14* o v14 >0a >c
     
