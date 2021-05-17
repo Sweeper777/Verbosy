@@ -25,5 +25,6 @@ public class CodeGenerator {
       outputFile.write(instruction.getCode(codeProvider));
     }
     outputFile.write(codeProvider.getFooter());
+    outputFile.flush();
   }
 }
