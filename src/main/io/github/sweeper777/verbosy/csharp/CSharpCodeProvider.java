@@ -33,4 +33,82 @@ public class CSharpCodeProvider implements CodeProvider {
     }
   }
 
+  @Override
+  public String getHeader() {
+    return String.format(templates.get("header"), memorySize);
+  }
+
+  @Override
+  public String getFooter() {
+    return templates.get("footer");
+  }
+
+  @Override
+  public String getInputInstruction() {
+    return templates.get("input");
+  }
+
+  @Override
+  public String getOutputInstruction() {
+    return templates.get("output");
+  }
+
+  @Override
+  public String getSetInstruction(int value, boolean isChar) {
+    if (isChar) {
+      return String.format(templates.get("setChar"), value);
+    } else {
+      return String.format(templates.get("setInt"), value);
+    }
+  }
+
+  @Override
+  public String getAddInstruction(int parameter, boolean isPointer) {
+    return String.format(templates.get("add"), parameter, isPointer);
+  }
+
+  @Override
+  public String getSubInstruction(int parameter, boolean isPointer) {
+    return String.format(templates.get("sub"), parameter, isPointer);
+  }
+
+  @Override
+  public String getIncInstruction(int parameter, boolean isPointer) {
+    return String.format(templates.get("inc"), parameter, isPointer);
+  }
+
+  @Override
+  public String getDecInstruction(int parameter, boolean isPointer) {
+    return String.format(templates.get("dec"), parameter, isPointer);
+  }
+
+  @Override
+  public String getPutInstruction(int parameter, boolean isPointer) {
+    return String.format(templates.get("put"), parameter, isPointer);
+  }
+
+  @Override
+  public String getTakeInstruction(int parameter, boolean isPointer) {
+    return String.format(templates.get("take"), parameter, isPointer);
+  }
+
+  @Override
+  public String getLabel(String name) {
+    return String.format(templates.get("label"), name);
+  }
+
+  @Override
+  public String getGoto(String label) {
+    return String.format(templates.get("goto"), label);
+  }
+
+  @Override
+  public String getGotoIf0(String label) {
+    return String.format(templates.get("gotoIfZero"), label);
+  }
+
+  @Override
+  public String getGotoIfNeg(String label) {
+    return String.format(templates.get("gotoIfNeg"), label);
+  }
 }
