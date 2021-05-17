@@ -1,8 +1,9 @@
 package io.github.sweeper777.verbosy;
 
 import io.github.sweeper777.verbosy.instructions.InstructionsFactory;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import org.antlr.v4.runtime.CharStream;
@@ -18,7 +19,7 @@ public class VerbosyCompiler {
     this.provider = provider;
   }
 
-  public void compile(CharStream stream, OutputStream output) throws IOException {
+  public void compile(CharStream stream, String outputFileName) throws IOException {
     List<ErrorMessage> errors = new ArrayList<>();
     VerbosyLexer lexer = new VerbosyLexer(stream);
     CommonTokenStream tokenStream = new CommonTokenStream(lexer);
@@ -31,11 +32,22 @@ public class VerbosyCompiler {
     var semanticAnalyser = new SemanticAnalyer(instructions, errors, memorySize);
     semanticAnalyser.analyseSemantics();
     if (errors.isEmpty()) {
-      var codeGen = new CodeGenerator(instructions, provider, output);
-      codeGen.generateCode();
+      File temp = File.createTempFile("verbosyOutput", ".cs");
+      try (var file = new FileOutputStream(temp)) {
+        var codeGen = new CodeGenerator(instructions, provider, file);
+        codeGen.generateCode();
+      }
+      Runtime runtime = Runtime.getRuntime();
+      Process p = runtime.exec("csc " + temp.getAbsolutePath() + " -warn:0 -out:" + outputFileName);
+      try {
+        p.waitFor();
+      } catch (InterruptedException ex) {
+        System.err.println("Interrupted when waiting for code to compile!");
+      } finally {
+        temp.delete();
+      }
     } else {
       errors.forEach(System.err::println);
     }
-    output.close();
   }
 }
