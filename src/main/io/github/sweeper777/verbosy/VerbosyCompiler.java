@@ -46,6 +46,9 @@ public class VerbosyCompiler {
       Process p = runtime.exec("csc " + sourceFile.getAbsolutePath() + " -warn:0 -out:" + outputFileName);
       try {
         p.waitFor();
+        if (p.exitValue() != 0) {
+          System.out.println("Something wrong happened while generating IL!");
+        }
       } catch (InterruptedException ex) {
         System.err.println("Interrupted when waiting for code to compile!");
       } finally {
