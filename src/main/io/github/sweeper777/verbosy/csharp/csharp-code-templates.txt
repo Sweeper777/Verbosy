@@ -55,6 +55,8 @@ public class Program {
             Environment.Exit(0);
         }
         char inputChar = (char)input;
+###
+###readInts
         if ((inputChar >= '0' && inputChar <= '9') || inputChar == '-')
         {
             var parsedInt = inputChar == '-' ? 0 : inputChar - '0';
@@ -73,10 +75,15 @@ public class Program {
             }
             return VerbosyValue.FromInt(parsedInt * (isNegative ? -1 : 1));
         }
-        else
+###
+###readSpaceAsZero
+        if (inputChar == ' ')
         {
-            return VerbosyValue.FromChar(inputChar);
+            return VerbosyValue.FromInt(0);
         }
+###
+###header2
+        return VerbosyValue.FromChar(inputChar);
     }
 
     static VerbosyValue?[] memory = new VerbosyValue?[%d];
