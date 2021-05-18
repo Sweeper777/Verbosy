@@ -11,9 +11,13 @@ public class CSharpCodeProvider implements CodeProvider {
 
   private final HashMap<String, String> templates = new HashMap<>();
   private final int memorySize;
+  private final boolean readSpaceAsZero;
+  private final boolean readInts;
 
-  public CSharpCodeProvider(int memorySize) throws IOException {
+  public CSharpCodeProvider(int memorySize, boolean readSpaceAsZero, boolean readInts) throws IOException {
     this.memorySize = memorySize;
+    this.readSpaceAsZero = readSpaceAsZero;
+    this.readInts = readInts;
 
     try (BufferedReader reader = new BufferedReader(new InputStreamReader(
         Objects.requireNonNull(
