@@ -90,12 +90,20 @@ public class Program {
     static VerbosyValue? current;
     static int param;
     public static void Main() {
-        unchecked
+
+        try
         {
+            unchecked
+            {
 
 ###
 ###footer
-}}}
+}}
+catch
+{
+    Environment.Exit(0);
+}
+}}
 ###
 ###setInt
 current = VerbosyValue.FromInt(%d);
