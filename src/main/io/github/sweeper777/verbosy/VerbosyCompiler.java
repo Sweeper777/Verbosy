@@ -19,7 +19,7 @@ public class VerbosyCompiler {
     this.provider = provider;
   }
 
-  public void compile(CharStream stream, String outputFileName) throws IOException {
+  public void compile(CharStream stream, String outputFileName, String outputSourceFile) throws IOException {
     List<ErrorMessage> errors = new ArrayList<>();
     VerbosyLexer lexer = new VerbosyLexer(stream);
     CommonTokenStream tokenStream = new CommonTokenStream(lexer);
@@ -32,22 +32,33 @@ public class VerbosyCompiler {
     var semanticAnalyser = new SemanticAnalyer(instructions, errors, memorySize);
     semanticAnalyser.analyseSemantics();
     if (errors.isEmpty()) {
-      File temp = File.createTempFile("verbosyOutput", ".cs");
-      try (var file = new FileOutputStream(temp)) {
+      File sourceFile;
+      if (outputSourceFile == null) {
+        sourceFile = File.createTempFile("verbosyOutput", ".cs");
+      } else {
+        sourceFile = new File(outputSourceFile);
+      }
+      try (var file = new FileOutputStream(sourceFile)) {
         var codeGen = new CodeGenerator(instructions, provider, file);
         codeGen.generateCode();
       }
       Runtime runtime = Runtime.getRuntime();
-      Process p = runtime.exec("csc " + temp.getAbsolutePath() + " -warn:0 -out:" + outputFileName);
+      Process p = runtime.exec("csc " + sourceFile.getAbsolutePath() + " -warn:0 -out:" + outputFileName);
       try {
         p.waitFor();
       } catch (InterruptedException ex) {
         System.err.println("Interrupted when waiting for code to compile!");
       } finally {
-        temp.delete();
+        if (outputSourceFile == null) {
+          sourceFile.delete();
+        }
       }
     } else {
       errors.forEach(System.err::println);
     }
+  }
+
+  public void compile(CharStream stream, String outputFileName) throws IOException {
+    compile(stream, outputFileName, null);
   }
 }
