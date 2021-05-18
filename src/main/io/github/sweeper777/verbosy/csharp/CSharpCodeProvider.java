@@ -39,7 +39,16 @@ public class CSharpCodeProvider implements CodeProvider {
 
   @Override
   public String getHeader() {
-    return String.format(templates.get("header"), memorySize);
+    StringBuilder sb = new StringBuilder();
+    sb.append(templates.get("header"));
+    if (readInts) {
+      sb.append(templates.get("readInts"));
+    }
+    if (readSpaceAsZero) {
+      sb.append(templates.get("readSpaceAsZero"));
+    }
+    sb.append(String.format(templates.get("header2"), memorySize));
+    return sb.toString();
   }
 
   @Override
