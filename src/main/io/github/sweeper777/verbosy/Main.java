@@ -7,7 +7,7 @@ import org.antlr.v4.runtime.CharStreams;
 public class Main {
 
     public static void main(String[] args) throws IOException {
-        var compiler = new VerbosyCompiler(20, new CSharpCodeProvider(20));
+        var compiler = new VerbosyCompiler(20, new CSharpCodeProvider(100, true, false));
         compiler.compile(
             CharStreams.fromString("~0 /14 :a: ^14 i >0b /14* >a :b: v14 :c: \\14* o v14 >0a >c"),
             "output.exe"
