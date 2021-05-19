@@ -125,3 +125,14 @@ public class SimpleParserTests {
     assertEquals(List.of(), errors);
   }
 
+  @Test
+  public void testParseMultiLineComments() {
+    parseCharStream(CharStreams.fromString("/1 /* +1 */ \\1"), instructions, errors);
+    assertEquals(List.of(
+        put(1, false),
+        take(1, false)
+    ), instructions);
+    assertEquals(List.of(), errors);
+  }
+
+
