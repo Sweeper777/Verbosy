@@ -1,5 +1,7 @@
 grammar Verbosy;
 
+COMMENT : '/*' (COMMENT|.)*? '*/' -> skip;
+LINE_COMMENT : '//' ~[\r\n]* -> skip;
 GOTO0 : '>0';
 GOTO_MINUS : '>-';
 I : 'i';
