@@ -69,4 +69,15 @@ public class SampleProgramParserTests {
     ), instructions);
     assertEquals(List.of(), errors);
   }
+
+  @Test
+  public void testComments() throws IOException {
+    var stream = CharStreams.fromStream(Objects
+        .requireNonNull(SampleProgramParserTests.class.getResourceAsStream("/tests/additionwithcomments.vp")));
+    parseCharStream(stream, instructions, errors);
+    assertEquals(List.of(
+        input(), put(0, false), input(), add(0, false), output()
+    ), instructions);
+    assertEquals(List.of(), errors);
+  }
 }
