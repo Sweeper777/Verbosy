@@ -113,4 +113,15 @@ public class SimpleParserTests {
     parseCharStream(CharStreams.fromString("+"), instructions, errors);
     assertNotEquals(0, errors.size());
   }
-}
+
+  @Test
+  public void testParseSingleLineComments() {
+    parseCharStream(CharStreams.fromString("+1* //1 hello +1"
+        + "\n-1"), instructions, errors);
+    assertEquals(List.of(
+        add(1, true),
+        sub(1, false)
+    ), instructions);
+    assertEquals(List.of(), errors);
+  }
+
