@@ -21,7 +21,7 @@ public class CSharpCodeProvider implements CodeProvider {
 
     try (BufferedReader reader = new BufferedReader(new InputStreamReader(
         Objects.requireNonNull(
-            CSharpCodeProvider.class.getResourceAsStream("csharp-code-templates.txt"))
+            CSharpCodeProvider.class.getResourceAsStream("/csharp-code-templates.txt"))
     ))) {
       String line = null;
       while ((line = reader.readLine()) != null) {
