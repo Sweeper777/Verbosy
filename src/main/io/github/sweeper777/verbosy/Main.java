@@ -1,6 +1,8 @@
 package io.github.sweeper777.verbosy;
 
+import io.github.sweeper777.verbosy.csharp.CSharpCodeProvider;
 import java.io.IOException;
+import org.antlr.v4.runtime.CharStreams;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
@@ -26,16 +28,34 @@ public class Main {
                 throw new ParseException("No Input File Specified");
             }
 
-        } catch (ParseException e) {
-            System.err.println("Exception occurred while parsing command line arguments.");
+        } catch (Exception e) {
             System.err.println(e.getMessage());
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
-    private static void compileWithArguments(CommandLine cl) throws IOException {
-        
+    private static void compileWithArguments(CommandLine cl) throws IOException, ParseException {
+        String inputFilePath = cl.getArgs()[0];
+        int memorySize = 1024;
+        if (cl.hasOption('s')) {
+            try {
+                memorySize = Integer.parseUnsignedInt(cl.getOptionValue('s'));
+            } catch (NumberFormatException ex) {
+                throw new ParseException("Invalid number specified for -s.");
+            }
+        }
+        var codeProvider = new CSharpCodeProvider(
+            memorySize, cl.hasOption('z'), cl.hasOption('i')
+        );
+        var compiler = new VerbosyCompiler(memorySize, codeProvider);
+        String outputFile = "a.out";
+        if (cl.hasOption('o')) {
+            outputFile = cl.getOptionValue('o');
+        }
+        String outputSourceFile = null;
+        if (cl.hasOption('S')) {
+            outputSourceFile = cl.getOptionValue('S');
+        }
+        compiler.compile(CharStreams.fromFileName(inputFilePath), outputFile, outputSourceFile);
     }
 
     private static Options getCommandLineOptions() {
