@@ -1,20 +1,41 @@
 package io.github.sweeper777.verbosy;
 
-import io.github.sweeper777.verbosy.csharp.CSharpCodeProvider;
 import java.io.IOException;
-import org.antlr.v4.runtime.CharStreams;
+import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.CommandLineParser;
+import org.apache.commons.cli.DefaultParser;
+import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
+import org.apache.commons.cli.ParseException;
 
 public class Main {
 
-    public static void main(String[] args) throws IOException {
-        var compiler = new VerbosyCompiler(20, new CSharpCodeProvider(100, true, false));
-        compiler.compile(
-            CharStreams.fromString("~0 /14 :a: ^14 i >0b /14* >a :b: v14 :c: \\14* o v14 >0a >c"),
-            "output.exe",
-            "source.cs"
-        );
+    public static void main(String[] args) {
+        CommandLineParser parser = new DefaultParser();
+        try {
+
+            Options cliOptions = getCommandLineOptions();
+            CommandLine cl = parser.parse(cliOptions, args, true);
+            if (cl.hasOption('h')) {
+                HelpFormatter formatter = new HelpFormatter();
+                formatter.printHelp("verbosy", cliOptions, true);
+            } else if (cl.getArgs().length > 0){
+                compileWithArguments(cl);
+            } else {
+                throw new ParseException("No Input File Specified");
+            }
+
+        } catch (ParseException e) {
+            System.err.println("Exception occurred while parsing command line arguments.");
+            System.err.println(e.getMessage());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void compileWithArguments(CommandLine cl) throws IOException {
+        
     }
 
     private static Options getCommandLineOptions() {
@@ -60,7 +81,8 @@ public class Main {
             .addOption(spaceAsZero)
             .addOption(readInts)
             .addOption(output)
-            .addOption(help);
+            .addOption(help)
+            .addOption(outputSource);
         return options;
     }
 }
