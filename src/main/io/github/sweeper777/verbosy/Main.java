@@ -55,5 +55,12 @@ public class Main {
             .desc("Show help, ignores all other options")
             .build();
 
+        Options options = new Options();
+        options.addOption(memorySize)
+            .addOption(spaceAsZero)
+            .addOption(readInts)
+            .addOption(output)
+            .addOption(help);
+        return options;
     }
 }
