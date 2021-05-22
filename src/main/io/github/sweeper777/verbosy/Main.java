@@ -27,9 +27,10 @@ public class Main {
             } else {
                 throw new ParseException("No Input File Specified");
             }
-
-        } catch (Exception e) {
+        } catch (ParseException e) {
             System.err.println(e.getMessage());
+        } catch (IOException e) {
+            System.err.println("IO exception: " + e.getMessage());
         }
     }
 
