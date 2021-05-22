@@ -3,6 +3,8 @@ package io.github.sweeper777.verbosy;
 import io.github.sweeper777.verbosy.csharp.CSharpCodeProvider;
 import java.io.IOException;
 import org.antlr.v4.runtime.CharStreams;
+import org.apache.commons.cli.Option;
+import org.apache.commons.cli.Options;
 
 public class Main {
 
@@ -13,5 +15,16 @@ public class Main {
             "output.exe",
             "source.cs"
         );
+    }
+
+    private static Options getCommandLineOptions() {
+        Option memorySize = Option.builder("s")
+            .argName("size")
+            .hasArg()
+            .desc("number of elements in the memory array, default to 1024")
+            .longOpt("memory-size")
+            .type(Integer.class)
+            .build();
+
     }
 }
