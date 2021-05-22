@@ -26,5 +26,34 @@ public class Main {
             .type(Integer.class)
             .build();
 
+        Option spaceAsZero = Option.builder("z")
+            .longOpt("space-as-zero")
+            .desc("reads spaces in the input as 0s. Makes reading words easier!")
+            .build();
+
+        Option readInts = Option.builder("i")
+            .longOpt("read-ints")
+            .desc("parses integers on the input stream automatically")
+            .build();
+
+        Option output = Option.builder("o")
+            .longOpt("output")
+            .desc("output file path")
+            .hasArg()
+            .argName("output-file")
+            .build();
+
+        Option outputSource = Option.builder("S")
+            .longOpt("output")
+            .desc("file path for output C# source file")
+            .hasArg()
+            .argName("output-source-file")
+            .build();
+
+        Option help = Option.builder("h")
+            .longOpt("help")
+            .desc("Show help, ignores all other options")
+            .build();
+
     }
 }
