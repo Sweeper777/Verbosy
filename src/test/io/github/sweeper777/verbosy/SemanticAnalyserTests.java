@@ -4,6 +4,7 @@ import static io.github.sweeper777.verbosy.TestUtils.*;
 import static org.junit.Assert.assertEquals;
 
 import io.github.sweeper777.verbosy.compiler.CompilerOutput;
+import io.github.sweeper777.verbosy.compiler.CompilerOutput.Type;
 import io.github.sweeper777.verbosy.compiler.SemanticAnalyer;
 import java.util.ArrayList;
 import java.util.List;
@@ -86,5 +87,38 @@ public class SemanticAnalyserTests {
         false);
     analyser.analyseSemantics();
     assertEquals(2, errors.size());
+  }
+
+  @Test
+  public void testUnusedLabelWarning() {
+    var errors = new ArrayList<CompilerOutput>();
+    var analyser = new SemanticAnalyer(
+        List.of(
+            label("hello")
+        ),
+        errors,
+        16,
+        true);
+    analyser.analyseSemantics();
+    assertEquals(1, errors.size());
+    assertEquals(Type.WARNING, errors.get(0).getType());
+  }
+
+  @Test
+  public void testMultipleUnusedLabelWarning() {
+    var errors = new ArrayList<CompilerOutput>();
+    var analyser = new SemanticAnalyer(
+        List.of(
+            label("hello"),
+            label("world"),
+            label("bar"),
+            label("baz"),
+            label("foo")
+        ),
+        errors,
+        16,
+        true);
+    analyser.analyseSemantics();
+    assertEquals(5, errors.size());
   }
 }
