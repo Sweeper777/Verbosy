@@ -1,5 +1,8 @@
 package io.github.sweeper777.verbosy;
 
+import io.github.sweeper777.verbosy.compiler.ErrorMessage;
+import io.github.sweeper777.verbosy.compiler.ListErrorListener;
+import io.github.sweeper777.verbosy.compiler.VerbosyValue;
 import io.github.sweeper777.verbosy.instructions.AddInstruction;
 import io.github.sweeper777.verbosy.instructions.DecInstruction;
 import io.github.sweeper777.verbosy.instructions.GotoIf0Instruction;

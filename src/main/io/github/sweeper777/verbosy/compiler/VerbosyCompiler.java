@@ -1,5 +1,7 @@
-package io.github.sweeper777.verbosy;
+package io.github.sweeper777.verbosy.compiler;
 
+import io.github.sweeper777.verbosy.VerbosyLexer;
+import io.github.sweeper777.verbosy.VerbosyParser;
 import io.github.sweeper777.verbosy.instructions.InstructionsFactory;
 import java.io.File;
 import java.io.FileOutputStream;

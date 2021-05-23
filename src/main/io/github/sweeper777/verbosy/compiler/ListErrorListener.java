@@ -1,4 +1,4 @@
-package io.github.sweeper777.verbosy;
+package io.github.sweeper777.verbosy.compiler;
 
 import java.util.BitSet;
 import java.util.List;

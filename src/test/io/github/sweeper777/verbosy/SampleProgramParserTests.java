@@ -3,6 +3,7 @@ package io.github.sweeper777.verbosy;
 import static io.github.sweeper777.verbosy.TestUtils.*;
 import static org.junit.Assert.assertEquals;
 
+import io.github.sweeper777.verbosy.compiler.ErrorMessage;
 import io.github.sweeper777.verbosy.instructions.Instruction;
 import java.io.IOException;
 import java.util.ArrayList;

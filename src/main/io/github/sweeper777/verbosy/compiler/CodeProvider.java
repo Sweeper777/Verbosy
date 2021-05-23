@@ -1,4 +1,4 @@
-package io.github.sweeper777.verbosy;
+package io.github.sweeper777.verbosy.compiler;
 
 public interface CodeProvider {
   String getHeader();

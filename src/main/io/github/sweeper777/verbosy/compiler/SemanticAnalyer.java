@@ -1,4 +1,4 @@
-package io.github.sweeper777.verbosy;
+package io.github.sweeper777.verbosy.compiler;
 
 import io.github.sweeper777.verbosy.instructions.GotoInstructionBase;
 import io.github.sweeper777.verbosy.instructions.Instruction;

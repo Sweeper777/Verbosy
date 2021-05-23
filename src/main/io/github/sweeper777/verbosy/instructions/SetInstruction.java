@@ -1,7 +1,7 @@
 package io.github.sweeper777.verbosy.instructions;
 
-import io.github.sweeper777.verbosy.CodeProvider;
-import io.github.sweeper777.verbosy.VerbosyValue;
+import io.github.sweeper777.verbosy.compiler.CodeProvider;
+import io.github.sweeper777.verbosy.compiler.VerbosyValue;
 
 public class SetInstruction implements Instruction {
 

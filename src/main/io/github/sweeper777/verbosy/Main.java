@@ -1,5 +1,6 @@
 package io.github.sweeper777.verbosy;
 
+import io.github.sweeper777.verbosy.compiler.VerbosyCompiler;
 import io.github.sweeper777.verbosy.csharp.CSharpCodeProvider;
 import java.io.IOException;
 import org.antlr.v4.runtime.CharStreams;

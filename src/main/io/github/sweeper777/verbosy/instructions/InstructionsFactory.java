@@ -3,10 +3,10 @@ package io.github.sweeper777.verbosy.instructions;
 
 import static io.github.sweeper777.verbosy.VerbosyParser.*;
 
-import io.github.sweeper777.verbosy.ErrorMessage;
+import io.github.sweeper777.verbosy.compiler.ErrorMessage;
 import io.github.sweeper777.verbosy.VerbosyBaseListener;
 import io.github.sweeper777.verbosy.VerbosyParser;
-import io.github.sweeper777.verbosy.VerbosyValue;
+import io.github.sweeper777.verbosy.compiler.VerbosyValue;
 import java.util.ArrayList;
 import java.util.List;
 import org.antlr.v4.runtime.ParserRuleContext;

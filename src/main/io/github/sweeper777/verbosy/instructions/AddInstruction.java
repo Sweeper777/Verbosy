@@ -1,6 +1,6 @@
 package io.github.sweeper777.verbosy.instructions;
 
-import io.github.sweeper777.verbosy.CodeProvider;
+import io.github.sweeper777.verbosy.compiler.CodeProvider;
 
 public class AddInstruction extends ParameterPointerInstructionBase {
 
