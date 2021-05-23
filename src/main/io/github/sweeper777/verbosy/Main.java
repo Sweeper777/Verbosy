@@ -48,7 +48,7 @@ public class Main {
         var codeProvider = new CSharpCodeProvider(
             memorySize, cl.hasOption('z'), cl.hasOption('i')
         );
-        var compiler = new VerbosyCompiler(memorySize, codeProvider);
+        var compiler = new VerbosyCompiler(memorySize, codeProvider, true);
         String outputFile = "a.out";
         if (cl.hasOption('o')) {
             outputFile = cl.getOptionValue('o');

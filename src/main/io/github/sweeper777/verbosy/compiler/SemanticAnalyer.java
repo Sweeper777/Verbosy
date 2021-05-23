@@ -13,6 +13,7 @@ public class SemanticAnalyer {
   private final List<Instruction> instructions;
   private final List<CompilerOutput> compilerOutputs;
   private final int memorySize;
+  private final boolean generateWarnings;
   private Set<String> labels;
 
   private static final String DUPLICATE_LABEL_MSG = "Duplicate label '%s'";
@@ -21,10 +22,11 @@ public class SemanticAnalyer {
 
   public SemanticAnalyer(
       List<Instruction> instructions,
-      List<CompilerOutput> compilerOutputs, int memorySize) {
+      List<CompilerOutput> compilerOutputs, int memorySize, boolean generateWarnings) {
     this.instructions = instructions;
     this.compilerOutputs = compilerOutputs;
     this.memorySize = memorySize;
+    this.generateWarnings = generateWarnings;
   }
 
   public void analyseSemantics() {

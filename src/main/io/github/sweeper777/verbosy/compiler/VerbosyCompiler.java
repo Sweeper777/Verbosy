@@ -15,10 +15,12 @@ import org.antlr.v4.runtime.tree.ParseTreeWalker;
 public class VerbosyCompiler {
   private final int memorySize;
   private final CodeProvider provider;
+  private final boolean generateWarnings;
 
-  public VerbosyCompiler(int memorySize, CodeProvider provider) {
+  public VerbosyCompiler(int memorySize, CodeProvider provider, boolean generateWarnings) {
     this.memorySize = memorySize;
     this.provider = provider;
+    this.generateWarnings = generateWarnings;
   }
 
   public void compile(CharStream stream, String outputFileName, String outputSourceFile) throws IOException {
@@ -31,7 +33,7 @@ public class VerbosyCompiler {
     InstructionsFactory factory = new InstructionsFactory(errors);
     ParseTreeWalker.DEFAULT.walk(factory, parser.compilationUnit());
     var instructions = factory.getParsedInstructions();
-    var semanticAnalyser = new SemanticAnalyer(instructions, errors, memorySize);
+    var semanticAnalyser = new SemanticAnalyer(instructions, errors, memorySize, generateWarnings);
     semanticAnalyser.analyseSemantics();
     if (errors.isEmpty()) {
       File sourceFile;

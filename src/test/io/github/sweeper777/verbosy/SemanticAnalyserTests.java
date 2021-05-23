@@ -34,8 +34,8 @@ public class SemanticAnalyserTests {
             goTo("c")
         ),
         errors,
-        20
-    );
+        20,
+        false);
     analyser.analyseSemantics();
     assertEquals(List.of(), errors);
   }
@@ -49,8 +49,8 @@ public class SemanticAnalyserTests {
             label("a")
         ),
         errors,
-        20
-    );
+        20,
+        false);
     analyser.analyseSemantics();
     assertEquals(1, errors.size());
   }
@@ -65,8 +65,8 @@ public class SemanticAnalyserTests {
             goToIfNeg("c")
         ),
         errors,
-        20
-    );
+        20,
+        false);
     analyser.analyseSemantics();
     assertEquals(3, errors.size());
   }
@@ -82,8 +82,8 @@ public class SemanticAnalyserTests {
             put(10, false)
         ),
         errors,
-        16
-    );
+        16,
+        false);
     analyser.analyseSemantics();
     assertEquals(2, errors.size());
   }
