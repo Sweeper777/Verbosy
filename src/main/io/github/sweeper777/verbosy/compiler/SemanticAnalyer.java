@@ -19,6 +19,7 @@ public class SemanticAnalyer {
   private static final String DUPLICATE_LABEL_MSG = "Duplicate label '%s'";
   private static final String UNKNOWN_LABEL_MSG = "Unknown label '%s'";
   private static final String MEMORY_UNAVAILABLE_MSG = "Memory position %d is not available. Valid range: %d-%d";
+  private static final String UNUSED_LABEL_MSG = "Unused label: %s";
 
   public SemanticAnalyer(
       List<Instruction> instructions,
@@ -51,6 +52,9 @@ public class SemanticAnalyer {
   }
 
   private void checkInstructionsValid() {
+    var usedLabels = new HashSet<String>();
+    var allLabels = new HashSet<LabelInstruction>();
+
     for (Instruction i : instructions) {
       if (i instanceof GotoInstructionBase) {
         String labelName = ((GotoInstructionBase)i).getLabelName();
@@ -59,7 +63,13 @@ public class SemanticAnalyer {
               i.getLineNo(), i.getColumnNo(),
               String.format(UNKNOWN_LABEL_MSG, labelName),
               Type.ERROR));
+        } else {
+          usedLabels.add(labelName);
         }
+      }
+
+      if (generateWarnings && i instanceof LabelInstruction) {
+        allLabels.add((LabelInstruction)i);
       }
 
       if (i instanceof ParameterPointerInstructionBase) {
@@ -70,6 +80,19 @@ public class SemanticAnalyer {
               String.format(MEMORY_UNAVAILABLE_MSG, parameter, 0, memorySize),
               Type.ERROR));
         }
+      }
+    }
+
+    if (generateWarnings) {
+      var unusedLabels = new HashSet<>(allLabels);
+      unusedLabels.removeIf(x -> usedLabels.contains(x.getLabelName()));
+      for (var label : unusedLabels) {
+        compilerOutputs.add(new CompilerOutput(
+            label.getLineNo(),
+            label.getColumnNo(),
+            UNUSED_LABEL_MSG,
+            Type.WARNING
+        ));
       }
     }
   }
