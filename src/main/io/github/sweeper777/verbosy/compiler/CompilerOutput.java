@@ -54,4 +54,20 @@ public final class CompilerOutput {
         type == Type.ERROR ? "error" : "warning",
         message);
   }
+
+  public int getLineNo() {
+    return lineNo;
+  }
+
+  public int getColumnNo() {
+    return columnNo;
+  }
+
+  public String getMessage() {
+    return message;
+  }
+
+  public Type getType() {
+    return type;
+  }
 }
