@@ -22,7 +22,7 @@ public class VerbosyCompiler {
   }
 
   public void compile(CharStream stream, String outputFileName, String outputSourceFile) throws IOException {
-    List<ErrorMessage> errors = new ArrayList<>();
+    List<CompilerOutput> errors = new ArrayList<>();
     VerbosyLexer lexer = new VerbosyLexer(stream);
     CommonTokenStream tokenStream = new CommonTokenStream(lexer);
     VerbosyParser parser = new VerbosyParser(tokenStream);

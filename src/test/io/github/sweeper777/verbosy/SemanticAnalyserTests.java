@@ -3,7 +3,7 @@ package io.github.sweeper777.verbosy;
 import static io.github.sweeper777.verbosy.TestUtils.*;
 import static org.junit.Assert.assertEquals;
 
-import io.github.sweeper777.verbosy.compiler.ErrorMessage;
+import io.github.sweeper777.verbosy.compiler.CompilerOutput;
 import io.github.sweeper777.verbosy.compiler.SemanticAnalyer;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +13,7 @@ public class SemanticAnalyserTests {
 
   @Test
   public void testSemanticallyCorrectProgram() {
-    var errors = new ArrayList<ErrorMessage>();
+    var errors = new ArrayList<CompilerOutput>();
     var analyser = new SemanticAnalyer(
         List.of(
             set(0, false),
@@ -42,7 +42,7 @@ public class SemanticAnalyserTests {
 
   @Test
   public void testDuplicateLabels() {
-    var errors = new ArrayList<ErrorMessage>();
+    var errors = new ArrayList<CompilerOutput>();
     var analyser = new SemanticAnalyer(
         List.of(
             label("a"),
@@ -57,7 +57,7 @@ public class SemanticAnalyserTests {
 
   @Test
   public void testUnknownLabel() {
-    var errors = new ArrayList<ErrorMessage>();
+    var errors = new ArrayList<CompilerOutput>();
     var analyser = new SemanticAnalyer(
         List.of(
             goTo("a"),
@@ -73,7 +73,7 @@ public class SemanticAnalyserTests {
 
   @Test
   public void testMemoryUnavailable() {
-    var errors = new ArrayList<ErrorMessage>();
+    var errors = new ArrayList<CompilerOutput>();
     var analyser = new SemanticAnalyer(
         List.of(
             add(20, true),

@@ -11,16 +11,16 @@ import org.antlr.v4.runtime.dfa.DFA;
 
 public class ListErrorListener implements ANTLRErrorListener {
 
-  private final List<ErrorMessage> errorMessageList;
+  private final List<CompilerOutput> compilerOutputList;
 
-  public ListErrorListener(List<ErrorMessage> errorMessageList) {
-    this.errorMessageList = errorMessageList;
+  public ListErrorListener(List<CompilerOutput> compilerOutputList) {
+    this.compilerOutputList = compilerOutputList;
   }
 
   @Override
   public void syntaxError(Recognizer<?, ?> recognizer, Object o, int i, int i1, String s,
       RecognitionException e) {
-    errorMessageList.add(new ErrorMessage(i, i1, s));
+    compilerOutputList.add(new CompilerOutput(i, i1, s));
   }
 
   @Override

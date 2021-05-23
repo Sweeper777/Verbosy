@@ -1,11 +1,11 @@
 package io.github.sweeper777.verbosy.compiler;
 
-public final class ErrorMessage {
+public final class CompilerOutput {
   private final int lineNo;
   private final int columnNo;
   private final String message;
 
-  public ErrorMessage(int lineNo, int columnNo, String message) {
+  public CompilerOutput(int lineNo, int columnNo, String message) {
     this.lineNo = lineNo;
     this.columnNo = columnNo;
     this.message = message;
@@ -20,7 +20,7 @@ public final class ErrorMessage {
       return false;
     }
 
-    ErrorMessage that = (ErrorMessage) o;
+    CompilerOutput that = (CompilerOutput) o;
 
     if (lineNo != that.lineNo) {
       return false;

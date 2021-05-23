@@ -4,7 +4,7 @@ import static io.github.sweeper777.verbosy.TestUtils.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
-import io.github.sweeper777.verbosy.compiler.ErrorMessage;
+import io.github.sweeper777.verbosy.compiler.CompilerOutput;
 import io.github.sweeper777.verbosy.instructions.Instruction;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +13,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class SimpleParserTests {
-  private final List<ErrorMessage> errors = new ArrayList<>();
+  private final List<CompilerOutput> errors = new ArrayList<>();
   private final List<Instruction> instructions = new ArrayList<>();
 
   @Before

@@ -10,7 +10,7 @@ import java.util.Set;
 
 public class SemanticAnalyer {
   private final List<Instruction> instructions;
-  private final List<ErrorMessage> errorMessages;
+  private final List<CompilerOutput> compilerOutputs;
   private final int memorySize;
   private Set<String> labels;
 
@@ -20,9 +20,9 @@ public class SemanticAnalyer {
 
   public SemanticAnalyer(
       List<Instruction> instructions,
-      List<ErrorMessage> errorMessages, int memorySize) {
+      List<CompilerOutput> compilerOutputs, int memorySize) {
     this.instructions = instructions;
-    this.errorMessages = errorMessages;
+    this.compilerOutputs = compilerOutputs;
     this.memorySize = memorySize;
   }
 
@@ -38,7 +38,7 @@ public class SemanticAnalyer {
         String labelName = ((LabelInstruction)i).getLabelName();
         boolean isNewLabel = labels.add(labelName);
         if (!isNewLabel) {
-          errorMessages.add(new ErrorMessage(
+          compilerOutputs.add(new CompilerOutput(
               i.getLineNo(), i.getColumnNo(),
               String.format(DUPLICATE_LABEL_MSG, labelName)
           ));
@@ -52,7 +52,7 @@ public class SemanticAnalyer {
       if (i instanceof GotoInstructionBase) {
         String labelName = ((GotoInstructionBase)i).getLabelName();
         if (!labels.contains(labelName)) {
-          errorMessages.add(new ErrorMessage(
+          compilerOutputs.add(new CompilerOutput(
               i.getLineNo(), i.getColumnNo(),
               String.format(UNKNOWN_LABEL_MSG, labelName)
           ));
@@ -62,7 +62,7 @@ public class SemanticAnalyer {
       if (i instanceof ParameterPointerInstructionBase) {
         var parameter = ((ParameterPointerInstructionBase)i).getParameter();
         if (parameter < 0 || parameter >= memorySize) {
-          errorMessages.add(new ErrorMessage(
+          compilerOutputs.add(new CompilerOutput(
               i.getLineNo(), i.getColumnNo(),
               String.format(MEMORY_UNAVAILABLE_MSG, parameter, 0, memorySize)
           ));

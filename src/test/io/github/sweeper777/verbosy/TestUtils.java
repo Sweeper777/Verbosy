@@ -1,6 +1,6 @@
 package io.github.sweeper777.verbosy;
 
-import io.github.sweeper777.verbosy.compiler.ErrorMessage;
+import io.github.sweeper777.verbosy.compiler.CompilerOutput;
 import io.github.sweeper777.verbosy.compiler.ListErrorListener;
 import io.github.sweeper777.verbosy.compiler.VerbosyValue;
 import io.github.sweeper777.verbosy.instructions.AddInstruction;
@@ -24,7 +24,7 @@ import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
 public class TestUtils {
-  public static void parseCharStream(CharStream charStream, List<Instruction> instructions, List<ErrorMessage> errors) {
+  public static void parseCharStream(CharStream charStream, List<Instruction> instructions, List<CompilerOutput> errors) {
     VerbosyLexer lexer = new VerbosyLexer(charStream);
     CommonTokenStream tokenStream = new CommonTokenStream(lexer);
     VerbosyParser parser = new VerbosyParser(tokenStream);
