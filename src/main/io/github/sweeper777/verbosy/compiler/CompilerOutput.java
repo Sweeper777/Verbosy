@@ -1,14 +1,21 @@
 package io.github.sweeper777.verbosy.compiler;
 
 public final class CompilerOutput {
+  public enum Type {
+    ERROR, WARNING
+  }
+
   private final int lineNo;
   private final int columnNo;
   private final String message;
+  private final Type type;
 
-  public CompilerOutput(int lineNo, int columnNo, String message) {
+  public CompilerOutput(int lineNo, int columnNo, String message,
+      Type type) {
     this.lineNo = lineNo;
     this.columnNo = columnNo;
     this.message = message;
+    this.type = type;
   }
 
   @Override
@@ -41,6 +48,10 @@ public final class CompilerOutput {
 
   @Override
   public String toString() {
-    return String.format("(%d:%d) %s", lineNo, columnNo, message);
+    return String.format("(%d:%d) %s: %s",
+        lineNo,
+        columnNo,
+        type == Type.ERROR ? "error" : "warning",
+        message);
   }
 }

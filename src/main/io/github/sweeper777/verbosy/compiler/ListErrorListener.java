@@ -1,5 +1,6 @@
 package io.github.sweeper777.verbosy.compiler;
 
+import io.github.sweeper777.verbosy.compiler.CompilerOutput.Type;
 import java.util.BitSet;
 import java.util.List;
 import org.antlr.v4.runtime.ANTLRErrorListener;
@@ -20,7 +21,7 @@ public class ListErrorListener implements ANTLRErrorListener {
   @Override
   public void syntaxError(Recognizer<?, ?> recognizer, Object o, int i, int i1, String s,
       RecognitionException e) {
-    compilerOutputList.add(new CompilerOutput(i, i1, s));
+    compilerOutputList.add(new CompilerOutput(i, i1, s, Type.ERROR));
   }
 
   @Override

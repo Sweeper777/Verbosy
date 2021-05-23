@@ -1,5 +1,6 @@
 package io.github.sweeper777.verbosy.compiler;
 
+import io.github.sweeper777.verbosy.compiler.CompilerOutput.Type;
 import io.github.sweeper777.verbosy.instructions.GotoInstructionBase;
 import io.github.sweeper777.verbosy.instructions.Instruction;
 import io.github.sweeper777.verbosy.instructions.LabelInstruction;
@@ -40,8 +41,8 @@ public class SemanticAnalyer {
         if (!isNewLabel) {
           compilerOutputs.add(new CompilerOutput(
               i.getLineNo(), i.getColumnNo(),
-              String.format(DUPLICATE_LABEL_MSG, labelName)
-          ));
+              String.format(DUPLICATE_LABEL_MSG, labelName),
+              Type.ERROR));
         }
       }
     }
@@ -54,8 +55,8 @@ public class SemanticAnalyer {
         if (!labels.contains(labelName)) {
           compilerOutputs.add(new CompilerOutput(
               i.getLineNo(), i.getColumnNo(),
-              String.format(UNKNOWN_LABEL_MSG, labelName)
-          ));
+              String.format(UNKNOWN_LABEL_MSG, labelName),
+              Type.ERROR));
         }
       }
 
@@ -64,8 +65,8 @@ public class SemanticAnalyer {
         if (parameter < 0 || parameter >= memorySize) {
           compilerOutputs.add(new CompilerOutput(
               i.getLineNo(), i.getColumnNo(),
-              String.format(MEMORY_UNAVAILABLE_MSG, parameter, 0, memorySize)
-          ));
+              String.format(MEMORY_UNAVAILABLE_MSG, parameter, 0, memorySize),
+              Type.ERROR));
         }
       }
     }

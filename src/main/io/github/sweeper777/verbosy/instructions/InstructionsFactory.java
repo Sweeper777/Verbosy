@@ -6,6 +6,7 @@ import static io.github.sweeper777.verbosy.VerbosyParser.*;
 import io.github.sweeper777.verbosy.compiler.CompilerOutput;
 import io.github.sweeper777.verbosy.VerbosyBaseListener;
 import io.github.sweeper777.verbosy.VerbosyParser;
+import io.github.sweeper777.verbosy.compiler.CompilerOutput.Type;
 import io.github.sweeper777.verbosy.compiler.VerbosyValue;
 import java.util.ArrayList;
 import java.util.List;
@@ -66,8 +67,8 @@ public class InstructionsFactory extends VerbosyBaseListener {
           compilerOutputs.add(new CompilerOutput(
               charParameter.getStart().getLine(),
               charParameter.getStart().getCharPositionInLine(),
-              String.format(HEX_CHARACTER_LITERAL_OUT_OF_RANGE_MSG, charParameter.getText())
-          ));
+              String.format(HEX_CHARACTER_LITERAL_OUT_OF_RANGE_MSG, charParameter.getText()),
+              Type.ERROR));
         }
       }
     } else if (intParameter != null) {
@@ -82,8 +83,8 @@ public class InstructionsFactory extends VerbosyBaseListener {
         compilerOutputs.add(new CompilerOutput(
             intParameter.getStart().getLine(),
             intParameter.getStart().getCharPositionInLine(),
-            String.format(INT_OUT_OF_RANGE_MSG, intParameter.getText())
-        ));
+            String.format(INT_OUT_OF_RANGE_MSG, intParameter.getText()),
+            Type.ERROR));
       }
     }
   }
@@ -109,8 +110,8 @@ public class InstructionsFactory extends VerbosyBaseListener {
       compilerOutputs.add(new CompilerOutput(
           argContext.getStart().getLine(),
           argContext.getStart().getCharPositionInLine(),
-          String.format(INT_OUT_OF_RANGE_MSG, argContext.getText())
-      ));
+          String.format(INT_OUT_OF_RANGE_MSG, argContext.getText()),
+          Type.ERROR));
     }
   }
 
