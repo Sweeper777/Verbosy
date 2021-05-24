@@ -72,6 +72,22 @@ For example, if there is a `int` in location 3 that you want to convert to `char
 
 Now there is a `char` in location 3.
 
+## The Java Implementation
+
+This implementation compiles Verbosy code into C#, and requires you to have `csc` installed. The compiler options are:
+
+```
+ -h,--help                          Show help, ignores all other options
+ -i,--read-ints                     parses integers on the input stream
+                                    automatically
+ -n,--nowarn                        disable warnings
+ -o,--output <output-file>          output file path
+ -s,--memory-size <size>            number of elements in the memory
+                                    array, default to 1024
+ -S,--output <output-source-file>   file path for output C# source file
+ -z,--space-as-zero                 reads spaces in the input as 0s. Makes
+                                    reading words easier!
+```
 
 #### Hello World
 
@@ -96,6 +112,8 @@ This increments the input by 1.
 Adds up the two inputs and prints the result.
 
     i /0 i +0 o
+
+Compile with `-i`.
     
 #### 1 to 10
 
@@ -109,7 +127,8 @@ Prints "1 2 3 4 5 6 7 8 9 10 "
     
 #### Reverse
 
-Reverses the 0-terminated input string.
+Reverses the 0-terminated input string. On
 
-    ~0 /14 :a: ^14 i >0b /14* >a :b: v14 :c: \14* o v14 >0a >c
+    ~0 /1000 :a: ^1000 i >0b /1000* >a :b: v1000 :c: \1000* o v1000 >0a >c
     
+Compile with `-z`.
