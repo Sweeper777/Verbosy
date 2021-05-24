@@ -1,43 +1,39 @@
 # Verbosy
 
-Verbosy is a language very similar to [SPL](https://github.com/Sweeper777/SPL-Compiler). It has 12 basic instructions: `i`, `o`, `+`, `-`, `^`, `v`, `\`, `/`, `>`, `>0`, `>-`, `~`.
+Verbosy is a language very based on [SPL](https://github.com/Sweeper777/SPL-Compiler). It has 12 basic instructions: `i`, `o`, `+`, `-`, `^`, `v`, `\`, `/`, `>`, `>0`, `>-`, `~`.
 
------
 
-**An implementation of Verbosy that compiles to C# is being developed on master branch. For the previous, interpreted, implementation of Verbosy, visit the interpreter branch.**
+## Runtime
 
------
+The Verbosy runtime is represented by the `VerbosyRuntime` interface. A Verbosy runtime has a memory of arbitrary size and a slot called `Current`.
 
-### Runtime
+## Type System
 
-The Verbosy runtime is represented by the `VerbosyRuntime` interface. A Verbosy runtime has a memory of arbitrary size and a slot called `Current`. It is used to get input and output text.
+The Verbosy type system is very simple, there are two types `char` (a  unsigned 16-bit UTF-16 code unit), and `int` (a signed 32-bit integer). Each memory location and `Current` can store a value that is of one of these types. The type of the value can change at runtime. Note that initially, all memory locations and `Current` store _no value at all_.
 
-### Type System
+## Structure of VerbosyProgram
 
-The Verbosy type system is very simple, there is only one type - `VerbosyValue`. A `VerbosyValue` can either store a single UTF-16 character, or an integer. The type of a `VerbosyValue` is storing is inferred at runtime and can change dynamically at runtime.
-
-### Structure of VerbosyProgram
-
-A Verbosy program contains a number of instructions separated by spaces. Some instructions take parameters. For example, in the instruction `/14`, the `/` denotes a `PutInstruction` and the `14` denotes the parameter `14`.
+A Verbosy program contains a number of instructions separated by whitespace. Some instructions take parameters. For example, in the instruction `/14`, the `/` denotes a `PutInstruction` and the `14` denotes the parameter `14`.
 
 A Verbosy program will terminate after one of the following conditions is met:
 
 - The last instruction, which is not a goto instruction, is executed.
-- No more input is found when executing an input instruction.
+- EOF is found when executing an input instruction.
+- A negative memory location is accessed
 
-### Pointers
+## Pointers
 
-Some instructions can accept a pointer as the parameter. The `*` suffix denotes a pointer. For example, in `\14`, the pointer points to the value in slot 14 of the memory.
+Some instructions can accept a pointer as the parameter. The `*` suffix denotes a pointer. For example, in `\14*`, the pointer points to the value in slot 14 of the memory.
 
 When evaluated, the parameter will be magically "replaced" by the value in memory that it points to. If the value of slot 14 is `10`, `\14*` is the same as `\10`.
 
-### Labels
+## Labels
 
 Labels are denoted by surrounding colons (`:`) around the label's name. For example: `:a:`, `:start:`.
 
 Labels act like markers. You can use the goto instructions (`>`, `>0`, `>-`) to make the code execution jump to a specific label. Label names can only contain letters.
 
-### Instruction Descriptions
+## Instruction Descriptions
 
 - Input Instruction (represented by `i`): gets the user's input as a `VerbosyValue` and put the value in the `Current` slot. Inputs can be a single character or an integer.
 - Output Instruction (represented by `o`): prints the value in `Current` to the `PrintStream` returned by the runtime's `getOutput` method. If the value is an integer, a space character will also be printed.
