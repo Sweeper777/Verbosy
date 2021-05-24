@@ -48,7 +48,11 @@ Labels act like markers. You can use the goto instructions (`>`, `>0`, `>-`) to 
 - GotoIf0 instruction (represented by `>0`): same as the Goto instruction, except that it will only jump to the label if `Current` is 0.
 - GotoIfNeg instruction (represented by `>-`): same as the Goto instruction, except that it will only jump to the label if `Current` is less than 0.
 
-Instructions will do nothing if their parameters point to a place out of range of the memory.
+An instruction will do nothing if any of the following is true
+
+- its parameter is not a pointer, and it is out of range of the memory (on some implementations, this will cause a compiler error),
+- its parameter is a pointer, and it points to a non-negative location that is out of range of the memory, or;
+- it attempts to read a memory location (or `Current`) which stores no value at all.
 
 ### Hex Escapes
 
