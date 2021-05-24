@@ -98,13 +98,19 @@ public class Main {
             .desc("Show help, ignores all other options")
             .build();
 
+        Option noWarnings = Option.builder("n")
+            .longOpt("nowarn")
+            .desc("disable warnings")
+            .build();
+
         Options options = new Options();
         options.addOption(memorySize)
             .addOption(spaceAsZero)
             .addOption(readInts)
             .addOption(output)
             .addOption(help)
-            .addOption(outputSource);
+            .addOption(outputSource)
+            .addOption(noWarnings);
         return options;
     }
 }
