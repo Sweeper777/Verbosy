@@ -54,13 +54,24 @@ An instruction will do nothing if any of the following is true
 - its parameter is a pointer, and it points to a non-negative location that is out of range of the memory, or;
 - it attempts to read a memory location (or `Current`) which stores no value at all.
 
-### Hex Escapes
+## Hex Escapes
 
 Most characters can be used in verbatim as the parameter for the set instruction, in order to set `Current` to a character. In some cases you can't, because the parser treats that character in a special way. e.g. all whitespace are ignored. In such a case, you can specify that character in a set instruction using its hex value, prefixed by `\`.
 
 For example, `~\20` sets `Current` to the space character.
 
-### Example Programs
+## Type Conversions
+
+Using the fact that `+` and `-` instructions keep the type of `Current` when adding/subtracting, type conversions can be done by setting a `Current` to `0` (for converting to `int`) or `\0` (for converting to `char`), then adding the value to be converted to `Current`, then putting into the original location.
+
+For example, if there is a `int` in location 3 that you want to convert to `char`, you can do:
+
+```
+~\0 +3 /3
+```
+
+Now there is a `char` in location 3.
+
 
 #### Hello World
 
