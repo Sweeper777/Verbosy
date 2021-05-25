@@ -33,6 +33,19 @@ Labels are denoted by surrounding colons (`:`) around the label's name. For exam
 
 Labels act like markers. You can use the goto instructions (`>`, `>0`, `>-`) to make the code execution jump to a specific label. Label names can only contain letters.
 
+## Comments
+
+Single line comments begin with `//`. Multi-line comments are delimited by `/*` and `*/`. 
+
+```
+// single line comment
+/*
+multi
+line
+comment!
+*/
+```
+
 ## Instruction Descriptions
 
 - Input Instruction (represented by `i`): gets the user's input as a `VerbosyValue` and put the value in the `Current` slot. Inputs can be a single character or an integer.
