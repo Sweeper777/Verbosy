@@ -1,7 +1,10 @@
 package io.github.sweeper777.verbosy;
 
+import static org.junit.Assert.assertEquals;
+
 import io.github.sweeper777.verbosy.compiler.CompilerOutput;
 import io.github.sweeper777.verbosy.compiler.ListErrorListener;
+import io.github.sweeper777.verbosy.compiler.VerbosyCompiler;
 import io.github.sweeper777.verbosy.compiler.VerbosyValue;
 import io.github.sweeper777.verbosy.instructions.AddInstruction;
 import io.github.sweeper777.verbosy.instructions.DecInstruction;
@@ -18,8 +21,11 @@ import io.github.sweeper777.verbosy.instructions.PutInstruction;
 import io.github.sweeper777.verbosy.instructions.SetInstruction;
 import io.github.sweeper777.verbosy.instructions.SubInstruction;
 import io.github.sweeper777.verbosy.instructions.TakeInstruction;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import org.antlr.v4.runtime.CharStream;
+import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
@@ -33,6 +39,20 @@ public class TestUtils {
     InstructionsFactory factory = new InstructionsFactory(errors);
     ParseTreeWalker.DEFAULT.walk(factory, parser.compilationUnit());
     instructions.addAll(factory.getParsedInstructions());
+  }
+
+  public static String runCode(String code, String input, VerbosyCompiler compiler)
+      throws IOException, InterruptedException {
+    compiler.compile(CharStreams.fromString(code), "out.exe");
+    assertEquals(0, compiler.getCompilerOutputs().size());
+    var process = Runtime.getRuntime().exec("mono out.exe");
+    if (input != null) {
+      process.getOutputStream().write(input.getBytes(StandardCharsets.UTF_8));
+      process.getOutputStream().close();
+    }
+    process.waitFor();
+    byte[] outputBytes = process.getInputStream().readAllBytes();
+    return new String(outputBytes, StandardCharsets.UTF_8);
   }
 
   public static InputInstruction input() {
