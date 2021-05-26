@@ -16,6 +16,7 @@ public class VerbosyCompiler {
   private final int memorySize;
   private final CodeProvider provider;
   private final boolean generateWarnings;
+  private final List<CompilerOutput> compilerOutputs = new ArrayList<>();
 
   public VerbosyCompiler(int memorySize, CodeProvider provider, boolean generateWarnings) {
     this.memorySize = memorySize;
@@ -24,18 +25,17 @@ public class VerbosyCompiler {
   }
 
   public void compile(CharStream stream, String outputFileName, String outputSourceFile) throws IOException {
-    List<CompilerOutput> errors = new ArrayList<>();
     VerbosyLexer lexer = new VerbosyLexer(stream);
     CommonTokenStream tokenStream = new CommonTokenStream(lexer);
     VerbosyParser parser = new VerbosyParser(tokenStream);
     parser.getErrorListeners().clear();
-    parser.addErrorListener(new ListErrorListener(errors));
-    InstructionsFactory factory = new InstructionsFactory(errors);
+    parser.addErrorListener(new ListErrorListener(compilerOutputs));
+    InstructionsFactory factory = new InstructionsFactory(compilerOutputs);
     ParseTreeWalker.DEFAULT.walk(factory, parser.compilationUnit());
     var instructions = factory.getParsedInstructions();
-    var semanticAnalyser = new SemanticAnalyer(instructions, errors, memorySize, generateWarnings);
+    var semanticAnalyser = new SemanticAnalyer(instructions, compilerOutputs, memorySize, generateWarnings);
     semanticAnalyser.analyseSemantics();
-    if (errors.isEmpty()) {
+    if (compilerOutputs.isEmpty()) {
       File sourceFile;
       if (outputSourceFile == null) {
         sourceFile = File.createTempFile("verbosyOutput", ".cs");
@@ -61,8 +61,12 @@ public class VerbosyCompiler {
         }
       }
     } else {
-      errors.forEach(System.err::println);
+      compilerOutputs.forEach(System.err::println);
     }
+  }
+
+  public List<CompilerOutput> getCompilerOutputs() {
+    return compilerOutputs;
   }
 
   public void compile(CharStream stream, String outputFileName) throws IOException {
