@@ -25,4 +25,11 @@ public class CodeGenerationTests {
     assertEquals("i0 i0 i0 i", runCode(":a: i o >a", "i i i i", compiler));
   }
 
+  @Test
+  public void testReadInts() throws IOException, InterruptedException {
+    var compiler = new VerbosyCompiler(1024,
+        new CSharpCodeProvider(1024, false, true), false);
+    assertEquals("-123 ", runCode("i o", "-123", compiler));
+  }
+
 }
