@@ -32,4 +32,12 @@ public class CodeGenerationTests {
     assertEquals("-123 ", runCode("i o", "-123", compiler));
   }
 
+  @Test
+  public void testSet() throws IOException, InterruptedException {
+    var compiler = new VerbosyCompiler(1024,
+        new CSharpCodeProvider(1024, false, false), false);
+    assertEquals("hello", runCode("~h o ~e o ~l o ~l o ~o o", "", compiler));
+    assertEquals(" ", runCode("~\\20 o", null, compiler));
+  }
+
 }
