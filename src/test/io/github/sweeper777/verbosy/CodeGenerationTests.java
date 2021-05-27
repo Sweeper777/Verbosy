@@ -18,4 +18,11 @@ public class CodeGenerationTests {
     assertEquals("hello", runCode(":a: i o >a", "hello", compiler));
   }
 
+  @Test
+  public void testReadSpaceAs0() throws IOException, InterruptedException {
+    var compiler = new VerbosyCompiler(1024,
+        new CSharpCodeProvider(1024, true, false), false);
+    assertEquals("i0 i0 i0 i", runCode(":a: i o >a", "i i i i", compiler));
+  }
+
 }
