@@ -4,3 +4,4 @@
 /out/
 *.vpc
 target/
+*.exe
