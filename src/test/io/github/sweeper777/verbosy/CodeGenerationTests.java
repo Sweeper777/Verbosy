@@ -59,4 +59,12 @@ public class CodeGenerationTests {
     assertEquals("2147483647 ", runCode("~1 /0 ~-2147483648 -0 o", null, compiler));
   }
 
+  @Test
+  public void testInc() throws IOException, InterruptedException {
+    var compiler = new VerbosyCompiler(1024,
+        new CSharpCodeProvider(1024, false, false), false);
+    assertEquals("2 2 ", runCode("~1 /0 ^0 o ~0 \\0 o", "", compiler));
+    assertEquals("bb", runCode("~a /0 ^0 o ~0 \\0 o", "", compiler));
+  }
+
 }
