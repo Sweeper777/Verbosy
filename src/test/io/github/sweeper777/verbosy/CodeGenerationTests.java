@@ -40,4 +40,23 @@ public class CodeGenerationTests {
     assertEquals(" ", runCode("~\\20 o", null, compiler));
   }
 
+  @Test
+  public void testAdd() throws IOException, InterruptedException {
+    var compiler = new VerbosyCompiler(1024,
+        new CSharpCodeProvider(1024, false, false), false);
+    assertEquals("11 ", runCode("~1 /0 ~10 +0 o", "", compiler));
+    assertEquals("11 ", runCode("~20 /0 ~10 /20 ~1 +0* o", null, compiler));
+    assertEquals("-2147483648 ", runCode("~2147483647 /0 ~1 +0 o", null, compiler));
+  }
+
+
+  @Test
+  public void testSub() throws IOException, InterruptedException {
+    var compiler = new VerbosyCompiler(1024,
+        new CSharpCodeProvider(1024, false, false), false);
+    assertEquals("9 ", runCode("~1 /0 ~10 -0 o", "", compiler));
+    assertEquals("-9 ", runCode("~20 /0 ~10 /20 ~1 -0* o", null, compiler));
+    assertEquals("2147483647 ", runCode("~1 /0 ~-2147483648 -0 o", null, compiler));
+  }
+
 }
