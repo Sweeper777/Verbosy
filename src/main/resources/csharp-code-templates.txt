@@ -4,7 +4,7 @@ using System;
 public struct VerbosyValue {
     public bool isChar;
     public int value;
-    public static VerbosyValue FromChar(char c) {
+    public static VerbosyValue FromChar(int c) {
         VerbosyValue v = new VerbosyValue();
         v.value = c;
         v.isChar = true;
