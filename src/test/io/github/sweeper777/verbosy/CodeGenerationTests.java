@@ -90,4 +90,11 @@ public class CodeGenerationTests {
   }
 
 
+  @Test
+  public void testGotoIfNeg() throws IOException, InterruptedException {
+    var compiler = new VerbosyCompiler(1024,
+        new CSharpCodeProvider(1024, false, false), false);
+    assertEquals("bcde", runCode("~-1 >-a ~a o :a: ~b o ~0 >-b ~c o :b: ~d o >-c ~e o :c:", "", compiler));
+  }
+
 }
