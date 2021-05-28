@@ -82,4 +82,12 @@ public class CodeGenerationTests {
     assertEquals("b", runCode(">a ~a o :a: ~b o", "", compiler));
   }
 
+  @Test
+  public void testGotoIfZero() throws IOException, InterruptedException {
+    var compiler = new VerbosyCompiler(1024,
+        new CSharpCodeProvider(1024, false, false), false);
+    assertEquals("bde", runCode("~0 >0a ~a o :a: ~b o ~\\0 >0b ~c o :b: ~d o >0c ~e o :c:", "", compiler));
+  }
+
+
 }
