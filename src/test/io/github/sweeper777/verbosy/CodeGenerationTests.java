@@ -67,4 +67,12 @@ public class CodeGenerationTests {
     assertEquals("bb", runCode("~a /0 ^0 o ~0 \\0 o", "", compiler));
   }
 
+  @Test
+  public void testDec() throws IOException, InterruptedException {
+    var compiler = new VerbosyCompiler(1024,
+        new CSharpCodeProvider(1024, false, false), false);
+    assertEquals("0 0 ", runCode("~1 /0 v0 o ~0 \\0 o", "", compiler));
+    assertEquals("bb", runCode("~c /0 v0 o ~0 \\0 o", "", compiler));
+  }
+
 }
