@@ -7,21 +7,21 @@ import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Objects;
 
-public class CSharpCodeProvider implements CodeProvider {
+public class CSharpArrayCodeProvider implements CodeProvider {
 
   private final HashMap<String, String> templates = new HashMap<>();
   private final int memorySize;
   private final boolean readSpaceAsZero;
   private final boolean readInts;
 
-  public CSharpCodeProvider(int memorySize, boolean readSpaceAsZero, boolean readInts) throws IOException {
+  public CSharpArrayCodeProvider(int memorySize, boolean readSpaceAsZero, boolean readInts) throws IOException {
     this.memorySize = memorySize;
     this.readSpaceAsZero = readSpaceAsZero;
     this.readInts = readInts;
 
     try (BufferedReader reader = new BufferedReader(new InputStreamReader(
         Objects.requireNonNull(
-            CSharpCodeProvider.class.getResourceAsStream("/csharp-code-templates.txt"))
+            CSharpArrayCodeProvider.class.getResourceAsStream("/csharp-code-templates.txt"))
     ))) {
       String line = null;
       while ((line = reader.readLine()) != null) {

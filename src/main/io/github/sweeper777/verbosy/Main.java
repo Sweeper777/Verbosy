@@ -1,7 +1,7 @@
 package io.github.sweeper777.verbosy;
 
 import io.github.sweeper777.verbosy.compiler.VerbosyCompiler;
-import io.github.sweeper777.verbosy.csharp.CSharpCodeProvider;
+import io.github.sweeper777.verbosy.csharp.CSharpArrayCodeProvider;
 import java.io.IOException;
 import org.antlr.v4.runtime.CharStreams;
 import org.apache.commons.cli.CommandLine;
@@ -45,7 +45,7 @@ public class Main {
                 throw new ParseException("Invalid number specified for -s.");
             }
         }
-        var codeProvider = new CSharpCodeProvider(
+        var codeProvider = new CSharpArrayCodeProvider(
             memorySize, cl.hasOption('z'), cl.hasOption('i')
         );
         var compiler = new VerbosyCompiler(memorySize, codeProvider, !cl.hasOption('n'));
