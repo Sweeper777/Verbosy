@@ -1,11 +1,28 @@
 package io.github.sweeper777.verbosy;
 
+import static io.github.sweeper777.verbosy.TestUtils.add;
+import static io.github.sweeper777.verbosy.TestUtils.dec;
+import static io.github.sweeper777.verbosy.TestUtils.inc;
+import static io.github.sweeper777.verbosy.TestUtils.input;
+import static io.github.sweeper777.verbosy.TestUtils.output;
+import static io.github.sweeper777.verbosy.TestUtils.put;
 import static io.github.sweeper777.verbosy.TestUtils.runCode;
+import static io.github.sweeper777.verbosy.TestUtils.set;
+import static io.github.sweeper777.verbosy.TestUtils.sub;
+import static io.github.sweeper777.verbosy.TestUtils.take;
 import static org.junit.Assert.assertEquals;
 
+import io.github.sweeper777.verbosy.compiler.CodeGenerator;
+import io.github.sweeper777.verbosy.compiler.CodeProvider;
 import io.github.sweeper777.verbosy.compiler.VerbosyCompiler;
 import io.github.sweeper777.verbosy.csharp.CSharpCodeProvider;
+import io.github.sweeper777.verbosy.instructions.Instruction;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Random;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import org.junit.Test;
 
 public class CodeGenerationTests {
@@ -102,6 +119,21 @@ public class CodeGenerationTests {
     var compiler = new VerbosyCompiler(1024,
         new CSharpCodeProvider(1024, false, false), false);
     assertEquals("", runCode("o \\0 /0 +0 -0 ^0 v0 \\0* /0* +0* -0* ^0* v0*", "", compiler));
+  }
+
+  private Instruction randomInstruction(Random r) {
+    return switch (r.nextInt(9)) {
+      case 0 -> input();
+      case 1 -> output();
+      case 2 -> set(r.nextInt(), r.nextBoolean());
+      case 3 -> add(r.nextInt(), r.nextBoolean());
+      case 4 -> sub(r.nextInt(), r.nextBoolean());
+      case 5 -> inc(r.nextInt(), r.nextBoolean());
+      case 6 -> dec(r.nextInt(), r.nextBoolean());
+      case 7 -> take(r.nextInt(), r.nextBoolean());
+      case 8 -> put(r.nextInt(), r.nextBoolean());
+      default -> throw new AssertionError("This shouldn't happen!");
+    };
   }
 
 }
