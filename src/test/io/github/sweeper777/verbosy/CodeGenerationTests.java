@@ -121,6 +121,29 @@ public class CodeGenerationTests {
     assertEquals("", runCode("o \\0 /0 +0 -0 ^0 v0 \\0* /0* +0* -0* ^0* v0*", "", compiler));
   }
 
+  @Test
+  public void randomTest() throws IOException, InterruptedException {
+    Random r = new Random();
+    for (int i = 0 ; i < 10 ; i++) {
+      CodeProvider provider = new CSharpCodeProvider(1024, false, false);
+
+      var instructions = Stream.generate(() -> randomInstruction(r)).limit(100)
+          .collect(Collectors.toList());
+
+      File output = File.createTempFile("verbosyOutput", ".cs");
+      try (var stream = new FileOutputStream(output)) {
+        var codeGen = new CodeGenerator(instructions, provider, stream);
+        codeGen.generateCode();
+      }
+      Runtime runtime = Runtime.getRuntime();
+      Process p = runtime.exec("csc " + output.getAbsolutePath() + " -warn:0 -out:out.exe");
+      assertEquals(0, p.waitFor());
+      if (p.exitValue() != 0) {
+        System.err.write(p.getInputStream().readAllBytes());
+      }
+    }
+  }
+
   private Instruction randomInstruction(Random r) {
     return switch (r.nextInt(9)) {
       case 0 -> input();
