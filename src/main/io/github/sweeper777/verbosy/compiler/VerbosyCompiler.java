@@ -52,6 +52,7 @@ public class VerbosyCompiler {
         p.waitFor();
         if (p.exitValue() != 0) {
           System.out.println("Something wrong happened while generating IL!");
+          System.err.write(p.getInputStream().readAllBytes());
         }
       } catch (InterruptedException ex) {
         System.err.println("Interrupted when waiting for code to compile!");
