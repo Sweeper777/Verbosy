@@ -21,9 +21,9 @@ public class CSharpArrayCodeProvider implements CodeProvider {
 
     try (BufferedReader reader = new BufferedReader(new InputStreamReader(
         Objects.requireNonNull(
-            CSharpArrayCodeProvider.class.getResourceAsStream("/csharp-code-templates.txt"))
+            CSharpArrayCodeProvider.class.getResourceAsStream("/csharp-array-code-templates.txt"))
     ))) {
-      String line = null;
+      String line;
       while ((line = reader.readLine()) != null) {
         if (line.startsWith("###")) {
           String key = line.substring(3);
