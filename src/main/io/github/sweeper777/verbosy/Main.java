@@ -1,7 +1,9 @@
 package io.github.sweeper777.verbosy;
 
+import io.github.sweeper777.verbosy.compiler.CodeProvider;
 import io.github.sweeper777.verbosy.compiler.VerbosyCompiler;
 import io.github.sweeper777.verbosy.csharp.CSharpArrayCodeProvider;
+import io.github.sweeper777.verbosy.csharp.CSharpDictCodeProvider;
 import java.io.IOException;
 import org.antlr.v4.runtime.CharStreams;
 import org.apache.commons.cli.CommandLine;
@@ -45,9 +47,17 @@ public class Main {
                 throw new ParseException("Invalid number specified for -s.");
             }
         }
-        var codeProvider = new CSharpArrayCodeProvider(
-            memorySize, cl.hasOption('z'), cl.hasOption('i')
-        );
+        CodeProvider codeProvider;
+        if (cl.hasOption('d')) {
+            codeProvider = new CSharpDictCodeProvider(
+                cl.hasOption('z'), cl.hasOption('i')
+            );
+        } else {
+            codeProvider = new CSharpArrayCodeProvider(
+                memorySize, cl.hasOption('z'), cl.hasOption('i')
+            );
+            memorySize = Integer.MAX_VALUE;
+        }
         var compiler = new VerbosyCompiler(memorySize, codeProvider, !cl.hasOption('n'));
         String outputFile = "a.out";
         if (cl.hasOption('o')) {
@@ -103,6 +113,11 @@ public class Main {
             .desc("disable warnings")
             .build();
 
+        Option dictionaryMemory = Option.builder("d")
+            .longOpt("dict-memory")
+            .desc("use a dictionary as the memory, as opposed to an array. -s is ignored if this is used.")
+            .build();
+
         Options options = new Options();
         options.addOption(memorySize)
             .addOption(spaceAsZero)
@@ -110,7 +125,8 @@ public class Main {
             .addOption(output)
             .addOption(help)
             .addOption(outputSource)
-            .addOption(noWarnings);
+            .addOption(noWarnings)
+            .addOption(dictionaryMemory);
         return options;
     }
 }
