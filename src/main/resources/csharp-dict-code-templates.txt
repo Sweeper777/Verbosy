@@ -124,3 +124,21 @@ if (TryGetParameter(%d, %b, out param) && memory.ContainsKey(param)) {
 ###
 ###label
 %s:;
+###
+###inc
+if (TryGetParameter(%d, %b, out param) && memory.ContainsKey(param)) {
+    var newValue = new VerbosyValue();
+    newValue.value = memory[param].value + 1;
+    newValue.isChar = memory[param].isChar;
+    memory[param] = newValue;
+    current = memory[param];
+}
+###
+###dec
+if (TryGetParameter(%d, %b, out param) && memory.ContainsKey(param)) {
+    var newValue = new VerbosyValue();
+    newValue.value = memory[param].value - 1;
+    newValue.isChar = memory[param].isChar;
+    memory[param] = newValue;
+    current = memory[param];
+}
