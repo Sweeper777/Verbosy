@@ -149,3 +149,19 @@ current = GetInput();
 ###output
 Console.Write(current);
 ###
+###add
+if (TryGetParameter(%d, %b, out param) && current != null && memory.ContainsKey(param)) {
+    var newValue = new VerbosyValue();
+    newValue.value = current.Value.value + memory[param].value;
+    newValue.isChar = current.Value.isChar;
+    current = newValue;
+}
+###
+###sub
+if (TryGetParameter(%d, %b, out param) && current != null && memory.ContainsKey(param)) {
+    var newValue = new VerbosyValue();
+    newValue.value = current.Value.value - memory[param].value;
+    newValue.isChar = current.Value.isChar;
+    current = newValue;
+}
+###
