@@ -142,3 +142,10 @@ if (TryGetParameter(%d, %b, out param) && memory.ContainsKey(param)) {
     memory[param] = newValue;
     current = memory[param];
 }
+###
+###input
+current = GetInput();
+###
+###output
+Console.Write(current);
+###
