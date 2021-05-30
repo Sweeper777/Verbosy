@@ -105,3 +105,22 @@ catch
     Environment.Exit(0);
 }
 }}
+###
+###setInt
+current = VerbosyValue.FromInt(%d);
+###
+###setChar
+current = VerbosyValue.FromChar(%d);
+###
+###put
+if (TryGetParameter(%d, %b, out param) && current != null) {
+    memory[param] = current.Value;
+}
+###
+###take
+if (TryGetParameter(%d, %b, out param) && memory.ContainsKey(param)) {
+    current = memory[param];
+}
+###
+###label
+%s:;
