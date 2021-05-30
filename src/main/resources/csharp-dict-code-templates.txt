@@ -1,0 +1,107 @@
+###header
+using System;
+using System.Collections.Generic;
+
+public struct VerbosyValue {
+    public bool isChar;
+    public int value;
+    public static VerbosyValue FromChar(int c) {
+        VerbosyValue v = new VerbosyValue();
+        v.value = c;
+        v.isChar = true;
+        return v;
+    }
+    public static VerbosyValue FromInt(int i) {
+        VerbosyValue v = new VerbosyValue();
+        v.value = i;
+        return v;
+    }
+    public override string ToString() {
+        if (isChar) {
+            return ((char)value).ToString();
+        } else {
+            return value.ToString() + " ";
+        }
+    }
+}
+
+
+public class Program {
+
+    private static bool TryGetParameter(int parameter, bool pointer, out int outParam) {
+        if (pointer)
+        {
+            if (memory.ContainsKey(parameter) && current != null)
+            {
+                outParam = memory[parameter].value;
+                return true;
+            }
+            else
+            {
+                outParam = 0;
+                return false;
+            }
+        }
+        else
+        {
+            outParam = parameter;
+            return true;
+        }
+    }
+
+    private static VerbosyValue GetInput() {
+        int input = Console.In.Read();
+        if (input == -1)
+        {
+            Environment.Exit(0);
+        }
+        char inputChar = (char)input;
+###
+###readInts
+        if ((inputChar >= '0' && inputChar <= '9') || inputChar == '-')
+        {
+            var parsedInt = inputChar == '-' ? 0 : inputChar - '0';
+            var isNegative = inputChar == '-';
+            while ((input = Console.In.Read()) != -1)
+            {
+                inputChar = (char)input;
+                if (inputChar >= '0' && inputChar <= '9')
+                {
+                    parsedInt = parsedInt * 10 + inputChar - '0';
+                }
+                else
+                {
+                    break;
+                }
+            }
+            return VerbosyValue.FromInt(parsedInt * (isNegative ? -1 : 1));
+        }
+###
+###readSpaceAsZero
+        if (inputChar == ' ')
+        {
+            return VerbosyValue.FromInt(0);
+        }
+###
+###header2
+        return VerbosyValue.FromChar(inputChar);
+    }
+
+    static Dictionary<int, VerbosyValue> memory = new Dictionary<int, VerbosyValue>();
+    static VerbosyValue? current;
+    static int param;
+    public static void Main() {
+
+        try
+        {
+            unchecked
+            {
+
+###
+###footer
+}}
+catch
+{
+    Environment.Exit(0);
+}
+}}
