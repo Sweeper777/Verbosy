@@ -11,6 +11,7 @@ import io.github.sweeper777.verbosy.instructions.DecInstruction;
 import io.github.sweeper777.verbosy.instructions.GotoIf0Instruction;
 import io.github.sweeper777.verbosy.instructions.GotoIfNegInstruction;
 import io.github.sweeper777.verbosy.instructions.GotoInstruction;
+import io.github.sweeper777.verbosy.instructions.HaltInstruction;
 import io.github.sweeper777.verbosy.instructions.IncInstruction;
 import io.github.sweeper777.verbosy.instructions.InputInstruction;
 import io.github.sweeper777.verbosy.instructions.Instruction;
@@ -61,6 +62,10 @@ public class TestUtils {
 
   public static OutputInstruction output() {
     return new OutputInstruction(0, 0);
+  }
+
+  public static HaltInstruction halt() {
+    return new HaltInstruction(0, 0);
   }
 
   public static SetInstruction set(int val, boolean isChar) {

@@ -37,6 +37,13 @@ public class SimpleParserTests {
   }
 
   @Test
+  public void testParseHaltInstruction() {
+    parseCharStream(CharStreams.fromString("x"), instructions, errors);
+    assertEquals(List.of(halt()), instructions);
+    assertEquals(List.of(), errors);
+  }
+
+  @Test
   public void testParseSetPositiveNumberInstruction() {
     parseCharStream(CharStreams.fromString("~1"), instructions, errors);
     assertEquals(List.of(set(1, false)), instructions);
