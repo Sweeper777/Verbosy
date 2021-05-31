@@ -38,6 +38,11 @@ public class InstructionsFactory extends VerbosyBaseListener {
   }
 
   @Override
+  public void exitHaltInstruction(HaltInstructionContext ctx) {
+    parsedInstructions.add(new HaltInstruction(ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine()));
+  }
+
+  @Override
   public void exitSetInstruction(SetInstructionContext ctx) {
     var charParameter = ctx.character();
     var intParameter = ctx.signedInt();

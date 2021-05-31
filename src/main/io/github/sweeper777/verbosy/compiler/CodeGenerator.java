@@ -24,6 +24,7 @@ public class CodeGenerator {
     for (var instruction : instructions) {
       outputFile.write(instruction.getCode(codeProvider));
     }
+    outputFile.write(codeProvider.getLabel("_end_"));
     outputFile.write(codeProvider.getFooter());
     outputFile.flush();
   }
