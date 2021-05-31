@@ -21,9 +21,11 @@ import io.github.sweeper777.verbosy.instructions.Instruction;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Objects;
 import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import org.antlr.v4.runtime.CharStreams;
 import org.junit.Test;
 
 public class CodeGenerationTests {
@@ -131,6 +133,15 @@ public class CodeGenerationTests {
     var compiler = new VerbosyCompiler(1024,
         codeProviderSupplier.get(1024, false, false), false);
     assertEquals("", runCode("o \\0 /0 +0 -0 ^0 v0 \\0* /0* +0* -0* ^0* v0*", "", compiler));
+  }
+
+  @Test
+  public void testSamplePrograms() throws IOException, InterruptedException {
+    var stream1 = CharStreams.fromStream(Objects
+        .requireNonNull(SampleProgramParserTests.class.getResourceAsStream("/tests/reverse.vp")));
+    var compiler = new VerbosyCompiler(1024,
+        codeProviderSupplier.get(1024, true, false), false);
+    assertEquals("olleh", runCode(stream1, "hello ", compiler));
   }
 
   @Test

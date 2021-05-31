@@ -44,7 +44,12 @@ public class TestUtils {
 
   public static String runCode(String code, String input, VerbosyCompiler compiler)
       throws IOException, InterruptedException {
-    compiler.compile(CharStreams.fromString(code), "out.exe");
+    return runCode(CharStreams.fromString(code), input, compiler);
+  }
+
+  public static String runCode(CharStream code, String input, VerbosyCompiler compiler)
+      throws IOException, InterruptedException {
+    compiler.compile(code, "out.exe");
     assertEquals(0, compiler.getCompilerOutputs().size());
     var process = Runtime.getRuntime().exec("mono out.exe");
     if (input != null) {
