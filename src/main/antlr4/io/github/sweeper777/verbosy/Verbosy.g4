@@ -6,6 +6,7 @@ GOTO0 : '>0';
 GOTO_MINUS : '>-';
 I : 'i';
 O : 'o';
+X: 'x';
 TILDE : '~';
 PLUS : '+';
 MINUS: '-';
@@ -28,6 +29,7 @@ instructionWithTerminal : WS? instruction (WS | EOF);
 instruction :
   inputInstruction |
   outputInstruction |
+  haltInstruction |
   setInstruction |
   addInstruction |
   subInstruction |
@@ -43,7 +45,7 @@ instruction :
 
 unsignedInt : DIGIT+;
 signedInt : MINUS unsignedInt | unsignedInt;
-character : hexEscape | CHAR | LETTER | HEX_DIGIT |
+character : hexEscape | CHAR | LETTER | HEX_DIGIT | X |
   I | O | TILDE | PLUS | MINUS | INC | DEC | BACKSLASH | SLASH | GOTO;
 hexEscape : BACKSLASH (DIGIT | HEX_DIGIT)+;
 
@@ -56,6 +58,7 @@ instructionArgument : unsignedInt;
 
 inputInstruction : I;
 outputInstruction : O;
+haltInstruction : X;
 setInstruction : TILDE character |
                   TILDE signedInt;
 addInstruction : PLUS instructionArgument instructionSuffix?;
