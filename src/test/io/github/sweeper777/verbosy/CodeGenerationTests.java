@@ -2,6 +2,7 @@ package io.github.sweeper777.verbosy;
 
 import static io.github.sweeper777.verbosy.TestUtils.add;
 import static io.github.sweeper777.verbosy.TestUtils.dec;
+import static io.github.sweeper777.verbosy.TestUtils.halt;
 import static io.github.sweeper777.verbosy.TestUtils.inc;
 import static io.github.sweeper777.verbosy.TestUtils.input;
 import static io.github.sweeper777.verbosy.TestUtils.output;
@@ -36,6 +37,14 @@ public class CodeGenerationTests {
         codeProviderSupplier.get(1024, false, false), false);
     assertEquals("h", runCode("i o", "hello", compiler));
     assertEquals("hello", runCode(":a: i o >a", "hello", compiler));
+  }
+
+  @Test
+  public void testHalt() throws IOException, InterruptedException {
+    var compiler = new VerbosyCompiler(1024,
+        codeProviderSupplier.get(1024, false, false), false);
+    assertEquals("", runCode("x ~x o", "", compiler));
+    assertEquals("x", runCode(":a: ~x o x >a", "", compiler));
   }
 
   @Test
@@ -148,7 +157,7 @@ public class CodeGenerationTests {
   }
 
   private Instruction randomInstruction(Random r) {
-    return switch (r.nextInt(9)) {
+    return switch (r.nextInt(10)) {
       case 0 -> input();
       case 1 -> output();
       case 2 -> set(r.nextInt(), r.nextBoolean());
@@ -158,6 +167,7 @@ public class CodeGenerationTests {
       case 6 -> dec(r.nextInt(), r.nextBoolean());
       case 7 -> take(r.nextInt(), r.nextBoolean());
       case 8 -> put(r.nextInt(), r.nextBoolean());
+      case 9 -> halt();
       default -> throw new AssertionError("This shouldn't happen!");
     };
   }
