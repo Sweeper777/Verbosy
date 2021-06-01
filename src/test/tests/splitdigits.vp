@@ -1,0 +1,35 @@
+/*
+
+Splits a 3 digits or fewer number into its digits.
+Adapted from https://github.com/atesgoral/hrm-solutions/blob/master/solutions/38-Digit-Exploder-30.165/20.829-837951602.asm
+
+*/
+
+~0 /9
+~10 /10
+~100 /11
+:a:
+  i
+  /1
+:b:
+  ^9
+  /6
+  \9*
+  >0d
+  ^6
+  -6
+  /6*
+:c:
+  \9*
+  -10
+  >-b
+  /9*
+  ^6*
+  >c
+:d:
+:e:
+  v9
+  >0a
+  \9*
+  o
+  >e
