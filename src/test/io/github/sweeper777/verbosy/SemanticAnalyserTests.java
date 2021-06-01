@@ -141,4 +141,23 @@ public class SemanticAnalyserTests {
   }
 
 
+  @Test
+  public void testRedundantHaltWarning() {
+    var errors = new ArrayList<CompilerOutput>();
+    var analyser = new SemanticAnalyer(
+        List.of(
+            add(20, true),
+            sub(20, false),
+            goToIfNeg("foo"),
+            take(10, true),
+            put(10, false),
+            halt(),
+            label("foo")
+        ),
+        errors,
+        100,
+        true);
+    analyser.analyseSemantics();
+    assertEquals(1, errors.size());
+  }
 }
