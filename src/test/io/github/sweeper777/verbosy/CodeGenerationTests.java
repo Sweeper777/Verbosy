@@ -139,9 +139,12 @@ public class CodeGenerationTests {
   public void testSamplePrograms() throws IOException, InterruptedException {
     var stream1 = CharStreams.fromStream(Objects
         .requireNonNull(SampleProgramParserTests.class.getResourceAsStream("/tests/reverse.vp")));
+    var stream2 = CharStreams.fromStream(Objects
+        .requireNonNull(SampleProgramParserTests.class.getResourceAsStream("/tests/splitdigits.vp")));
     var compiler = new VerbosyCompiler(1024,
-        codeProviderSupplier.get(1024, true, false), false);
+        codeProviderSupplier.get(1024, true, true), false);
     assertEquals("olleh", runCode(stream1, "hello ", compiler));
+    assertEquals("1 2 3 ", runCode(stream2, "123", compiler));
   }
 
   @Test
