@@ -1,13 +1,16 @@
 package io.github.sweeper777.verbosy.compiler;
 
 import io.github.sweeper777.verbosy.compiler.CompilerOutput.Type;
+import io.github.sweeper777.verbosy.instructions.GotoInstruction;
 import io.github.sweeper777.verbosy.instructions.GotoInstructionBase;
+import io.github.sweeper777.verbosy.instructions.HaltInstruction;
 import io.github.sweeper777.verbosy.instructions.Instruction;
 import io.github.sweeper777.verbosy.instructions.LabelInstruction;
 import io.github.sweeper777.verbosy.instructions.ParameterPointerInstructionBase;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.IntStream;
 
 public class SemanticAnalyer {
   private final List<Instruction> instructions;
@@ -20,6 +23,7 @@ public class SemanticAnalyer {
   private static final String UNKNOWN_LABEL_MSG = "Unknown label '%s'";
   private static final String MEMORY_UNAVAILABLE_MSG = "Memory position %d is not available. Valid range: %d-%d";
   private static final String UNUSED_LABEL_MSG = "Unused label: %s";
+  private static final String UNREACHABLE_CODE = "Unreachable code";
 
   public SemanticAnalyer(
       List<Instruction> instructions,
@@ -34,6 +38,7 @@ public class SemanticAnalyer {
     labels = new HashSet<>();
     checkDuplicateLabels();
     checkInstructionsValid();
+    findUnreachableCode();
   }
 
   private void checkDuplicateLabels() {
@@ -91,6 +96,25 @@ public class SemanticAnalyer {
             label.getLineNo(),
             label.getColumnNo(),
             String.format(UNUSED_LABEL_MSG, label.getLabelName()),
+            Type.WARNING
+        ));
+      }
+    }
+  }
+
+  private void findUnreachableCode() {
+    if (!generateWarnings) {
+      return;
+    }
+    for (int i = 0, instructionsSize = instructions.size(); i < instructionsSize - 1; i++) {
+      var instr = instructions.get(i);
+      var nextInstr = instructions.get(i + 1);
+      if ((instr instanceof GotoInstruction || instr instanceof HaltInstruction) &&
+          !(nextInstr instanceof LabelInstruction)) {
+        compilerOutputs.add(new CompilerOutput(
+            nextInstr.getLineNo(),
+            nextInstr.getColumnNo(),
+            UNREACHABLE_CODE,
             Type.WARNING
         ));
       }
