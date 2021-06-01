@@ -121,4 +121,24 @@ public class SemanticAnalyserTests {
     analyser.analyseSemantics();
     assertEquals(5, errors.size());
   }
+
+  @Test
+  public void testUnreachableCodeWarning() {
+    var errors = new ArrayList<CompilerOutput>();
+    var analyser = new SemanticAnalyer(
+        List.of(
+            add(20, true),
+            sub(20, false),
+            halt(),
+            take(10, true),
+            put(10, false)
+        ),
+        errors,
+        100,
+        true);
+    analyser.analyseSemantics();
+    assertEquals(1, errors.size());
+  }
+
+
 }
