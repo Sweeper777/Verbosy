@@ -90,7 +90,7 @@ public class SemanticAnalyer {
         compilerOutputs.add(new CompilerOutput(
             label.getLineNo(),
             label.getColumnNo(),
-            UNUSED_LABEL_MSG,
+            String.format(UNUSED_LABEL_MSG, label.getLabelName()),
             Type.WARNING
         ));
       }
