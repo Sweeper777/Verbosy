@@ -24,6 +24,7 @@ public class SemanticAnalyer {
   private static final String MEMORY_UNAVAILABLE_MSG = "Memory position %d is not available. Valid range: %d-%d";
   private static final String UNUSED_LABEL_MSG = "Unused label: %s";
   private static final String UNREACHABLE_CODE = "Unreachable code";
+  private static final String REDUNDANT_HALT = "Redundant halt instruction";
 
   public SemanticAnalyer(
       List<Instruction> instructions,
@@ -39,6 +40,7 @@ public class SemanticAnalyer {
     checkDuplicateLabels();
     checkInstructionsValid();
     findUnreachableCode();
+    findRedundantHalt();
   }
 
   private void checkDuplicateLabels() {
@@ -119,5 +121,22 @@ public class SemanticAnalyer {
         ));
       }
     }
+  }
+
+  private void findRedundantHalt() {
+    if (!generateWarnings) {
+      return;
+    }
+    int num=instructions.size()-1;
+    IntStream.rangeClosed(0, num).mapToObj(i->instructions.get(num-i))
+        .dropWhile(x -> x instanceof LabelInstruction)
+        .findFirst()
+        .filter(x -> x instanceof HaltInstruction)
+        .ifPresent(x -> compilerOutputs.add(new CompilerOutput(
+            x.getLineNo(),
+            x.getColumnNo(),
+            REDUNDANT_HALT,
+            Type.WARNING
+        )));
   }
 }
