@@ -17,6 +17,7 @@ A Verbosy program contains a number of instructions separated by whitespace. Som
 
 A Verbosy program will terminate after one of the following conditions is met:
 
+- A halt instruction is executed.
 - The last instruction, which is not a goto instruction, is executed.
 - EOF is found when executing an input instruction.
 - A negative memory location is accessed
@@ -60,6 +61,7 @@ comment!
 - Goto instruction (represented by `>`): this instruction requires a label. Please write the name of the label immediately after the name of the instruction. It will make the code execution jump to where the label is.
 - GotoIf0 instruction (represented by `>0`): same as the Goto instruction, except that it will only jump to the label if `Current` is 0.
 - GotoIfNeg instruction (represented by `>-`): same as the Goto instruction, except that it will only jump to the label if `Current` is less than 0.
+- Halt instruction (represented by `x`): stops the execution of the verbosy program
 
 An instruction will do nothing if any of the following is true
 
