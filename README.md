@@ -50,7 +50,7 @@ comment!
 ## Instruction Descriptions
 
 - Input Instruction (represented by `i`): gets the user's input as a `VerbosyValue` and put the value in the `Current` slot. Inputs can be a single character or an integer.
-- Output Instruction (represented by `o`): prints the value in `Current` to the `PrintStream` returned by the runtime's `getOutput` method. If the value is an integer, a space character will also be printed.
+- Output Instruction (represented by `o`): prints the value in `Current`. If the value is an integer, a space character will also be printed.
 - Set Instruction (represented by `~`): this instruction takes  a parameter. It sets the value of `Current` to the value of the parameter. For example, `~10` will set `Current` to `10`. This instruction does not accept pointers.
 - Add Instruction (represented by `+`): this instruction takes a parameter. It sums the value in the memory slot corresponding to the parameter and `Current`. It then assigns the sum to `Current`. Pointers can be used.
 - Sub Instruction (represented by `-`): this instruction takes a parameter. It calculates the difference of `Current` and the value in the memory slot corresponding to the parameter (`Current` - value in memory slot), assigning the difference to `Current`. Pointers can be used.
@@ -147,3 +147,9 @@ Reverses the 0-terminated input string. On
     ~0 /1000 :a: ^1000 i >0b /1000* >a :b: v1000 :c: \1000* o v1000 >0a >c
     
 Compile with `-z`.
+
+#### Truth Machine
+
+Prints 0 if input is 0. Prints 1 forever if input is 1.
+
+    i >0a ~\31 :b: o >b :a: ~\30 o
