@@ -25,4 +25,16 @@ public class BasicBlock {
   public ControlFlowGraph getCFG() {
     return cfg;
   }
+
+  public boolean isEmpty() {
+    return getStartIndex() == getEndIndexExclusive();
+  }
+
+  public Instruction getFirstInstruction() {
+    return isEmpty() ? null : getCFG().getSourceCode().get(getStartIndex());
+  }
+
+  public Instruction getLastInstruction() {
+    return isEmpty() ? null : getCFG().getSourceCode().get(getEndIndexExclusive() - 1);
+  }
 }
