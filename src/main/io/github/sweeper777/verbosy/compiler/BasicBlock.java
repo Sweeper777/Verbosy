@@ -9,6 +9,14 @@ public class BasicBlock {
   private final ControlFlowGraph cfg;
 
   public BasicBlock(int startIndex, int endIndexExclusive, ControlFlowGraph cfg) {
+    if (startIndex > endIndexExclusive) {
+      throw new IllegalArgumentException("startIndex > endIndexExclusive");
+    }
+    if (startIndex > cfg.getSourceCode().size() || endIndexExclusive > cfg.getSourceCode().size() ||
+        startIndex < 0) {
+      throw new IndexOutOfBoundsException("startIndex and endIndexExclusive must be within bounds!");
+    }
+
     this.startIndex = startIndex;
     this.endIndexExclusive = endIndexExclusive;
     this.cfg = cfg;
