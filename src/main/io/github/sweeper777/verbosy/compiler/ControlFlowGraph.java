@@ -27,4 +27,25 @@ public class ControlFlowGraph {
   public List<Instruction> getSourceCode() {
     return sourceCode;
   }
+
+  public BasicBlock getBasicBlock(int index) {
+    return getBasicBlocks().get(index);
+  }
+
+  public List<BasicBlock> getBasicBlocks() {
+    return basicBlocks;
+  }
+
+  public Set<BasicBlock> getSuccessor(BasicBlock basicBlock) {
+    return getSuccessors().get(basicBlock);
+  }
+
+  public Set<BasicBlock> getSuccessor(int basicBlockIndex) {
+    return getSuccessor(getBasicBlock(basicBlockIndex));
+  }
+
+  public HashMap<BasicBlock, HashSet<BasicBlock>> getSuccessors() {
+    return successors;
+  }
+
 }
