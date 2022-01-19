@@ -2,6 +2,8 @@ package io.github.sweeper777.verbosy.compiler;
 
 import io.github.sweeper777.verbosy.instructions.Instruction;
 
+import java.util.List;
+
 public class BasicBlock {
 
   private final int startIndex;
@@ -44,5 +46,9 @@ public class BasicBlock {
 
   public Instruction getLastInstruction() {
     return isEmpty() ? null : getCFG().getSourceCode().get(getEndIndexExclusive() - 1);
+  }
+
+  public List<Instruction> getInstructions() {
+    return cfg.getSourceCode().subList(getStartIndex(), getEndIndexExclusive());
   }
 }
