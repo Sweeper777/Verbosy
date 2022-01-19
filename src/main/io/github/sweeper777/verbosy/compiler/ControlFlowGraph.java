@@ -48,4 +48,16 @@ public class ControlFlowGraph {
     return successors;
   }
 
+  public static ControlFlowGraphBuilder builder() {
+    return new ControlFlowGraphBuilder();
+  }
+
+  public static class ControlFlowGraphBuilder {
+    private ControlFlowGraph cfg = new ControlFlowGraph();
+    private ControlFlowGraphBuilder() {}
+
+    private int currentBlockStart = 0;
+    private int currentBlockEndExclusive = 0;
+
+  }
 }
