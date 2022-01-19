@@ -59,5 +59,11 @@ public class ControlFlowGraph {
     private int currentBlockStart = 0;
     private int currentBlockEndExclusive = 0;
 
+    public ControlFlowGraphBuilder addLine(Instruction instr) {
+      cfg.sourceCode.add(instr);
+      currentBlockEndExclusive++;
+      return this;
+    }
+
   }
 }
