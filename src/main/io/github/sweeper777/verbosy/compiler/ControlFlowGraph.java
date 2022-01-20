@@ -73,5 +73,43 @@ public class ControlFlowGraph {
       return this;
     }
 
+    public ControlFlowGraph connectedGraph() {
+      cfg.basicBlocks.removeIf(BasicBlock::isEmpty);
+      cfg.successors.keySet().removeIf(BasicBlock::isEmpty);
+      cfg.basicBlocks.sort(Comparator.comparing(BasicBlock::getStartIndex));
+      var labelLeaders = cfg.basicBlocks.stream().filter(x -> x.getFirstInstruction() instanceof LabelInstruction)
+          .collect(Collectors.groupingBy(x -> ((LabelInstruction)x.getFirstInstruction()).getLabelName()));
+      var basicBlockCount = cfg.basicBlocks.size();
+      for (int i = 0; i < basicBlockCount; i++) {
+        var block = cfg.basicBlocks.get(i);
+        if (block.isEmpty()) {
+          throw new AssertionError();
+        }
+        if (block.getLastInstruction() instanceof GotoInstructionBase) {
+          var successors = labelLeaders.get(((GotoInstructionBase) block.getLastInstruction()).getLabelName());
+          if (!successors.isEmpty()) {
+            cfg.successors.get(block).add(successors.get(0));
+            if (block.getLastInstruction() instanceof GotoInstruction) {
+              continue;
+            }
+          }
+        }
+        if (block.getLastInstruction() instanceof HaltInstruction) {
+          continue;
+        }
+        if (i + 1 < cfg.basicBlocks.size()) {
+          var nextBlock = cfg.basicBlocks.get(i + 1);
+          cfg.successors.get(block).add(nextBlock);
+        } else {
+          var endBlock = new BasicBlock(cfg.sourceCode.size(), cfg.sourceCode.size(), cfg);
+          cfg.basicBlocks.add(endBlock);
+          cfg.successors.put(endBlock, new HashSet<>());
+          cfg.successors.get(cfg.basicBlocks.get(i)).add(endBlock);
+        }
+      }
+      return cfg;
+    }
+  }
+
   }
 }
