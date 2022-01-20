@@ -1,12 +1,12 @@
 package io.github.sweeper777.verbosy.compiler;
 
 import io.github.sweeper777.verbosy.compiler.CompilerOutput.Type;
-import io.github.sweeper777.verbosy.instructions.GotoInstruction;
 import io.github.sweeper777.verbosy.instructions.GotoInstructionBase;
 import io.github.sweeper777.verbosy.instructions.HaltInstruction;
 import io.github.sweeper777.verbosy.instructions.Instruction;
 import io.github.sweeper777.verbosy.instructions.LabelInstruction;
 import io.github.sweeper777.verbosy.instructions.ParameterPointerInstructionBase;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -18,6 +18,7 @@ public class SemanticAnalyer {
   private final int memorySize;
   private final boolean generateWarnings;
   private Set<String> labels;
+  private Set<String> usedLabels;
 
   private static final String DUPLICATE_LABEL_MSG = "Duplicate label '%s'";
   private static final String UNKNOWN_LABEL_MSG = "Unknown label '%s'";
@@ -59,7 +60,7 @@ public class SemanticAnalyer {
   }
 
   private void checkInstructionsValid() {
-    var usedLabels = new HashSet<String>();
+    usedLabels = new HashSet<String>();
     var allLabels = new HashSet<LabelInstruction>();
 
     for (Instruction i : instructions) {
