@@ -19,6 +19,7 @@ public class SemanticAnalyer {
   private final boolean generateWarnings;
   private Set<String> labels;
   private Set<String> usedLabels;
+  private ControlFlowGraph cfg;
 
   private static final String DUPLICATE_LABEL_MSG = "Duplicate label '%s'";
   private static final String UNKNOWN_LABEL_MSG = "Unknown label '%s'";
