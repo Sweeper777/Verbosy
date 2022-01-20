@@ -65,5 +65,13 @@ public class ControlFlowGraph {
       return this;
     }
 
+    public ControlFlowGraphBuilder buildBasicBlock() {
+      var block = new BasicBlock(currentBlockStart, currentBlockEndExclusive, cfg);
+      cfg.basicBlocks.add(block);
+      cfg.successors.put(block, new HashSet<>());
+      currentBlockStart = currentBlockEndExclusive;
+      return this;
+    }
+
   }
 }
