@@ -106,25 +106,6 @@ public class SemanticAnalyer {
     }
   }
 
-  private void findUnreachableCode() {
-    if (!generateWarnings) {
-      return;
-    }
-    for (int i = 0, instructionsSize = instructions.size(); i < instructionsSize - 1; i++) {
-      var instr = instructions.get(i);
-      var nextInstr = instructions.get(i + 1);
-      if ((instr instanceof GotoInstruction || instr instanceof HaltInstruction) &&
-          !(nextInstr instanceof LabelInstruction)) {
-        compilerOutputs.add(new CompilerOutput(
-            nextInstr.getLineNo(),
-            nextInstr.getColumnNo(),
-            UNREACHABLE_CODE,
-            Type.WARNING
-        ));
-      }
-    }
-  }
-
   private void findRedundantHalt() {
     if (!generateWarnings) {
       return;
@@ -140,6 +121,24 @@ public class SemanticAnalyer {
             REDUNDANT_HALT,
             Type.WARNING
         )));
+  }
+
+  private void findUnreachableCode() {
+    if (!generateWarnings) {
+      return;
+    }
+
+    cfg = generateCFG();
+    var unreachableBlocks = cfg.findUnreachableBlocks();
+    for (var block : unreachableBlocks) {
+      if (block.isEmpty()) continue;
+      compilerOutputs.add(new CompilerOutput(
+          block.getFirstInstruction().getLineNo(),
+          block.getFirstInstruction().getColumnNo(),
+          UNREACHABLE_CODE,
+          Type.WARNING
+      ));
+    }
   }
 
   private ControlFlowGraph generateCFG() {
