@@ -141,4 +141,24 @@ public class SemanticAnalyer {
             Type.WARNING
         )));
   }
+
+  private ControlFlowGraph generateCFG() {
+    var builder = ControlFlowGraph.builder();
+    for (var instruction : instructions) {
+      if (instruction instanceof LabelInstruction && usedLabels.contains(((LabelInstruction) instruction).getLabelName())) {
+        builder
+            .buildBasicBlock()
+            .addLine(instruction);
+      } else if (instruction instanceof GotoInstructionBase || instruction instanceof HaltInstruction) {
+        builder
+            .addLine(instruction)
+            .buildBasicBlock();
+      } else {
+        builder.addLine(instruction);
+      }
+    }
+    builder.buildBasicBlock();
+    return builder.connectedGraph();
+  }
+
 }
