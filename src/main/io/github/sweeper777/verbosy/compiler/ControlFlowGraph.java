@@ -111,5 +111,26 @@ public class ControlFlowGraph {
     }
   }
 
+  public HashSet<BasicBlock> findUnreachableBlocks(int startIndex) {
+    if (startIndex < 0 || startIndex >= basicBlocks.size()) {
+      throw new IndexOutOfBoundsException("startIndex is out of bounds!");
+    }
+    HashSet<BasicBlock> unreachables = new HashSet<>(basicBlocks);
+    Queue<BasicBlock> queue = new ArrayDeque<>();
+    unreachables.remove(basicBlocks.get(startIndex));
+    queue.add(basicBlocks.get(startIndex));
+    BasicBlock block;
+    while ((block = queue.poll()) != null) {
+      for (var successor : successors.get(block)) {
+        if (unreachables.remove(successor)) {
+          queue.add(successor);
+        }
+      }
+    }
+    return unreachables;
+  }
+
+  public HashSet<BasicBlock> findUnreachableBlocks() {
+    return findUnreachableBlocks(0);
   }
 }
