@@ -74,4 +74,39 @@ public class CFGTests {
     assertEquals(10, cfg.getBasicBlock(4).getEndIndexExclusive());
   }
 
+  @Test
+  public void generatesCFGForConditionalBranch() {
+    var analyser = new SemanticAnalyer(
+        List.of(
+            add(20, false),
+            add(20, false),
+            goToIf0("foo"),
+            add(20, false),
+            add(20, false),
+            label("foo"),
+            add(20, false),
+            add(20, false)
+        ),
+        new ArrayList<>(),
+        100,
+        true);
+    analyser.analyseSemantics();
+    var cfg = analyser.getCFG();
+    assertEquals(4, cfg.getBasicBlocks().size());
+
+    assertEquals(Set.of(cfg.getBasicBlock(1), cfg.getBasicBlock(2)), cfg.getSuccessor(0));
+    assertEquals(Set.of(cfg.getBasicBlock(2)), cfg.getSuccessors().get(cfg.getBasicBlock(1)));
+    assertEquals(Set.of(cfg.getBasicBlock(3)), cfg.getSuccessors().get(cfg.getBasicBlock(2)));
+    assertEquals(Set.of(), cfg.getSuccessors().get(cfg.getBasicBlock(3)));
+
+    assertEquals(0, cfg.getBasicBlock(0).getStartIndex());
+    assertEquals(3, cfg.getBasicBlock(0).getEndIndexExclusive());
+    assertEquals(3, cfg.getBasicBlock(1).getStartIndex());
+    assertEquals(5, cfg.getBasicBlock(1).getEndIndexExclusive());
+    assertEquals(5, cfg.getBasicBlock(2).getStartIndex());
+    assertEquals(8, cfg.getBasicBlock(2).getEndIndexExclusive());
+    assertEquals(8, cfg.getBasicBlock(3).getStartIndex());
+    assertEquals(8, cfg.getBasicBlock(3).getEndIndexExclusive());
+  }
+
 }
