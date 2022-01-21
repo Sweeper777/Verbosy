@@ -160,4 +160,7 @@ public class SemanticAnalyer {
     return builder.connectedGraph();
   }
 
+  public ControlFlowGraph getCFG() {
+    return cfg;
+  }
 }
