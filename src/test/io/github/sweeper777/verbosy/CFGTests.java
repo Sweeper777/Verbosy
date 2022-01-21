@@ -143,4 +143,23 @@ public class CFGTests {
     assertEquals(7, cfg.getBasicBlock(3).getEndIndexExclusive());
   }
 
+  @Test
+  public void generatesCFGForHalts() {
+    var analyser = new SemanticAnalyer(
+        List.of(
+            halt()
+        ),
+        new ArrayList<>(),
+        100,
+        true);
+    analyser.analyseSemantics();
+    var cfg = analyser.getCFG();
+    assertEquals(1, cfg.getBasicBlocks().size());
+
+    assertEquals(Set.of(), cfg.getSuccessor(0));
+
+    assertEquals(0, cfg.getBasicBlock(0).getStartIndex());
+    assertEquals(1, cfg.getBasicBlock(0).getEndIndexExclusive());
+  }
+
 }
