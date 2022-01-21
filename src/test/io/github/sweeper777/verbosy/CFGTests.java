@@ -162,4 +162,42 @@ public class CFGTests {
     assertEquals(1, cfg.getBasicBlock(0).getEndIndexExclusive());
   }
 
+  @Test
+  public void generatesCFGForManyLabels() {
+    var analyser = new SemanticAnalyer(
+        List.of(
+            label("1"),
+            label("2"),
+            label("3"),
+            goToIf0("3"),
+            goToIf0("2"),
+            goToIf0("1")
+        ),
+        new ArrayList<>(),
+        100,
+        true);
+    analyser.analyseSemantics();
+    var cfg = analyser.getCFG();
+    assertEquals(6, cfg.getBasicBlocks().size());
+
+    assertEquals(Set.of(cfg.getBasicBlock(1)), cfg.getSuccessor(0));
+    assertEquals(Set.of(cfg.getBasicBlock(2)), cfg.getSuccessors().get(cfg.getBasicBlock(1)));
+    assertEquals(Set.of(cfg.getBasicBlock(2), cfg.getBasicBlock(3)), cfg.getSuccessors().get(cfg.getBasicBlock(2)));
+    assertEquals(Set.of(cfg.getBasicBlock(1), cfg.getBasicBlock(4)), cfg.getSuccessors().get(cfg.getBasicBlock(3)));
+    assertEquals(Set.of(cfg.getBasicBlock(0), cfg.getBasicBlock(5)), cfg.getSuccessors().get(cfg.getBasicBlock(4)));
+    assertEquals(Set.of(), cfg.getSuccessors().get(cfg.getBasicBlock(5)));
+
+    assertEquals(0, cfg.getBasicBlock(0).getStartIndex());
+    assertEquals(1, cfg.getBasicBlock(0).getEndIndexExclusive());
+    assertEquals(1, cfg.getBasicBlock(1).getStartIndex());
+    assertEquals(2, cfg.getBasicBlock(1).getEndIndexExclusive());
+    assertEquals(2, cfg.getBasicBlock(2).getStartIndex());
+    assertEquals(4, cfg.getBasicBlock(2).getEndIndexExclusive());
+    assertEquals(4, cfg.getBasicBlock(3).getStartIndex());
+    assertEquals(5, cfg.getBasicBlock(3).getEndIndexExclusive());
+    assertEquals(5, cfg.getBasicBlock(4).getStartIndex());
+    assertEquals(6, cfg.getBasicBlock(4).getEndIndexExclusive());
+    assertEquals(6, cfg.getBasicBlock(5).getStartIndex());
+    assertEquals(6, cfg.getBasicBlock(5).getEndIndexExclusive());
+  }
 }
