@@ -1,8 +1,8 @@
 package io.github.sweeper777.verbosy.syntax;
 
 
-import io.github.sweeper777.verbosy.CompilerOutput;
-import io.github.sweeper777.verbosy.CompilerOutput.Type;
+import io.github.sweeper777.verbosy.Diagnostic;
+import io.github.sweeper777.verbosy.Diagnostic.Type;
 import io.github.sweeper777.verbosy.VerbosyBaseListener;
 import io.github.sweeper777.verbosy.VerbosyParser;
 import io.github.sweeper777.verbosy.syntax.instructions.AddInstruction;
@@ -30,12 +30,12 @@ import static io.github.sweeper777.verbosy.VerbosyParser.*;
 public class InstructionsFactory extends VerbosyBaseListener {
 
   private final List<Instruction> parsedInstructions = new ArrayList<>();
-  private final List<CompilerOutput> compilerOutputs;
+  private final List<Diagnostic> diagnostics;
   private static final String INT_OUT_OF_RANGE_MSG = "Integer literal '%s' out of range";
   private static final String HEX_CHARACTER_LITERAL_OUT_OF_RANGE_MSG = "Hex character literal '%s' out of range";
 
-  public InstructionsFactory(List<CompilerOutput> compilerOutputs) {
-    this.compilerOutputs = compilerOutputs;
+  public InstructionsFactory(List<Diagnostic> diagnostics) {
+    this.diagnostics = diagnostics;
   }
 
   public List<Instruction> getParsedInstructions() {
@@ -84,7 +84,7 @@ public class InstructionsFactory extends VerbosyBaseListener {
               new VerbosyValue(c, true)
           ));
         } catch (NumberFormatException ex) {
-          compilerOutputs.add(new CompilerOutput(
+          diagnostics.add(new Diagnostic(
               charParameter.getStart().getLine(),
               charParameter.getStart().getCharPositionInLine(),
               String.format(HEX_CHARACTER_LITERAL_OUT_OF_RANGE_MSG, charParameter.getText()),
@@ -100,7 +100,7 @@ public class InstructionsFactory extends VerbosyBaseListener {
             new VerbosyValue(parameter, false)
         ));
       } catch (NumberFormatException ex) {
-        compilerOutputs.add(new CompilerOutput(
+        diagnostics.add(new Diagnostic(
             intParameter.getStart().getLine(),
             intParameter.getStart().getCharPositionInLine(),
             String.format(INT_OUT_OF_RANGE_MSG, intParameter.getText()),
@@ -127,7 +127,7 @@ public class InstructionsFactory extends VerbosyBaseListener {
           pointer
       ));
     } catch (NumberFormatException ex) {
-      compilerOutputs.add(new CompilerOutput(
+      diagnostics.add(new Diagnostic(
           argContext.getStart().getLine(),
           argContext.getStart().getCharPositionInLine(),
           String.format(INT_OUT_OF_RANGE_MSG, argContext.getText()),

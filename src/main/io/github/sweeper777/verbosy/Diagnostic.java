@@ -1,6 +1,6 @@
 package io.github.sweeper777.verbosy;
 
-public final class CompilerOutput {
+public final class Diagnostic {
   public enum Type {
     ERROR, WARNING
   }
@@ -10,8 +10,8 @@ public final class CompilerOutput {
   private final String message;
   private final Type type;
 
-  public CompilerOutput(int lineNo, int columnNo, String message,
-      Type type) {
+  public Diagnostic(int lineNo, int columnNo, String message,
+                    Type type) {
     this.lineNo = lineNo;
     this.columnNo = columnNo;
     this.message = message;
@@ -27,7 +27,7 @@ public final class CompilerOutput {
       return false;
     }
 
-    CompilerOutput that = (CompilerOutput) o;
+    Diagnostic that = (Diagnostic) o;
 
     if (lineNo != that.lineNo) {
       return false;

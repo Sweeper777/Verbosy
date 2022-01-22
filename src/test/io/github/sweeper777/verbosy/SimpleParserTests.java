@@ -12,7 +12,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class SimpleParserTests {
-  private final List<CompilerOutput> errors = new ArrayList<>();
+  private final List<Diagnostic> errors = new ArrayList<>();
   private final List<Instruction> instructions = new ArrayList<>();
 
   @Before

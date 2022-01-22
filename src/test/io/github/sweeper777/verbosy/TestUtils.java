@@ -28,7 +28,7 @@ import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
 public class TestUtils {
-  public static void parseCharStream(CharStream charStream, List<Instruction> instructions, List<CompilerOutput> errors) {
+  public static void parseCharStream(CharStream charStream, List<Instruction> instructions, List<Diagnostic> errors) {
     VerbosyLexer lexer = new VerbosyLexer(charStream);
     CommonTokenStream tokenStream = new CommonTokenStream(lexer);
     VerbosyParser parser = new VerbosyParser(tokenStream);

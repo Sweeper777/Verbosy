@@ -1,7 +1,7 @@
 package io.github.sweeper777.verbosy.semantics;
 
-import io.github.sweeper777.verbosy.CompilerOutput;
-import io.github.sweeper777.verbosy.CompilerOutput.Type;
+import io.github.sweeper777.verbosy.Diagnostic;
+import io.github.sweeper777.verbosy.Diagnostic.Type;
 import io.github.sweeper777.verbosy.syntax.instructions.GotoInstructionBase;
 import io.github.sweeper777.verbosy.syntax.instructions.HaltInstruction;
 import io.github.sweeper777.verbosy.syntax.Instruction;
@@ -15,7 +15,7 @@ import java.util.stream.IntStream;
 
 public class SemanticAnalyer {
   private final List<Instruction> instructions;
-  private final List<CompilerOutput> compilerOutputs;
+  private final List<Diagnostic> diagnostics;
   private final int memorySize;
   private final boolean generateWarnings;
   private Set<String> labels;
@@ -31,9 +31,9 @@ public class SemanticAnalyer {
 
   public SemanticAnalyer(
       List<Instruction> instructions,
-      List<CompilerOutput> compilerOutputs, int memorySize, boolean generateWarnings) {
+      List<Diagnostic> diagnostics, int memorySize, boolean generateWarnings) {
     this.instructions = instructions;
-    this.compilerOutputs = compilerOutputs;
+    this.diagnostics = diagnostics;
     this.memorySize = memorySize;
     this.generateWarnings = generateWarnings;
   }
@@ -52,7 +52,7 @@ public class SemanticAnalyer {
         String labelName = ((LabelInstruction)i).getLabelName();
         boolean isNewLabel = labels.add(labelName);
         if (!isNewLabel) {
-          compilerOutputs.add(new CompilerOutput(
+          diagnostics.add(new Diagnostic(
               i.getLineNo(), i.getColumnNo(),
               String.format(DUPLICATE_LABEL_MSG, labelName),
               Type.ERROR));
@@ -69,7 +69,7 @@ public class SemanticAnalyer {
       if (i instanceof GotoInstructionBase) {
         String labelName = ((GotoInstructionBase)i).getLabelName();
         if (!labels.contains(labelName)) {
-          compilerOutputs.add(new CompilerOutput(
+          diagnostics.add(new Diagnostic(
               i.getLineNo(), i.getColumnNo(),
               String.format(UNKNOWN_LABEL_MSG, labelName),
               Type.ERROR));
@@ -85,7 +85,7 @@ public class SemanticAnalyer {
       if (i instanceof ParameterPointerInstructionBase) {
         var parameter = ((ParameterPointerInstructionBase)i).getParameter();
         if (parameter < 0 || parameter >= memorySize) {
-          compilerOutputs.add(new CompilerOutput(
+          diagnostics.add(new Diagnostic(
               i.getLineNo(), i.getColumnNo(),
               String.format(MEMORY_UNAVAILABLE_MSG, parameter, 0, memorySize),
               Type.ERROR));
@@ -97,7 +97,7 @@ public class SemanticAnalyer {
       var unusedLabels = new HashSet<>(allLabels);
       unusedLabels.removeIf(x -> usedLabels.contains(x.getLabelName()));
       for (var label : unusedLabels) {
-        compilerOutputs.add(new CompilerOutput(
+        diagnostics.add(new Diagnostic(
             label.getLineNo(),
             label.getColumnNo(),
             String.format(UNUSED_LABEL_MSG, label.getLabelName()),
@@ -116,7 +116,7 @@ public class SemanticAnalyer {
         .dropWhile(x -> x instanceof LabelInstruction)
         .findFirst()
         .filter(x -> x instanceof HaltInstruction)
-        .ifPresent(x -> compilerOutputs.add(new CompilerOutput(
+        .ifPresent(x -> diagnostics.add(new Diagnostic(
             x.getLineNo(),
             x.getColumnNo(),
             REDUNDANT_HALT,
@@ -133,7 +133,7 @@ public class SemanticAnalyer {
     var unreachableBlocks = cfg.findUnreachableBlocks();
     for (var block : unreachableBlocks) {
       if (block.isEmpty()) continue;
-      compilerOutputs.add(new CompilerOutput(
+      diagnostics.add(new Diagnostic(
           block.getFirstInstruction().getLineNo(),
           block.getFirstInstruction().getColumnNo(),
           UNREACHABLE_CODE,

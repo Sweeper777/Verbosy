@@ -1,6 +1,6 @@
 package io.github.sweeper777.verbosy;
 
-import io.github.sweeper777.verbosy.CompilerOutput.Type;
+import io.github.sweeper777.verbosy.Diagnostic.Type;
 import org.antlr.v4.runtime.ANTLRErrorListener;
 import org.antlr.v4.runtime.Parser;
 import org.antlr.v4.runtime.RecognitionException;
@@ -13,16 +13,16 @@ import java.util.List;
 
 public class ListErrorListener implements ANTLRErrorListener {
 
-  private final List<CompilerOutput> compilerOutputList;
+  private final List<Diagnostic> diagnosticList;
 
-  public ListErrorListener(List<CompilerOutput> compilerOutputList) {
-    this.compilerOutputList = compilerOutputList;
+  public ListErrorListener(List<Diagnostic> diagnosticList) {
+    this.diagnosticList = diagnosticList;
   }
 
   @Override
   public void syntaxError(Recognizer<?, ?> recognizer, Object o, int i, int i1, String s,
       RecognitionException e) {
-    compilerOutputList.add(new CompilerOutput(i, i1, s, Type.ERROR));
+    diagnosticList.add(new Diagnostic(i, i1, s, Type.ERROR));
   }
 
   @Override
