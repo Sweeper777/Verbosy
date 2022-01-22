@@ -14,7 +14,7 @@ public class BasicBlock {
     if (startIndex > endIndexExclusive) {
       throw new IllegalArgumentException("startIndex > endIndexExclusive");
     }
-    if (startIndex > cfg.getSourceCode().size() || endIndexExclusive > cfg.getSourceCode().size() ||
+    if (startIndex > cfg.getInstructions().size() || endIndexExclusive > cfg.getInstructions().size() ||
         startIndex < 0) {
       throw new IndexOutOfBoundsException("startIndex and endIndexExclusive must be within bounds!");
     }
@@ -41,14 +41,14 @@ public class BasicBlock {
   }
 
   public Instruction getFirstInstruction() {
-    return isEmpty() ? null : getCFG().getSourceCode().get(getStartIndex());
+    return isEmpty() ? null : getCFG().getInstructions().get(getStartIndex());
   }
 
   public Instruction getLastInstruction() {
-    return isEmpty() ? null : getCFG().getSourceCode().get(getEndIndexExclusive() - 1);
+    return isEmpty() ? null : getCFG().getInstructions().get(getEndIndexExclusive() - 1);
   }
 
   public List<Instruction> getInstructions() {
-    return cfg.getSourceCode().subList(getStartIndex(), getEndIndexExclusive());
+    return cfg.getInstructions().subList(getStartIndex(), getEndIndexExclusive());
   }
 }

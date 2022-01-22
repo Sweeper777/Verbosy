@@ -18,14 +18,14 @@ import java.util.stream.Collectors;
 
 public class ControlFlowGraph {
   private final List<BasicBlock> basicBlocks = new ArrayList<>();
-  private final List<Instruction> sourceCode = new ArrayList<>();
+  private final List<Instruction> instructions = new ArrayList<>();
   private final HashMap<BasicBlock, HashSet<BasicBlock>> successors = new HashMap<>();
 
   private ControlFlowGraph() {
   }
 
-  public List<Instruction> getSourceCode() {
-    return sourceCode;
+  public List<Instruction> getInstructions() {
+    return instructions;
   }
 
   public BasicBlock getBasicBlock(int index) {
@@ -59,8 +59,8 @@ public class ControlFlowGraph {
     private int currentBlockStart = 0;
     private int currentBlockEndExclusive = 0;
 
-    public ControlFlowGraphBuilder addLine(Instruction instr) {
-      cfg.sourceCode.add(instr);
+    public ControlFlowGraphBuilder addInstruction(Instruction instr) {
+      cfg.instructions.add(instr);
       currentBlockEndExclusive++;
       return this;
     }
@@ -101,7 +101,7 @@ public class ControlFlowGraph {
           var nextBlock = cfg.basicBlocks.get(i + 1);
           cfg.successors.get(block).add(nextBlock);
         } else {
-          var endBlock = new BasicBlock(cfg.sourceCode.size(), cfg.sourceCode.size(), cfg);
+          var endBlock = new BasicBlock(cfg.instructions.size(), cfg.instructions.size(), cfg);
           cfg.basicBlocks.add(endBlock);
           cfg.successors.put(endBlock, new HashSet<>());
           cfg.successors.get(cfg.basicBlocks.get(i)).add(endBlock);

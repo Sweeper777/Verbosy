@@ -147,13 +147,13 @@ public class SemanticAnalyer {
       if (instruction instanceof LabelInstruction && usedLabels.contains(((LabelInstruction) instruction).getLabelName())) {
         builder
             .buildBasicBlock()
-            .addLine(instruction);
+            .addInstruction(instruction);
       } else if (instruction instanceof GotoInstructionBase || instruction instanceof HaltInstruction) {
         builder
-            .addLine(instruction)
+            .addInstruction(instruction)
             .buildBasicBlock();
       } else {
-        builder.addLine(instruction);
+        builder.addInstruction(instruction);
       }
     }
     builder.buildBasicBlock();
