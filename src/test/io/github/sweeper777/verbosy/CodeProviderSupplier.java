@@ -1,6 +1,6 @@
 package io.github.sweeper777.verbosy;
 
-import io.github.sweeper777.verbosy.compiler.CodeProvider;
+import io.github.sweeper777.verbosy.codegen.CodeProvider;
 import java.io.IOException;
 
 public interface CodeProviderSupplier {

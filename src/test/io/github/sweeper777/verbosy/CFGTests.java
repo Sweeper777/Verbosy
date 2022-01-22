@@ -1,6 +1,6 @@
 package io.github.sweeper777.verbosy;
 
-import io.github.sweeper777.verbosy.compiler.SemanticAnalyer;
+import io.github.sweeper777.verbosy.semantics.SemanticAnalyer;
 import org.junit.Test;
 
 import java.util.ArrayList;

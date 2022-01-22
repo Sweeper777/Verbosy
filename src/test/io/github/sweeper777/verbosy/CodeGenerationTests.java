@@ -13,11 +13,10 @@ import static io.github.sweeper777.verbosy.TestUtils.sub;
 import static io.github.sweeper777.verbosy.TestUtils.take;
 import static org.junit.Assert.assertEquals;
 
-import io.github.sweeper777.verbosy.compiler.CodeGenerator;
-import io.github.sweeper777.verbosy.compiler.CodeProvider;
-import io.github.sweeper777.verbosy.compiler.VerbosyCompiler;
-import io.github.sweeper777.verbosy.csharp.CSharpDictCodeProvider;
-import io.github.sweeper777.verbosy.instructions.Instruction;
+import io.github.sweeper777.verbosy.codegen.CodeGenerator;
+import io.github.sweeper777.verbosy.codegen.CodeProvider;
+import io.github.sweeper777.verbosy.codegen.CSharpDictCodeProvider;
+import io.github.sweeper777.verbosy.syntax.Instruction;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;

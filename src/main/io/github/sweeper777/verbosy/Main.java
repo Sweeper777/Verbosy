@@ -1,9 +1,8 @@
 package io.github.sweeper777.verbosy;
 
-import io.github.sweeper777.verbosy.compiler.CodeProvider;
-import io.github.sweeper777.verbosy.compiler.VerbosyCompiler;
-import io.github.sweeper777.verbosy.csharp.CSharpArrayCodeProvider;
-import io.github.sweeper777.verbosy.csharp.CSharpDictCodeProvider;
+import io.github.sweeper777.verbosy.codegen.CodeProvider;
+import io.github.sweeper777.verbosy.codegen.CSharpArrayCodeProvider;
+import io.github.sweeper777.verbosy.codegen.CSharpDictCodeProvider;
 import java.io.IOException;
 import org.antlr.v4.runtime.CharStreams;
 import org.apache.commons.cli.CommandLine;

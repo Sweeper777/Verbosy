@@ -4,8 +4,7 @@ import static io.github.sweeper777.verbosy.TestUtils.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
-import io.github.sweeper777.verbosy.compiler.CompilerOutput;
-import io.github.sweeper777.verbosy.instructions.Instruction;
+import io.github.sweeper777.verbosy.syntax.Instruction;
 import java.util.ArrayList;
 import java.util.List;
 import org.antlr.v4.runtime.CharStreams;
