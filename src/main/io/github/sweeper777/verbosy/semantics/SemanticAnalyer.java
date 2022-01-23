@@ -128,12 +128,13 @@ public class SemanticAnalyer {
   }
 
   private void findUnreachableCode() {
+    cfg = generateCFG();
+    unreachableBlocks = cfg.findUnreachableBlocks();
+
     if (!generateWarnings) {
       return;
     }
 
-    cfg = generateCFG();
-    var unreachableBlocks = cfg.findUnreachableBlocks();
     for (var block : unreachableBlocks) {
       if (block.isEmpty()) continue;
       diagnostics.add(new Diagnostic(
