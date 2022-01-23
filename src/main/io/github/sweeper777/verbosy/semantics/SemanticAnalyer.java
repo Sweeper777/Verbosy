@@ -2,12 +2,14 @@ package io.github.sweeper777.verbosy.semantics;
 
 import io.github.sweeper777.verbosy.Diagnostic;
 import io.github.sweeper777.verbosy.Diagnostic.Type;
+import io.github.sweeper777.verbosy.syntax.Instruction;
 import io.github.sweeper777.verbosy.syntax.instructions.GotoInstructionBase;
 import io.github.sweeper777.verbosy.syntax.instructions.HaltInstruction;
-import io.github.sweeper777.verbosy.syntax.Instruction;
 import io.github.sweeper777.verbosy.syntax.instructions.LabelInstruction;
 import io.github.sweeper777.verbosy.syntax.instructions.ParameterPointerInstructionBase;
 
+import java.util.Collection;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -21,6 +23,7 @@ public class SemanticAnalyer {
   private Set<String> labels;
   private Set<String> usedLabels;
   private ControlFlowGraph cfg;
+  private Collection<BasicBlock> unreachableBlocks;
 
   private static final String DUPLICATE_LABEL_MSG = "Duplicate label '%s'";
   private static final String UNKNOWN_LABEL_MSG = "Unknown label '%s'";
@@ -163,5 +166,9 @@ public class SemanticAnalyer {
 
   public ControlFlowGraph getCFG() {
     return cfg;
+  }
+
+  public Collection<BasicBlock> getUnreachableBlocks() {
+    return unreachableBlocks;
   }
 }
