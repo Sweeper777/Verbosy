@@ -47,7 +47,7 @@ public class TestUtils {
   public static String runCode(CharStream code, String input, VerbosyCompiler compiler)
       throws IOException, InterruptedException {
     compiler.compile(code, "out.exe");
-    assertEquals(0, compiler.getCompilerOutputs().size());
+    assertEquals(0, compiler.getDiagnostics().size());
     var process = Runtime.getRuntime().exec("mono out.exe");
     if (input != null) {
       process.getOutputStream().write(input.getBytes(StandardCharsets.UTF_8));

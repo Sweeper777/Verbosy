@@ -68,7 +68,7 @@ public class VerbosyCompiler {
     }
   }
 
-  public List<Diagnostic> getCompilerOutputs() {
+  public List<Diagnostic> getDiagnostics() {
     return diagnostics;
   }
 
