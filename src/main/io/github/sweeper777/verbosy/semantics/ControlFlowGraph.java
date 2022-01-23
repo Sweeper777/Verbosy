@@ -87,7 +87,7 @@ public class ControlFlowGraph {
         }
         if (block.getLastInstruction() instanceof GotoInstructionBase) {
           var successors = labelLeaders.get(((GotoInstructionBase) block.getLastInstruction()).getLabelName());
-          if (!successors.isEmpty()) {
+          if (successors != null && !successors.isEmpty()) {
             cfg.successors.get(block).add(successors.get(0));
             if (block.getLastInstruction() instanceof GotoInstruction) {
               continue;
