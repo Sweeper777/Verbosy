@@ -35,7 +35,7 @@ public class VerbosyCompiler {
     InstructionsFactory factory = new InstructionsFactory(diagnostics);
     ParseTreeWalker.DEFAULT.walk(factory, parser.compilationUnit());
     var instructions = factory.getParsedInstructions();
-    var semanticAnalyser = new SemanticAnalyer(instructions, diagnostics, memorySize, generateWarnings);
+    var semanticAnalyser = new SemanticAnalyer(instructions, diagnostics, getMemorySize(), doesGenerateWarnings());
     semanticAnalyser.analyseSemantics();
     if (diagnostics.isEmpty()) {
       File sourceFile;
@@ -74,5 +74,29 @@ public class VerbosyCompiler {
 
   public void compile(CharStream stream, String outputFileName) throws IOException {
     compile(stream, outputFileName, null);
+  }
+
+  public int getMemorySize() {
+    return memorySize;
+  }
+
+  public void setMemorySize(int memorySize) {
+    this.memorySize = memorySize;
+  }
+
+  public boolean doesGenerateWarnings() {
+    return generateWarnings;
+  }
+
+  public void setGenerateWarnings(boolean generateWarnings) {
+    this.generateWarnings = generateWarnings;
+  }
+
+  public boolean doesEliminateDeadCode() {
+    return eliminateDeadCode;
+  }
+
+  public void setEliminateCode(boolean eliminateDeadCode) {
+    this.eliminateDeadCode = eliminateDeadCode;
   }
 }
