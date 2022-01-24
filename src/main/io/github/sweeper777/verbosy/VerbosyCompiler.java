@@ -15,9 +15,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class VerbosyCompiler {
-  private final int memorySize;
+  private int memorySize;
   private final CodeProvider provider;
-  private final boolean generateWarnings;
+  private boolean generateWarnings = true;
   private final List<Diagnostic> diagnostics = new ArrayList<>();
 
   public VerbosyCompiler(int memorySize, CodeProvider provider, boolean generateWarnings) {
