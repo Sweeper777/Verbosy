@@ -49,6 +49,12 @@ public class SemanticAnalyer {
     findRedundantHalt();
   }
 
+  public void eliminateDeadCode() {
+    unreachableBlocks.stream()
+        .sorted(Comparator.comparingInt(BasicBlock::getStartIndex).reversed())
+        .forEach(block -> instructions.subList(block.getStartIndex(), block.getEndIndexExclusive()).clear());
+  }
+
   private void checkDuplicateLabels() {
     for (Instruction i : instructions) {
       if (i instanceof LabelInstruction) {
