@@ -37,7 +37,8 @@ public class VerbosyCompiler {
     var instructions = factory.getParsedInstructions();
     var semanticAnalyser = new SemanticAnalyer(instructions, diagnostics, getMemorySize(), doesGenerateWarnings());
     semanticAnalyser.analyseSemantics();
-    if (diagnostics.isEmpty()) {
+    diagnostics.forEach(System.err::println);
+    if (diagnostics.stream().noneMatch(x -> x.getType() == Diagnostic.Type.ERROR)) {
       File sourceFile;
       if (outputSourceFile == null) {
         sourceFile = File.createTempFile("verbosyOutput", ".cs");
@@ -63,8 +64,6 @@ public class VerbosyCompiler {
           sourceFile.delete();
         }
       }
-    } else {
-      diagnostics.forEach(System.err::println);
     }
   }
 
