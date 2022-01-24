@@ -21,10 +21,9 @@ public class VerbosyCompiler {
   private boolean eliminateDeadCode = true;
   private final List<Diagnostic> diagnostics = new ArrayList<>();
 
-  public VerbosyCompiler(int memorySize, CodeProvider provider, boolean generateWarnings) {
+  public VerbosyCompiler(int memorySize, CodeProvider provider) {
     this.memorySize = memorySize;
     this.provider = provider;
-    this.generateWarnings = generateWarnings;
   }
 
   public void compile(CharStream stream, String outputFileName, String outputSourceFile) throws IOException {
