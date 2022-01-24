@@ -37,6 +37,9 @@ public class VerbosyCompiler {
     var instructions = factory.getParsedInstructions();
     var semanticAnalyser = new SemanticAnalyer(instructions, diagnostics, getMemorySize(), doesGenerateWarnings());
     semanticAnalyser.analyseSemantics();
+    if (doesEliminateDeadCode()) {
+      semanticAnalyser.eliminateDeadCode();
+    }
     diagnostics.forEach(System.err::println);
     if (diagnostics.stream().noneMatch(x -> x.getType() == Diagnostic.Type.ERROR)) {
       File sourceFile;
