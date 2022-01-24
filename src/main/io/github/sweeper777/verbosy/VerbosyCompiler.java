@@ -18,6 +18,7 @@ public class VerbosyCompiler {
   private int memorySize;
   private final CodeProvider provider;
   private boolean generateWarnings = true;
+  private boolean eliminateDeadCode = true;
   private final List<Diagnostic> diagnostics = new ArrayList<>();
 
   public VerbosyCompiler(int memorySize, CodeProvider provider, boolean generateWarnings) {
