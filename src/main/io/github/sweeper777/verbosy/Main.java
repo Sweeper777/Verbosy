@@ -1,9 +1,8 @@
 package io.github.sweeper777.verbosy;
 
-import io.github.sweeper777.verbosy.codegen.CodeProvider;
 import io.github.sweeper777.verbosy.codegen.CSharpArrayCodeProvider;
 import io.github.sweeper777.verbosy.codegen.CSharpDictCodeProvider;
-import java.io.IOException;
+import io.github.sweeper777.verbosy.codegen.CodeProvider;
 import org.antlr.v4.runtime.CharStreams;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -12,6 +11,8 @@ import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
+
+import java.io.IOException;
 
 public class Main {
 
@@ -57,7 +58,10 @@ public class Main {
             );
             memorySize = Integer.MAX_VALUE;
         }
-        var compiler = new VerbosyCompiler(memorySize, codeProvider, !cl.hasOption('n'));
+        var compiler = new VerbosyCompiler(memorySize, codeProvider);
+        compiler.setGenerateWarnings(!cl.hasOption('n'));
+        compiler.setEliminateCode(!cl.hasOption("no-elimination"));
+
         String outputFile = "a.out";
         if (cl.hasOption('o')) {
             outputFile = cl.getOptionValue('o');
@@ -111,6 +115,10 @@ public class Main {
             .longOpt("nowarn")
             .desc("disable warnings")
             .build();
+        Option noCodeElimination = Option.builder()
+           .longOpt("no-elimination")
+           .desc("disable dead code elimination")
+           .build();
 
         Option dictionaryMemory = Option.builder("d")
             .longOpt("dict-memory")
@@ -125,6 +133,7 @@ public class Main {
             .addOption(help)
             .addOption(outputSource)
             .addOption(noWarnings)
+            .addOption(noCodeElimination)
             .addOption(dictionaryMemory);
         return options;
     }
