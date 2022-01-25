@@ -1,22 +1,12 @@
 package io.github.sweeper777.verbosy;
 
-import static io.github.sweeper777.verbosy.TestUtils.add;
-import static io.github.sweeper777.verbosy.TestUtils.dec;
-import static io.github.sweeper777.verbosy.TestUtils.halt;
-import static io.github.sweeper777.verbosy.TestUtils.inc;
-import static io.github.sweeper777.verbosy.TestUtils.input;
-import static io.github.sweeper777.verbosy.TestUtils.output;
-import static io.github.sweeper777.verbosy.TestUtils.put;
-import static io.github.sweeper777.verbosy.TestUtils.runCode;
-import static io.github.sweeper777.verbosy.TestUtils.set;
-import static io.github.sweeper777.verbosy.TestUtils.sub;
-import static io.github.sweeper777.verbosy.TestUtils.take;
-import static org.junit.Assert.assertEquals;
-
+import io.github.sweeper777.verbosy.codegen.CSharpDictCodeProvider;
 import io.github.sweeper777.verbosy.codegen.CodeGenerator;
 import io.github.sweeper777.verbosy.codegen.CodeProvider;
-import io.github.sweeper777.verbosy.codegen.CSharpDictCodeProvider;
 import io.github.sweeper777.verbosy.syntax.Instruction;
+import org.antlr.v4.runtime.CharStreams;
+import org.junit.Test;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -24,8 +14,9 @@ import java.util.Objects;
 import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import org.antlr.v4.runtime.CharStreams;
-import org.junit.Test;
+
+import static io.github.sweeper777.verbosy.TestUtils.*;
+import static org.junit.Assert.assertEquals;
 
 public class CodeGenerationTests {
 
@@ -35,7 +26,8 @@ public class CodeGenerationTests {
   @Test
   public void testIO() throws IOException, InterruptedException {
     var compiler = new VerbosyCompiler(1024,
-        codeProviderSupplier.get(1024, false, false), false);
+        codeProviderSupplier.get(1024, false, false));
+    compiler.setGenerateWarnings(false);
     assertEquals("h", runCode("i o", "hello", compiler));
     assertEquals("hello", runCode(":a: i o >a", "hello", compiler));
   }
@@ -43,7 +35,8 @@ public class CodeGenerationTests {
   @Test
   public void testHalt() throws IOException, InterruptedException {
     var compiler = new VerbosyCompiler(1024,
-        codeProviderSupplier.get(1024, false, false), false);
+        codeProviderSupplier.get(1024, false, false));
+    compiler.setGenerateWarnings(false);
     assertEquals("", runCode("x ~x o", "", compiler));
     assertEquals("x", runCode(":a: ~x o x >a", "", compiler));
   }
@@ -51,21 +44,24 @@ public class CodeGenerationTests {
   @Test
   public void testReadSpaceAs0() throws IOException, InterruptedException {
     var compiler = new VerbosyCompiler(1024,
-        codeProviderSupplier.get(1024, true, false), false);
+        codeProviderSupplier.get(1024, true, false));
+    compiler.setGenerateWarnings(false);
     assertEquals("i0 i0 i0 i", runCode(":a: i o >a", "i i i i", compiler));
   }
 
   @Test
   public void testReadInts() throws IOException, InterruptedException {
     var compiler = new VerbosyCompiler(1024,
-        codeProviderSupplier.get(1024, false, true), false);
+        codeProviderSupplier.get(1024, false, true));
+    compiler.setGenerateWarnings(false);
     assertEquals("-123 ", runCode("i o", "-123", compiler));
   }
 
   @Test
   public void testSet() throws IOException, InterruptedException {
     var compiler = new VerbosyCompiler(1024,
-        codeProviderSupplier.get(1024, false, false), false);
+        codeProviderSupplier.get(1024, false, false));
+    compiler.setGenerateWarnings(false);
     assertEquals("hello", runCode("~h o ~e o ~l o ~l o ~o o", "", compiler));
     assertEquals(" ", runCode("~\\20 o", null, compiler));
   }
@@ -73,7 +69,8 @@ public class CodeGenerationTests {
   @Test
   public void testAdd() throws IOException, InterruptedException {
     var compiler = new VerbosyCompiler(1024,
-        codeProviderSupplier.get(1024, false, false), false);
+        codeProviderSupplier.get(1024, false, false));
+    compiler.setGenerateWarnings(false);
     assertEquals("11 ", runCode("~1 /0 ~10 +0 o", "", compiler));
     assertEquals("11 ", runCode("~20 /0 ~10 /20 ~1 +0* o", null, compiler));
     assertEquals("-2147483648 ", runCode("~2147483647 /0 ~1 +0 o", null, compiler));
@@ -83,7 +80,8 @@ public class CodeGenerationTests {
   @Test
   public void testSub() throws IOException, InterruptedException {
     var compiler = new VerbosyCompiler(1024,
-        codeProviderSupplier.get(1024, false, false), false);
+        codeProviderSupplier.get(1024, false, false));
+    compiler.setGenerateWarnings(false);
     assertEquals("9 ", runCode("~1 /0 ~10 -0 o", "", compiler));
     assertEquals("-9 ", runCode("~20 /0 ~10 /20 ~1 -0* o", null, compiler));
     assertEquals("2147483647 ", runCode("~1 /0 ~-2147483648 -0 o", null, compiler));
@@ -92,7 +90,8 @@ public class CodeGenerationTests {
   @Test
   public void testInc() throws IOException, InterruptedException {
     var compiler = new VerbosyCompiler(1024,
-        codeProviderSupplier.get(1024, false, false), false);
+        codeProviderSupplier.get(1024, false, false));
+    compiler.setGenerateWarnings(false);
     assertEquals("2 2 ", runCode("~1 /0 ^0 o ~0 \\0 o", "", compiler));
     assertEquals("bb", runCode("~a /0 ^0 o ~0 \\0 o", "", compiler));
   }
@@ -100,7 +99,8 @@ public class CodeGenerationTests {
   @Test
   public void testDec() throws IOException, InterruptedException {
     var compiler = new VerbosyCompiler(1024,
-        codeProviderSupplier.get(1024, false, false), false);
+        codeProviderSupplier.get(1024, false, false));
+    compiler.setGenerateWarnings(false);
     assertEquals("0 0 ", runCode("~1 /0 v0 o ~0 \\0 o", "", compiler));
     assertEquals("bb", runCode("~c /0 v0 o ~0 \\0 o", "", compiler));
   }
@@ -108,14 +108,16 @@ public class CodeGenerationTests {
   @Test
   public void testGoto() throws IOException, InterruptedException {
     var compiler = new VerbosyCompiler(1024,
-        codeProviderSupplier.get(1024, false, false), false);
+        codeProviderSupplier.get(1024, false, false));
+    compiler.setGenerateWarnings(false);
     assertEquals("b", runCode(">a ~a o :a: ~b o", "", compiler));
   }
 
   @Test
   public void testGotoIfZero() throws IOException, InterruptedException {
     var compiler = new VerbosyCompiler(1024,
-        codeProviderSupplier.get(1024, false, false), false);
+        codeProviderSupplier.get(1024, false, false));
+    compiler.setGenerateWarnings(false);
     assertEquals("bde", runCode("~0 >0a ~a o :a: ~b o ~\\0 >0b ~c o :b: ~d o >0c ~e o :c:", "", compiler));
   }
 
@@ -123,14 +125,16 @@ public class CodeGenerationTests {
   @Test
   public void testGotoIfNeg() throws IOException, InterruptedException {
     var compiler = new VerbosyCompiler(1024,
-        codeProviderSupplier.get(1024, false, false), false);
+        codeProviderSupplier.get(1024, false, false));
+    compiler.setGenerateWarnings(false);
     assertEquals("bcde", runCode("~-1 >-a ~a o :a: ~b o ~0 >-b ~c o :b: ~d o >-c ~e o :c:", "", compiler));
   }
 
   @Test
   public void testNullMemory() throws IOException, InterruptedException {
     var compiler = new VerbosyCompiler(1024,
-        codeProviderSupplier.get(1024, false, false), false);
+        codeProviderSupplier.get(1024, false, false));
+    compiler.setGenerateWarnings(false);
     assertEquals("", runCode("o \\0 /0 +0 -0 ^0 v0 \\0* /0* +0* -0* ^0* v0*", "", compiler));
   }
 
@@ -141,7 +145,8 @@ public class CodeGenerationTests {
     var stream2 = CharStreams.fromStream(Objects
         .requireNonNull(SampleProgramParserTests.class.getResourceAsStream("/tests/splitdigits.vp")));
     var compiler = new VerbosyCompiler(1024,
-        codeProviderSupplier.get(1024, true, true), false);
+        codeProviderSupplier.get(1024, true, true));
+    compiler.setGenerateWarnings(false);
     assertEquals("olleh", runCode(stream1, "hello ", compiler));
     assertEquals("1 2 3 ", runCode(stream2, "123", compiler));
   }
