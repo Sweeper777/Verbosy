@@ -92,10 +92,14 @@ Now there is a `char` in location 3.
 This implementation compiles Verbosy code into C#, and requires you to have `csc` installed. The compiler options are:
 
 ```
+ -d,--dict-memory                   use a dictionary as the memory, as
+                                    opposed to an array. -s is ignored if
+                                    this is used.
  -h,--help                          Show help, ignores all other options
  -i,--read-ints                     parses integers on the input stream
                                     automatically
  -n,--nowarn                        disable warnings
+    --no-elimination                disable dead code elimination
  -o,--output <output-file>          output file path
  -s,--memory-size <size>            number of elements in the memory
                                     array, default to 1024
