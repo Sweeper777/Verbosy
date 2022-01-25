@@ -1,13 +1,15 @@
 package io.github.sweeper777.verbosy;
 
-import static io.github.sweeper777.verbosy.TestUtils.*;
-import static org.junit.Assert.assertEquals;
-
 import io.github.sweeper777.verbosy.Diagnostic.Type;
 import io.github.sweeper777.verbosy.semantics.SemanticAnalyer;
+import io.github.sweeper777.verbosy.syntax.Instruction;
+import org.junit.Test;
+
 import java.util.ArrayList;
 import java.util.List;
-import org.junit.Test;
+
+import static io.github.sweeper777.verbosy.TestUtils.*;
+import static org.junit.Assert.assertEquals;
 
 public class SemanticAnalyserTests {
 
@@ -158,5 +160,26 @@ public class SemanticAnalyserTests {
         true);
     analyser.analyseSemantics();
     assertEquals(1, errors.size());
+  }
+
+  @Test
+  public void testCodeElimination() {
+    var code = new ArrayList<Instruction>(
+        List.of(
+            add(20, true),
+            sub(20, false),
+            halt(),
+            take(10, true),
+            put(10, false)
+        )
+    );
+    var analyser = new SemanticAnalyer(
+        code,
+        new ArrayList<>(),
+        100,
+        true);
+    analyser.analyseSemantics();
+    analyser.eliminateDeadCode();
+    assertEquals(3, code.size());
   }
 }
