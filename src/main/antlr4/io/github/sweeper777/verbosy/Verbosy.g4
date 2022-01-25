@@ -22,9 +22,11 @@ HEX_DIGIT : [a-fA-F];
 LETTER : [a-zA-Z];
 CHAR: ~[ \n\r\t0123456789];
 
-compilationUnit : instructionWithTerminal+;
-
-instructionWithTerminal : WS? instruction (WS | EOF);
+compilationUnit : instructions EOF;
+instructions
+    : WS? instruction WS?
+    | WS? instruction WS instructions
+    ;
 
 instruction :
   inputInstruction |
