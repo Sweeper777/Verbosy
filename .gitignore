@@ -5,3 +5,4 @@
 *.vpc
 target/
 *.exe
+.DS_Store
