@@ -1,6 +1,6 @@
 package io.github.sweeper777.verbosy.syntax;
 
-import io.github.sweeper777.verbosy.codegen.CodeProvider;
+import io.github.sweeper777.verbosy.codegen.cs.CodeProvider;
 
 public interface Instruction {
   int getLineNo();

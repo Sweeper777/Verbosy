@@ -1,6 +1,6 @@
 package io.github.sweeper777.verbosy.syntax.instructions;
 
-import io.github.sweeper777.verbosy.codegen.CodeProvider;
+import io.github.sweeper777.verbosy.codegen.cs.CodeProvider;
 
 public class GotoIfNegInstruction extends GotoInstructionBase {
 
