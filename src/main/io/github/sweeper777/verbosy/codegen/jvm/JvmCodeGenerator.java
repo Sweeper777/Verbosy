@@ -56,6 +56,10 @@ public class JvmCodeGenerator implements CompilerBackend {
             mainClass.addMethod(mainMethodInfo);
             mainClass.setAccessFlags(AccessFlag.PUBLIC);
             mainMethodInfo.setAccessFlags(AccessFlag.PUBLIC | AccessFlag.STATIC);
+            var outputDir = outputPath.getParent().toString();
+            verbosyValueClass.writeFile(outputDir);
+            utilsClass.writeFile(outputDir);
+            ClassPool.getDefault().makeClass(mainClass).writeFile(outputDir);
         } catch (CannotCompileException | NotFoundException e) {
             throw new IOException(e);
         }
