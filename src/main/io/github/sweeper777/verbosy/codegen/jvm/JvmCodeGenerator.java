@@ -18,4 +18,16 @@ import java.nio.file.Paths;
 import java.util.List;
 
 public class JvmCodeGenerator implements CompilerBackend {
+    @Override
+    public void generateCode(List<Instruction> instructions, String outputFileName) throws IOException {
+        var outputPath = Paths.get(outputFileName).toAbsolutePath();
+        CtClass verbosyValueClass;
+        CtClass utilsClass;
+        verbosyValueClass = ClassPool.getDefault().makeClass(JvmCodeGenerator.class.getResourceAsStream("/VerbosyValue.class"));
+        utilsClass = ClassPool.getDefault().makeClass(JvmCodeGenerator.class.getResourceAsStream("/Util.class"));
+        verbosyValueClass.setName("VerbosyValue");
+        utilsClass.setName("Util");
+
+    }
+
 }
