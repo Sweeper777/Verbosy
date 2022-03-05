@@ -1,8 +1,11 @@
 package io.github.sweeper777.verbosy;
 
-import io.github.sweeper777.verbosy.codegen.CSharpArrayCodeProvider;
-import io.github.sweeper777.verbosy.codegen.CSharpDictCodeProvider;
-import io.github.sweeper777.verbosy.codegen.CodeProvider;
+import io.github.sweeper777.verbosy.codegen.CompilerBackend;
+import io.github.sweeper777.verbosy.codegen.cs.CSharpArrayCodeProvider;
+import io.github.sweeper777.verbosy.codegen.cs.CSharpDictCodeProvider;
+import io.github.sweeper777.verbosy.codegen.cs.CodeGenerator;
+import io.github.sweeper777.verbosy.codegen.cs.CodeProvider;
+import io.github.sweeper777.verbosy.codegen.jvm.JvmCodeGenerator;
 import org.antlr.v4.runtime.CharStreams;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -47,18 +50,29 @@ public class Main {
                 throw new ParseException("Invalid number specified for -s.");
             }
         }
-        CodeProvider codeProvider;
-        if (cl.hasOption('d')) {
-            codeProvider = new CSharpDictCodeProvider(
-                cl.hasOption('z'), cl.hasOption('i')
-            );
+        CompilerBackend backend;
+        if (cl.hasOption("jvm")) {
+            backend = new JvmCodeGenerator();
         } else {
-            codeProvider = new CSharpArrayCodeProvider(
-                memorySize, cl.hasOption('z'), cl.hasOption('i')
-            );
-            memorySize = Integer.MAX_VALUE;
+            CodeProvider codeProvider;
+            if (cl.hasOption('d')) {
+                codeProvider = new CSharpDictCodeProvider(
+                    cl.hasOption('z'), cl.hasOption('i')
+                );
+            } else {
+                codeProvider = new CSharpArrayCodeProvider(
+                    memorySize, cl.hasOption('z'), cl.hasOption('i')
+                );
+                memorySize = Integer.MAX_VALUE;
+            }
+            var cSharpBackend = new CodeGenerator(codeProvider);
+            if (cl.hasOption('S')) {
+                cSharpBackend.setOutputSourceFile(cl.getOptionValue('S'));
+            }
+            backend = cSharpBackend;
         }
-        var compiler = new VerbosyCompiler(memorySize, codeProvider);
+
+        var compiler = new VerbosyCompiler(memorySize, backend);
         compiler.setGenerateWarnings(!cl.hasOption('n'));
         compiler.setEliminateCode(!cl.hasOption("no-elimination"));
 
@@ -66,11 +80,7 @@ public class Main {
         if (cl.hasOption('o')) {
             outputFile = cl.getOptionValue('o');
         }
-        String outputSourceFile = null;
-        if (cl.hasOption('S')) {
-            outputSourceFile = cl.getOptionValue('S');
-        }
-        compiler.compile(CharStreams.fromFileName(inputFilePath), outputFile, outputSourceFile);
+        compiler.compile(CharStreams.fromFileName(inputFilePath), outputFile);
     }
 
     private static Options getCommandLineOptions() {
