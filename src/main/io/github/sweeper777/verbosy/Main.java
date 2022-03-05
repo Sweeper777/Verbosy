@@ -125,6 +125,10 @@ public class Main {
             .desc("use a dictionary as the memory, as opposed to an array. -s is ignored if this is used.")
             .build();
 
+        Option jvm = Option.builder("jvm")
+                         .desc("Use the JVM implementation")
+                         .build();
+
         Options options = new Options();
         options.addOption(memorySize)
             .addOption(spaceAsZero)
@@ -134,7 +138,8 @@ public class Main {
             .addOption(outputSource)
             .addOption(noWarnings)
             .addOption(noCodeElimination)
-            .addOption(dictionaryMemory);
+            .addOption(dictionaryMemory)
+            .addOption(jvm);
         return options;
     }
 }
