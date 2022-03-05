@@ -3,8 +3,8 @@ package io.github.sweeper777.verbosy;
 import io.github.sweeper777.verbosy.codegen.CompilerBackend;
 import io.github.sweeper777.verbosy.codegen.cs.CSharpArrayCodeProvider;
 import io.github.sweeper777.verbosy.codegen.cs.CSharpDictCodeProvider;
-import io.github.sweeper777.verbosy.codegen.cs.CodeGenerator;
-import io.github.sweeper777.verbosy.codegen.cs.CodeProvider;
+import io.github.sweeper777.verbosy.codegen.cs.CSharpCodeGenerator;
+import io.github.sweeper777.verbosy.codegen.cs.CSharpCodeProvider;
 import io.github.sweeper777.verbosy.codegen.jvm.JvmCodeGenerator;
 import org.antlr.v4.runtime.CharStreams;
 import org.apache.commons.cli.CommandLine;
@@ -54,7 +54,7 @@ public class Main {
         if (cl.hasOption("jvm")) {
             backend = new JvmCodeGenerator();
         } else {
-            CodeProvider codeProvider;
+            CSharpCodeProvider codeProvider;
             if (cl.hasOption('d')) {
                 codeProvider = new CSharpDictCodeProvider(
                     cl.hasOption('z'), cl.hasOption('i')
@@ -65,7 +65,7 @@ public class Main {
                 );
                 memorySize = Integer.MAX_VALUE;
             }
-            var cSharpBackend = new CodeGenerator(codeProvider);
+            var cSharpBackend = new CSharpCodeGenerator(codeProvider);
             if (cl.hasOption('S')) {
                 cSharpBackend.setOutputSourceFile(cl.getOptionValue('S'));
             }

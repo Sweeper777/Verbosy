@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Objects;
 
-public class CSharpDictCodeProvider implements CodeProvider {
+public class CSharpDictCodeProvider implements CSharpCodeProvider {
   private final HashMap<String, String> templates = new HashMap<>();
   private final boolean readSpaceAsZero;
   private final boolean readInts;

@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Objects;
 
-public class CSharpArrayCodeProvider implements CodeProvider {
+public class CSharpArrayCodeProvider implements CSharpCodeProvider {
 
   private final HashMap<String, String> templates = new HashMap<>();
   private final int memorySize;

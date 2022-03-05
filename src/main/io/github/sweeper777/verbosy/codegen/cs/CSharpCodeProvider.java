@@ -1,6 +1,6 @@
 package io.github.sweeper777.verbosy.codegen.cs;
 
-public interface CodeProvider {
+public interface CSharpCodeProvider {
   String getHeader();
   String getFooter();
   String getInputInstruction();

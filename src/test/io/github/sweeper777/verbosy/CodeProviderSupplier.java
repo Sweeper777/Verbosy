@@ -1,8 +1,8 @@
 package io.github.sweeper777.verbosy;
 
-import io.github.sweeper777.verbosy.codegen.cs.CodeProvider;
+import io.github.sweeper777.verbosy.codegen.cs.CSharpCodeProvider;
 import java.io.IOException;
 
 public interface CodeProviderSupplier {
-  CodeProvider get(int memorySize, boolean readSpaceAsZero, boolean readInts) throws IOException;
+  CSharpCodeProvider get(int memorySize, boolean readSpaceAsZero, boolean readInts) throws IOException;
 }

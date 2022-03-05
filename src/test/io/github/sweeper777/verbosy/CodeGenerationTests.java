@@ -1,7 +1,7 @@
 package io.github.sweeper777.verbosy;
 
 import io.github.sweeper777.verbosy.codegen.cs.CSharpDictCodeProvider;
-import io.github.sweeper777.verbosy.codegen.cs.CodeGenerator;
+import io.github.sweeper777.verbosy.codegen.cs.CSharpCodeGenerator;
 import org.antlr.v4.runtime.CharStreams;
 import org.junit.Test;
 
@@ -19,7 +19,7 @@ public class CodeGenerationTests {
   @Test
   public void testIO() throws IOException, InterruptedException {
     var compiler = new VerbosyCompiler(1024,
-        new CodeGenerator(
+        new CSharpCodeGenerator(
           codeProviderSupplier.get(1024, false, false)
         )
     );
@@ -31,7 +31,7 @@ public class CodeGenerationTests {
   @Test
   public void testHalt() throws IOException, InterruptedException {
     var compiler = new VerbosyCompiler(1024,
-        new CodeGenerator(
+        new CSharpCodeGenerator(
             codeProviderSupplier.get(1024, false, false)
         )
     );
@@ -43,7 +43,7 @@ public class CodeGenerationTests {
   @Test
   public void testReadSpaceAs0() throws IOException, InterruptedException {
     var compiler = new VerbosyCompiler(1024,
-        new CodeGenerator(
+        new CSharpCodeGenerator(
             codeProviderSupplier.get(1024, true, false)
         )
     );
@@ -54,7 +54,7 @@ public class CodeGenerationTests {
   @Test
   public void testReadInts() throws IOException, InterruptedException {
     var compiler = new VerbosyCompiler(1024,
-        new CodeGenerator(
+        new CSharpCodeGenerator(
             codeProviderSupplier.get(1024, false, true)
         )
     );
@@ -65,7 +65,7 @@ public class CodeGenerationTests {
   @Test
   public void testSet() throws IOException, InterruptedException {
     var compiler = new VerbosyCompiler(1024,
-        new CodeGenerator(
+        new CSharpCodeGenerator(
             codeProviderSupplier.get(1024, false, false)
         )
     );
@@ -77,7 +77,7 @@ public class CodeGenerationTests {
   @Test
   public void testAdd() throws IOException, InterruptedException {
     var compiler = new VerbosyCompiler(1024,
-        new CodeGenerator(
+        new CSharpCodeGenerator(
             codeProviderSupplier.get(1024, false, false)
         )
     );
@@ -91,7 +91,7 @@ public class CodeGenerationTests {
   @Test
   public void testSub() throws IOException, InterruptedException {
     var compiler = new VerbosyCompiler(1024,
-        new CodeGenerator(
+        new CSharpCodeGenerator(
             codeProviderSupplier.get(1024, false, false)
         )
     );
@@ -104,7 +104,7 @@ public class CodeGenerationTests {
   @Test
   public void testInc() throws IOException, InterruptedException {
     var compiler = new VerbosyCompiler(1024,
-        new CodeGenerator(
+        new CSharpCodeGenerator(
             codeProviderSupplier.get(1024, false, false)
         )
     );
@@ -116,7 +116,7 @@ public class CodeGenerationTests {
   @Test
   public void testDec() throws IOException, InterruptedException {
     var compiler = new VerbosyCompiler(1024,
-        new CodeGenerator(
+        new CSharpCodeGenerator(
             codeProviderSupplier.get(1024, false, false)
         )
     );
@@ -128,7 +128,7 @@ public class CodeGenerationTests {
   @Test
   public void testGoto() throws IOException, InterruptedException {
     var compiler = new VerbosyCompiler(1024,
-        new CodeGenerator(
+        new CSharpCodeGenerator(
             codeProviderSupplier.get(1024, false, false)
         )
     );
@@ -139,7 +139,7 @@ public class CodeGenerationTests {
   @Test
   public void testGotoIfZero() throws IOException, InterruptedException {
     var compiler = new VerbosyCompiler(1024,
-        new CodeGenerator(
+        new CSharpCodeGenerator(
             codeProviderSupplier.get(1024, false, false)
         )
     );
@@ -151,7 +151,7 @@ public class CodeGenerationTests {
   @Test
   public void testGotoIfNeg() throws IOException, InterruptedException {
     var compiler = new VerbosyCompiler(1024,
-        new CodeGenerator(
+        new CSharpCodeGenerator(
             codeProviderSupplier.get(1024, false, false)
         )
     );
@@ -162,7 +162,7 @@ public class CodeGenerationTests {
   @Test
   public void testNullMemory() throws IOException, InterruptedException {
     var compiler = new VerbosyCompiler(1024,
-        new CodeGenerator(
+        new CSharpCodeGenerator(
             codeProviderSupplier.get(1024, false, false)
         )
     );
@@ -177,7 +177,7 @@ public class CodeGenerationTests {
     var stream2 = CharStreams.fromStream(Objects
         .requireNonNull(SampleProgramParserTests.class.getResourceAsStream("/tests/splitdigits.vp")));
     var compiler = new VerbosyCompiler(1024,
-        new CodeGenerator(
+        new CSharpCodeGenerator(
             codeProviderSupplier.get(1024, true, true)
         )
     );

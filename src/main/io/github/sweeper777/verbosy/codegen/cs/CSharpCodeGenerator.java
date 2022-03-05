@@ -10,11 +10,11 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.List;
 
-public class CodeGenerator implements CompilerBackend {
-  private final CodeProvider codeProvider;
+public class CSharpCodeGenerator implements CompilerBackend {
+  private final CSharpCodeProvider codeProvider;
   private String outputSourceFile;
 
-  public CodeGenerator(CodeProvider codeProvider) {
+  public CSharpCodeGenerator(CSharpCodeProvider codeProvider) {
     this.codeProvider = codeProvider;
   }
 

@@ -1,6 +1,6 @@
 package io.github.sweeper777.verbosy.syntax.instructions;
 
-import io.github.sweeper777.verbosy.codegen.cs.CodeProvider;
+import io.github.sweeper777.verbosy.codegen.cs.CSharpCodeProvider;
 
 public class SubInstruction extends ParameterPointerInstructionBase {
 
@@ -14,7 +14,7 @@ public class SubInstruction extends ParameterPointerInstructionBase {
   }
 
   @Override
-  public String getCode(CodeProvider provider) {
+  public String getCode(CSharpCodeProvider provider) {
     return provider.getSubInstruction(getParameter(), isPointer());
   }
 }

@@ -1,6 +1,6 @@
 package io.github.sweeper777.verbosy.syntax.instructions;
 
-import io.github.sweeper777.verbosy.codegen.cs.CodeProvider;
+import io.github.sweeper777.verbosy.codegen.cs.CSharpCodeProvider;
 import io.github.sweeper777.verbosy.syntax.Instruction;
 
 public class LabelInstruction implements Instruction {
@@ -51,7 +51,7 @@ public class LabelInstruction implements Instruction {
   }
 
   @Override
-  public String getCode(CodeProvider provider) {
+  public String getCode(CSharpCodeProvider provider) {
     return provider.getLabel(labelName);
   }
 }
