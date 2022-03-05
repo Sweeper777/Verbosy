@@ -1,0 +1,1 @@
+javac -g:none src/main/resources/*.java -s src/main/resources
