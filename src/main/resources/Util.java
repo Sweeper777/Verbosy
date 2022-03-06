@@ -1,5 +1,4 @@
 import java.util.HashMap;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Util {
@@ -26,7 +25,7 @@ public class Util {
             if (readInt) {
                 return VerbosyValue.fromInt(input.nextInt());
             }
-        } catch (InputMismatchException ex) {
+        } catch (Exception ex) {
             // do nothing
         }
         char nextChar = input.findWithinHorizon(".", 0).charAt(0);
