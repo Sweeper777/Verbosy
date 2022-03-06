@@ -148,12 +148,6 @@
                   <include>*.class</include>
                 </includes>
               </fileset>
-              <fileset>
-                <directory>test_programs</directory>
-                <includes>
-                  <include>**/.DS_Store</include>
-                </includes>
-              </fileset>
             </filesets>
           </configuration>
         </plugin>
