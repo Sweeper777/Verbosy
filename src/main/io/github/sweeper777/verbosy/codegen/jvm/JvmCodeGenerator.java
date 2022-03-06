@@ -24,6 +24,29 @@ public class JvmCodeGenerator implements CompilerBackend {
 
     @Override
     public void generateCode(List<Instruction> instructions, String outputFileName) throws IOException {
+        var cw = new ClassWriter(ClassWriter.COMPUTE_FRAMES);
+        cw.visit(V1_8,
+            ACC_PUBLIC + ACC_SUPER,
+            "VerbosyProgram",
+            null,
+            Type.getInternalName(Object.class),
+            null);
+        var mv = cw.visitMethod(
+            ACC_PUBLIC + ACC_STATIC,
+            "main", "([Ljava/lang/String;)V", null, null
+        );
+        mv.visitCode();
 
+        for (var instr : instructions) {
+            codeProvider.provideCodeFor(instr, mv);
+        }
+        codeProvider.provideFooter(mv);
+        mv.visitMaxs(0, 0);
+        mv.visitEnd();
+        cw.visitEnd();
+
+        try (var fos = new FileOutputStream(outputFileName)) {
+            JarGenerator.generateJar(cw.toByteArray(), fos);
+        }
     }
 }
