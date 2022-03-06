@@ -20,7 +20,7 @@ public class VerbosyValue {
         if (isChar) {
             return Character.toString((char)value);
         } else {
-            return Integer.toString(value);
+            return Integer.toString(value) + " ";
         }
     }
 
