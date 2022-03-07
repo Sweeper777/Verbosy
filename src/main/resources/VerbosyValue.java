@@ -40,4 +40,11 @@ public class VerbosyValue {
         return new VerbosyValue(isChar, value - other.value);
     }
 
+    public VerbosyValue inc() {
+        return new VerbosyValue(isChar, value + 1);
+    }
+
+    public VerbosyValue dec() {
+        return new VerbosyValue(isChar, value - 1);
+    }
 }
