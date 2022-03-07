@@ -44,6 +44,21 @@ public class DefaultJvmCodeProvider implements JvmCodeProvider {
         this.readInts = readInts;
     }
 
+
+    private void generateNullCheckForMemory(MethodVisitor mv) {
+        mv.visitFieldInsn(GETSTATIC, UTIL_CLASS, UTIL_MEMORY, Type.getDescriptor(HashMap.class));
+        mv.visitInsn(SWAP);
+        mv.visitMethodInsn(INVOKEVIRTUAL,
+            Type.getInternalName(HashMap.class),
+            "get",
+            Type.getMethodDescriptor(Type.getType(Object.class), Type.getType(Object.class)),
+            false
+        );
+        mv.visitInsn(DUP);
+        mv.visitJumpInsn(IFNULL, lastLabel);
+        mv.visitTypeInsn(CHECKCAST, VERBOSY_VALUE_CLASS);
+    }
+
     private void generateGetCurrent(MethodVisitor mv) {
         mv.visitFieldInsn(GETSTATIC, UTIL_CLASS, UTIL_CURRENT, Type.getObjectType(VERBOSY_VALUE_CLASS).getDescriptor());
     }
