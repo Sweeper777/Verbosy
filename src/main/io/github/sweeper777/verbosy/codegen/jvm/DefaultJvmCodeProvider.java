@@ -45,6 +45,12 @@ public class DefaultJvmCodeProvider implements JvmCodeProvider {
     }
 
 
+    private void generateNullCheckForParameter(int param, boolean isPointer, MethodVisitor mv) {
+        generateParameter(param, isPointer, mv);
+        mv.visitInsn(DUP);
+        mv.visitJumpInsn(IFNULL, lastLabel);
+    }
+
     private void generateNullCheckForMemory(MethodVisitor mv) {
         mv.visitFieldInsn(GETSTATIC, UTIL_CLASS, UTIL_MEMORY, Type.getDescriptor(HashMap.class));
         mv.visitInsn(SWAP);
