@@ -44,4 +44,9 @@ public class DefaultJvmCodeProvider implements JvmCodeProvider {
         this.readInts = readInts;
     }
 
+    private void generateNullCheckForCurrent(MethodVisitor mv) {
+        mv.visitFieldInsn(GETSTATIC, UTIL_CLASS, UTIL_CURRENT, Type.getObjectType(VERBOSY_VALUE_CLASS).getDescriptor());
+        mv.visitJumpInsn(IFNULL, lastLabel);
+    }
+
 }
