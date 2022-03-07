@@ -28,6 +28,11 @@ import java.util.Map;
 import static org.objectweb.asm.Opcodes.*;
 
 public class DefaultJvmCodeProvider implements JvmCodeProvider {
+    private static final String UTIL_CLASS = "Util";
+    private static final String UTIL_CURRENT = "current";
+    private static final String UTIL_MEMORY = "memory";
+    private static final String VERBOSY_VALUE_CLASS = "VerbosyValue";
+
     private final Map<String, Label> labelMap = new HashMap<>();
     private final Label lastLabel = new Label();
 
