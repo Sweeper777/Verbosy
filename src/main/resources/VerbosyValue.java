@@ -31,4 +31,13 @@ public class VerbosyValue {
     public int getValue() {
         return value;
     }
+
+    public VerbosyValue add(VerbosyValue other) {
+        return new VerbosyValue(isChar, value + other.value);
+    }
+
+    public VerbosyValue sub(VerbosyValue other) {
+        return new VerbosyValue(isChar, value - other.value);
+    }
+
 }
