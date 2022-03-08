@@ -57,6 +57,17 @@ public class DefaultJvmCodeProvider implements JvmCodeProvider {
         }
     }
 
+    private void generateParameter(int param, boolean isPointer, MethodVisitor mv) {
+        generatePushConst(param, mv);
+        mv.visitInsn(isPointer ? ICONST_1 : ICONST_0);
+        mv.visitMethodInsn(INVOKESTATIC,
+            UTIL_CLASS,
+            "resolveParameter",
+            Type.getMethodDescriptor(Type.getType(Integer.class), Type.getType(int.class), Type.getType(boolean.class)),
+            false
+        );
+    }
+
     private void generateNullCheckForParameter(int param, boolean isPointer, MethodVisitor mv) {
         generateParameter(param, isPointer, mv);
         mv.visitInsn(DUP);
