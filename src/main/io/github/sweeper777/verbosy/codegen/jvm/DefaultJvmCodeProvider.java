@@ -45,6 +45,18 @@ public class DefaultJvmCodeProvider implements JvmCodeProvider {
     }
 
 
+    private void generatePushConst(int constant, MethodVisitor mv) {
+        if (constant >= -1 && constant <= 5) {
+            mv.visitInsn(ICONST_0 + constant);
+        } else if (constant >= Byte.MIN_VALUE && constant <= Byte.MAX_VALUE) {
+            mv.visitIntInsn(BIPUSH, constant);
+        } else if (constant >= Short.MIN_VALUE && constant <= Short.MAX_VALUE) {
+            mv.visitIntInsn(SIPUSH, constant);
+        } else {
+            mv.visitLdcInsn(constant);
+        }
+    }
+
     private void generateNullCheckForParameter(int param, boolean isPointer, MethodVisitor mv) {
         generateParameter(param, isPointer, mv);
         mv.visitInsn(DUP);
