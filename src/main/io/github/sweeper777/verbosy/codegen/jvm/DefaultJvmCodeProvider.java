@@ -75,6 +75,28 @@ public class DefaultJvmCodeProvider implements JvmCodeProvider {
                 );
                 mv.visitFieldInsn(PUTSTATIC, UTIL_CLASS, UTIL_CURRENT, Type.getObjectType(VERBOSY_VALUE_CLASS).getDescriptor());
             }
+                generateNullCheckForMemory(mv);
+                mv.visitFieldInsn(GETSTATIC, UTIL_CLASS, UTIL_MEMORY, Type.getDescriptor(HashMap.class));
+                mv.visitInsn(SWAP);
+                mv.visitMethodInsn(INVOKEVIRTUAL,
+                    VERBOSY_VALUE_CLASS,
+                    "inc",
+                    Type.getMethodDescriptor(Type.getObjectType(VERBOSY_VALUE_CLASS)),
+                    false
+                );
+                mv.visitInsn(DUP);
+                mv.visitFieldInsn(PUTSTATIC, UTIL_CLASS, UTIL_CURRENT, Type.getObjectType(VERBOSY_VALUE_CLASS).getDescriptor());
+                generateParameter(paramInstr.getParameter(), paramInstr.isPointer(), mv);
+                mv.visitInsn(SWAP);
+                mv.visitMethodInsn(
+                    INVOKEVIRTUAL,
+                    Type.getInternalName(HashMap.class),
+                    "put",
+                    Type.getMethodDescriptor(Type.getType(Object.class), Type.getType(Object.class), Type.getType(Object.class)),
+                    false
+                );
+                mv.visitInsn(POP);
+            }
         }
         else {
             throw new IllegalArgumentException();
