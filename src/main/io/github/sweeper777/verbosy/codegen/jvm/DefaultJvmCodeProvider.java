@@ -120,6 +120,20 @@ public class DefaultJvmCodeProvider implements JvmCodeProvider {
                 );
                 mv.visitInsn(POP);
             }
+            else if (instruction instanceof PutInstruction) {
+                generateNullCheckForCurrent(mv);
+                mv.visitFieldInsn(GETSTATIC, UTIL_CLASS, UTIL_MEMORY, Type.getDescriptor(HashMap.class));
+                mv.visitInsn(SWAP);
+                generateGetCurrent(mv);
+                mv.visitMethodInsn(
+                    INVOKEVIRTUAL,
+                    Type.getInternalName(HashMap.class),
+                    "put",
+                    Type.getMethodDescriptor(Type.getType(Object.class), Type.getType(Object.class), Type.getType(Object.class)),
+                    false
+                );
+                mv.visitInsn(POP);
+            }
         }
         else {
             throw new IllegalArgumentException();
