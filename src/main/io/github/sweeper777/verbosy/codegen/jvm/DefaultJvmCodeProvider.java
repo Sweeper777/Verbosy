@@ -62,6 +62,19 @@ public class DefaultJvmCodeProvider implements JvmCodeProvider {
                 );
                 mv.visitFieldInsn(PUTSTATIC, UTIL_CLASS, UTIL_CURRENT, Type.getObjectType(VERBOSY_VALUE_CLASS).getDescriptor());
             }
+            else if (instruction instanceof SubInstruction) {
+                generateNullCheckForMemory(mv);
+                generateNullCheckForCurrent(mv);
+                generateGetCurrent(mv);
+                mv.visitInsn(SWAP);
+                mv.visitMethodInsn(INVOKEVIRTUAL,
+                    VERBOSY_VALUE_CLASS,
+                    "sub",
+                    Type.getMethodDescriptor(Type.getObjectType(VERBOSY_VALUE_CLASS), Type.getObjectType(VERBOSY_VALUE_CLASS)),
+                    false
+                );
+                mv.visitFieldInsn(PUTSTATIC, UTIL_CLASS, UTIL_CURRENT, Type.getObjectType(VERBOSY_VALUE_CLASS).getDescriptor());
+            }
         }
         else {
             throw new IllegalArgumentException();
