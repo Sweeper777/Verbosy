@@ -44,6 +44,29 @@ public class DefaultJvmCodeProvider implements JvmCodeProvider {
         this.readInts = readInts;
     }
 
+    @Override
+    public void provideCodeFor(Instruction instruction, MethodVisitor mv) {
+        if (instruction instanceof ParameterPointerInstructionBase) {
+            var paramInstr = (ParameterPointerInstructionBase)instruction;
+            generateNullCheckForParameter(paramInstr.getParameter(), paramInstr.isPointer(), mv);
+            if (instruction instanceof AddInstruction) {
+                generateNullCheckForMemory(mv);
+                generateNullCheckForCurrent(mv);
+                generateGetCurrent(mv);
+                mv.visitInsn(SWAP);
+                mv.visitMethodInsn(INVOKEVIRTUAL,
+                    VERBOSY_VALUE_CLASS,
+                    "add",
+                    Type.getMethodDescriptor(Type.getObjectType(VERBOSY_VALUE_CLASS), Type.getObjectType(VERBOSY_VALUE_CLASS)),
+                    false
+                );
+                mv.visitFieldInsn(PUTSTATIC, UTIL_CLASS, UTIL_CURRENT, Type.getObjectType(VERBOSY_VALUE_CLASS).getDescriptor());
+            }
+        }
+        else {
+            throw new IllegalArgumentException();
+        }
+    }
 
     private void generatePushConst(int constant, MethodVisitor mv) {
         if (constant >= -1 && constant <= 5) {
