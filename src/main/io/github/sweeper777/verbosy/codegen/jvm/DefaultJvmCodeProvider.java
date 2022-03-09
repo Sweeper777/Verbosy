@@ -173,6 +173,10 @@ public class DefaultJvmCodeProvider implements JvmCodeProvider {
 
         }
         else if (instruction instanceof LabelInstruction) {
+            var labelInstr = (LabelInstruction)instruction;
+            var label = labelMap.computeIfAbsent(labelInstr.getLabelName(), x -> new Label());
+            mv.visitLabel(label);
+        }
         }
         else {
             throw new IllegalArgumentException();
