@@ -200,6 +200,18 @@ public class DefaultJvmCodeProvider implements JvmCodeProvider {
             }
             mv.visitFieldInsn(PUTSTATIC, UTIL_CLASS, UTIL_CURRENT, Type.getObjectType(VERBOSY_VALUE_CLASS).getDescriptor());
         }
+        else if (instruction instanceof InputInstruction) {
+            mv.visitInsn(readInts ? ICONST_1 : ICONST_0);
+            mv.visitInsn(readSpaceAsZero ? ICONST_1 : ICONST_0);
+            mv.visitMethodInsn(
+                INVOKESTATIC,
+                UTIL_CLASS,
+                "getInput",
+                Type.getMethodDescriptor(Type.getObjectType(VERBOSY_VALUE_CLASS), Type.getType(boolean.class), Type.getType(boolean.class)),
+                false
+            );
+            mv.visitFieldInsn(PUTSTATIC, UTIL_CLASS, UTIL_CURRENT, Type.getObjectType(VERBOSY_VALUE_CLASS).getDescriptor());
+        }
         }
         else {
             throw new IllegalArgumentException();
