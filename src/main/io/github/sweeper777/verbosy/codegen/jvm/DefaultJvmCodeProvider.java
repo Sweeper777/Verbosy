@@ -75,6 +75,7 @@ public class DefaultJvmCodeProvider implements JvmCodeProvider {
                 );
                 mv.visitFieldInsn(PUTSTATIC, UTIL_CLASS, UTIL_CURRENT, Type.getObjectType(VERBOSY_VALUE_CLASS).getDescriptor());
             }
+            else if (instruction instanceof IncInstruction) {
                 generateNullCheckForMemory(mv);
                 mv.visitFieldInsn(GETSTATIC, UTIL_CLASS, UTIL_MEMORY, Type.getDescriptor(HashMap.class));
                 mv.visitInsn(SWAP);
@@ -134,6 +135,14 @@ public class DefaultJvmCodeProvider implements JvmCodeProvider {
                 );
                 mv.visitInsn(POP);
             }
+            else if (instruction instanceof TakeInstruction) {
+                generateNullCheckForMemory(mv);
+                mv.visitFieldInsn(PUTSTATIC, UTIL_CLASS, UTIL_CURRENT, Type.getObjectType(VERBOSY_VALUE_CLASS).getDescriptor());
+            }
+            else {
+                throw new IllegalArgumentException();
+            }
+        }
         }
         else {
             throw new IllegalArgumentException();
