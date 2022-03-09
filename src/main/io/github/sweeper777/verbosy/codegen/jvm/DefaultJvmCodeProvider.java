@@ -177,6 +177,29 @@ public class DefaultJvmCodeProvider implements JvmCodeProvider {
             var label = labelMap.computeIfAbsent(labelInstr.getLabelName(), x -> new Label());
             mv.visitLabel(label);
         }
+        else if (instruction instanceof SetInstruction) {
+            var setInstr = (SetInstruction)instruction;
+            generatePushConst(setInstr.getParameter().getValue(), mv);
+            if (setInstr.getParameter().isChar()) {
+                mv.visitMethodInsn(
+                    INVOKESTATIC,
+                    VERBOSY_VALUE_CLASS,
+                    "fromChar",
+                    Type.getMethodDescriptor(Type.getObjectType(VERBOSY_VALUE_CLASS), Type.getType(char.class)),
+                    false
+                );
+            }
+            else {
+                mv.visitMethodInsn(
+                    INVOKESTATIC,
+                    VERBOSY_VALUE_CLASS,
+                    "fromInt",
+                    Type.getMethodDescriptor(Type.getObjectType(VERBOSY_VALUE_CLASS), Type.getType(int.class)),
+                    false
+                );
+            }
+            mv.visitFieldInsn(PUTSTATIC, UTIL_CLASS, UTIL_CURRENT, Type.getObjectType(VERBOSY_VALUE_CLASS).getDescriptor());
+        }
         }
         else {
             throw new IllegalArgumentException();
