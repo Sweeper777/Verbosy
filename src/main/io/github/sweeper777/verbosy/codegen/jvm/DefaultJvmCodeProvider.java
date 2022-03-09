@@ -158,7 +158,21 @@ public class DefaultJvmCodeProvider implements JvmCodeProvider {
                     false);
                 mv.visitJumpInsn(IFEQ, label);
             }
+            else if (instruction instanceof GotoIfNegInstruction) {
+                generateGetCurrent(mv);
+                mv.visitMethodInsn(INVOKEVIRTUAL,
+                    VERBOSY_VALUE_CLASS,
+                    "getValue",
+                    Type.getMethodDescriptor(Type.getType(int.class)),
+                    false);
+                mv.visitJumpInsn(IFLT, label);
+            }
+            else {
+                throw new IllegalStateException();
+            }
+
         }
+        else if (instruction instanceof LabelInstruction) {
         }
         else {
             throw new IllegalArgumentException();
