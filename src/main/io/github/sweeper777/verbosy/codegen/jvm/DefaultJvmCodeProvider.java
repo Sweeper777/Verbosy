@@ -149,6 +149,15 @@ public class DefaultJvmCodeProvider implements JvmCodeProvider {
             if (instruction instanceof GotoInstruction) {
                 mv.visitJumpInsn(GOTO, label);
             }
+            else if (instruction instanceof GotoIf0Instruction) {
+                generateGetCurrent(mv);
+                mv.visitMethodInsn(INVOKEVIRTUAL,
+                    VERBOSY_VALUE_CLASS,
+                    "getValue",
+                    Type.getMethodDescriptor(Type.getType(int.class)),
+                    false);
+                mv.visitJumpInsn(IFEQ, label);
+            }
         }
         }
         else {
