@@ -143,6 +143,13 @@ public class DefaultJvmCodeProvider implements JvmCodeProvider {
                 throw new IllegalArgumentException();
             }
         }
+        else if (instruction instanceof GotoInstructionBase) {
+            var gotoInstr = (GotoInstructionBase)instruction;
+            var label = labelMap.computeIfAbsent(gotoInstr.getLabelName(), x -> new Label());
+            if (instruction instanceof GotoInstruction) {
+                mv.visitJumpInsn(GOTO, label);
+            }
+        }
         }
         else {
             throw new IllegalArgumentException();
