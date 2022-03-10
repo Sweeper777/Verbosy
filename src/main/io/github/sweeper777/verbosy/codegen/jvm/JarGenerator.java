@@ -33,4 +33,14 @@ public class JarGenerator {
         jar.closeEntry();
     }
 
+    private static void addVerbosyRuntimeClassToJar(String resourcePathToClass,
+                                                    JarOutputStream jar) throws IOException {
+        try (var stream = JarGenerator.class.getResourceAsStream(resourcePathToClass)) {
+            if (stream == null) {
+                throw new IllegalStateException("PANIC! Missing classes for Verbosy Runtime: " + resourcePathToClass);
+            }
+            var classFileName = Paths.get(resourcePathToClass).getFileName().toString();
+            addEntryToJar(classFileName, stream, jar);
+        }
+    }
 }
