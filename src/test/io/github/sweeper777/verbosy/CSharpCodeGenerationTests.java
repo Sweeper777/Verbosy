@@ -11,9 +11,9 @@ import java.util.Objects;
 import static io.github.sweeper777.verbosy.TestUtils.runCode;
 import static org.junit.Assert.assertEquals;
 
-public class CodeGenerationTests {
+public class CSharpCodeGenerationTests {
 
-  private static final CodeProviderSupplier codeProviderSupplier =
+  private static final CSharpCodeProviderSupplier codeProviderSupplier =
       (memorySize, readSpaceAsZero, readInts) -> new CSharpDictCodeProvider(readSpaceAsZero, readInts);
 
   @Test
