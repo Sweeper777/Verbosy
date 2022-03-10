@@ -223,6 +223,15 @@ public class DefaultJvmCodeProvider implements JvmCodeProvider {
                  false
             );
         }
+        else if (instruction instanceof HaltInstruction) {
+            mv.visitInsn(ICONST_0);
+            mv.visitMethodInsn(
+                INVOKESTATIC,
+                Type.getInternalName(System.class),
+                "exit",
+                Type.getMethodDescriptor(Type.getType(void.class), Type.getType(int.class)),
+                false
+            );
         }
         else {
             throw new IllegalArgumentException();
