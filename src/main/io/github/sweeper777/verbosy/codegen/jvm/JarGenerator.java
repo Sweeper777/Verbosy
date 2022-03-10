@@ -23,4 +23,14 @@ public class JarGenerator {
         }
     }
 
+    private static void addEntryToJar(String name, InputStream content, JarOutputStream jar) throws IOException {
+        var entry = new JarEntry(name);
+        entry.setTime(Instant.now().toEpochMilli());
+        jar.putNextEntry(entry);
+        if (content != null) {
+            content.transferTo(jar);
+        }
+        jar.closeEntry();
+    }
+
 }
