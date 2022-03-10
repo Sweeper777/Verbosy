@@ -290,4 +290,11 @@ public class DefaultJvmCodeProvider implements JvmCodeProvider {
         mv.visitJumpInsn(IFNULL, lastLabel);
     }
 
+    @Override
+    public void provideFooter(MethodVisitor mv) {
+        mv.visitInsn(ACONST_NULL);
+        mv.visitLabel(lastLabel);
+        mv.visitInsn(POP);
+        mv.visitInsn(RETURN);
+    }
 }
