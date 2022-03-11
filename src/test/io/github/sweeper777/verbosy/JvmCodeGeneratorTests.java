@@ -34,5 +34,12 @@ public class JvmCodeGeneratorTests {
         assertEquals("x", runCodeJvm(":a: ~x o x >a", "", compiler));
     }
 
+    @Test
+    public void testReadSpaceAs0() throws IOException, InterruptedException {
+        var compiler = new VerbosyCompiler(1024, codeGenerator.get(true, false));
+        compiler.setGenerateWarnings(false);
+        assertEquals("i0 i0 i0 i", runCodeJvm(":a: i o >a", "i i i i", compiler));
+    }
+
 
 }
