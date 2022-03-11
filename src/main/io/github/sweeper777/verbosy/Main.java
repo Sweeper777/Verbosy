@@ -52,7 +52,7 @@ public class Main {
         }
         CompilerBackend backend;
         if (cl.hasOption("jvm")) {
-            backend = new JvmCodeGenerator();
+            backend = new JvmCodeGenerator(cl.hasOption('z'), cl.hasOption('i'));
         } else {
             CSharpCodeProvider codeProvider;
             if (cl.hasOption('d')) {
@@ -76,7 +76,7 @@ public class Main {
         compiler.setGenerateWarnings(!cl.hasOption('n'));
         compiler.setEliminateCode(!cl.hasOption("no-elimination"));
 
-        String outputFile = "a.out";
+        String outputFile = cl.hasOption("jvm") ? "out.jar" : "a.out";
         if (cl.hasOption('o')) {
             outputFile = cl.getOptionValue('o');
         }
