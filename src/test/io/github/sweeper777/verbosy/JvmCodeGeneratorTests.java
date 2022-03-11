@@ -24,5 +24,15 @@ public class JvmCodeGeneratorTests {
         assertEquals("hello", runCodeJvm(":a: i o >a", "hello", compiler));
     }
 
+    @Test
+    public void testHalt() throws IOException, InterruptedException {
+        var compiler = new VerbosyCompiler(1024, codeGenerator.get(false, false));
+        compiler.setGenerateWarnings(false);
+        assertEquals("", runCodeJvm("x ~x o", "", compiler));
+        compiler = new VerbosyCompiler(1024, codeGenerator.get(false, false));
+        compiler.setGenerateWarnings(false);
+        assertEquals("x", runCodeJvm(":a: ~x o x >a", "", compiler));
+    }
+
 
 }
