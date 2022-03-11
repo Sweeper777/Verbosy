@@ -1,7 +1,7 @@
 package io.github.sweeper777.verbosy;
 
-import static org.junit.Assert.assertEquals;
-
+import io.github.sweeper777.verbosy.syntax.Instruction;
+import io.github.sweeper777.verbosy.syntax.InstructionsFactory;
 import io.github.sweeper777.verbosy.syntax.VerbosyValue;
 import io.github.sweeper777.verbosy.syntax.instructions.AddInstruction;
 import io.github.sweeper777.verbosy.syntax.instructions.DecInstruction;
@@ -11,21 +11,22 @@ import io.github.sweeper777.verbosy.syntax.instructions.GotoInstruction;
 import io.github.sweeper777.verbosy.syntax.instructions.HaltInstruction;
 import io.github.sweeper777.verbosy.syntax.instructions.IncInstruction;
 import io.github.sweeper777.verbosy.syntax.instructions.InputInstruction;
-import io.github.sweeper777.verbosy.syntax.Instruction;
-import io.github.sweeper777.verbosy.syntax.InstructionsFactory;
 import io.github.sweeper777.verbosy.syntax.instructions.LabelInstruction;
 import io.github.sweeper777.verbosy.syntax.instructions.OutputInstruction;
 import io.github.sweeper777.verbosy.syntax.instructions.PutInstruction;
 import io.github.sweeper777.verbosy.syntax.instructions.SetInstruction;
 import io.github.sweeper777.verbosy.syntax.instructions.SubInstruction;
 import io.github.sweeper777.verbosy.syntax.instructions.TakeInstruction;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.util.List;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
+
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
 
 public class TestUtils {
   public static void parseCharStream(CharStream charStream, List<Instruction> instructions, List<Diagnostic> errors) {
@@ -56,6 +57,29 @@ public class TestUtils {
     process.waitFor();
     byte[] outputBytes = process.getInputStream().readAllBytes();
     return new String(outputBytes, StandardCharsets.UTF_8);
+  }
+
+  public static String runCodeJvm(CharStream code, String input, VerbosyCompiler compiler)
+    throws IOException, InterruptedException {
+    compiler.compile(code, "out.jar");
+    assertEquals(0, compiler.getDiagnostics().size());
+    var process = Runtime.getRuntime().exec("java -jar out.jar");
+    if (input != null) {
+      process.getOutputStream().write(input.getBytes(StandardCharsets.UTF_8));
+      process.getOutputStream().close();
+    }
+    process.waitFor();
+    byte[] outputBytes = process.getInputStream().readAllBytes();
+    String errorMessage = new String(process.getErrorStream().readAllBytes(), StandardCharsets.UTF_8);
+    if (!errorMessage.isEmpty()) {
+      System.err.println(errorMessage);
+    }
+    return new String(outputBytes, StandardCharsets.UTF_8);
+  }
+
+  public static String runCodeJvm(String code, String input, VerbosyCompiler compiler)
+      throws IOException, InterruptedException {
+    return runCodeJvm(CharStreams.fromString(code), input, compiler);
   }
 
   public static InputInstruction input() {
