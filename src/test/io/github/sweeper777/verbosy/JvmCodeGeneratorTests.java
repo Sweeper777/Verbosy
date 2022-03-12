@@ -105,5 +105,11 @@ public class JvmCodeGeneratorTests {
         assertEquals("bb", runCodeJvm("~c /0 v0 o ~0 \\0 o", "", compiler));
     }
 
+    @Test
+    public void testGoto() throws IOException, InterruptedException {
+        var compiler = new VerbosyCompiler(1024, codeGenerator.get(false, false));
+        compiler.setGenerateWarnings(false);
+        assertEquals("b", runCodeJvm(">a ~a o :a: ~b o", "", compiler));
+    }
 
 }
