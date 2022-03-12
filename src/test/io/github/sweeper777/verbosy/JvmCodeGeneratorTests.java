@@ -85,5 +85,15 @@ public class JvmCodeGeneratorTests {
         assertEquals("2147483647 ", runCodeJvm("~1 /0 ~-2147483648 -0 o", null, compiler));
     }
 
+    @Test
+    public void testInc() throws IOException, InterruptedException {
+        var compiler = new VerbosyCompiler(1024, codeGenerator.get(false, false));
+        compiler.setGenerateWarnings(false);
+        assertEquals("2 2 ", runCodeJvm("~1 /0 ^0 o ~0 \\0 o", "", compiler));
+        compiler = new VerbosyCompiler(1024, codeGenerator.get(false, false));
+        compiler.setGenerateWarnings(false);
+        assertEquals("bb", runCodeJvm("~a /0 ^0 o ~0 \\0 o", "", compiler));
+    }
+
 
 }
