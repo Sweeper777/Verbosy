@@ -112,4 +112,12 @@ public class JvmCodeGeneratorTests {
         assertEquals("b", runCodeJvm(">a ~a o :a: ~b o", "", compiler));
     }
 
+    @Test
+    public void testGotoIfZero() throws IOException, InterruptedException {
+        var compiler = new VerbosyCompiler(1024, codeGenerator.get(false, false));
+        compiler.setGenerateWarnings(false);
+        assertEquals("bde", runCodeJvm("~0 >0a ~a o :a: ~b o ~\\0 >0b ~c o :b: ~d o >0c ~e o :c:", "", compiler));
+    }
+
+
 }
